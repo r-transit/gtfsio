@@ -1,0 +1,19 @@
+Type: Package
+Package: gtfsio
+Title: Read and Write General Transit Feed Specification (GTFS)
+    Data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Daniel",
+           family = "Herszenhut",
+           role = c("aut", "cre"),
+           email = "dhersz@gmail.com",
+           comment = c(ORCID = "0000-0001-8066-1105"))
+Description: The goal of 'gtfsio' is to provide fast and
+    flexible tools to read and write General Transit Feed Specification
+    (GTFS) files.
+Imports: 
+    data.table
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
