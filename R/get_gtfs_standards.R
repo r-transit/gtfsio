@@ -311,11 +311,11 @@ get_gtfs_standards <- function() {
 #' @param text_file A named \code{list} containing a GTFS text file
 #'   specification, as described in the body of
 #'   \code{\link{get_gtfs_standards}}.
-#' @param r_equivalents Named \code{character vector}, in which each name is the
-#'   GTFS specification type and the content its R equivalent.
+#' @param r_equivalents A named \code{character vector}, in which each name is
+#'   the GTFS specification type and the content its R equivalent.
 #'
-#' @return A name \code{list} holding a GTFS text file specification, but with R
-#'   data types instead of GTFS spec data types.
+#' @return A named \code{list} holding a GTFS text file specification, but with
+#'   R data types instead of GTFS spec data types.
 #'
 #' @keywords internal
 translate_types <- function(text_file, r_equivalents) {
@@ -334,6 +334,14 @@ translate_types <- function(text_file, r_equivalents) {
       new_spec <- i
       gtfs_type <- new_spec[[1]]
       r_type <- r_equivalents[gtfs_type]
+
+      # some 'translations' fields ('translation' and 'field_value') might have
+      # more than one GTFS data type.
+      # their R equivalent is always 'character', no matter the GTFS type, so we
+      # can safely get only the first value ('character')
+
+      if (length(r_type) > 1) r_type <- r_type[1]
+
       new_spec[[1]] <- r_type
 
       return(new_spec)

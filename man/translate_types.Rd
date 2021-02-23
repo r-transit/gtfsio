@@ -11,12 +11,12 @@ translate_types(text_file, r_equivalents)
 specification, as described in the body of
 \code{\link{get_gtfs_standards}}.}
 
-\item{r_equivalents}{Named \code{character vector}, in which each name is the
-GTFS specification type and the content its R equivalent.}
+\item{r_equivalents}{A named \code{character vector}, in which each name is
+the GTFS specification type and the content its R equivalent.}
 }
 \value{
-A name \code{list} holding a GTFS text file specification, but with R
-  data types instead of GTFS spec data types.
+A named \code{list} holding a GTFS text file specification, but with
+  R data types instead of GTFS spec data types.
 }
 \description{
 Translate GTFS specification types to R equivalent types
