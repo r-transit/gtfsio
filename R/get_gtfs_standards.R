@@ -1,7 +1,7 @@
 #' Generate GTFS standards
 #'
 #' Generates a \code{list} specifying the standards to be used when reading and
-#' writing GTFS objects in R. Each index (also a \code{list}) represents a
+#' writing GTFS feeds with R. Each index (also a \code{list}) represents a
 #' distinct GTFS text file, and describes:
 #' \itemize{
 #'   \item whether this file is required, optional or conditionally required;

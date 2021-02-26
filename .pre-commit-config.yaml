@@ -1,0 +1,14 @@
+repos:
+-   repo: https://github.com/dhersz/dhmisc
+    rev: v0.0.0.9014
+    hooks:
+    -   id: mod-codemeta-description-updated
+    -   id: mod-readme-rmd-rendered
+    -   id: version-bumped
+-   repo: local
+    hooks:
+    -   id: forbid-to-commit
+        name: Don't commit common R artifacts
+        entry: Cannot commit .Rhistory, .RData, .Rds or .rds.
+        language: fail
+        files: '\.Rhistory|\.RData|\.Rds|\.rds$'
