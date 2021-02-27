@@ -17,7 +17,7 @@
 #' @param quiet A logical. Whether to hide log messages and progress bars
 #'   (defaults to \code{TRUE}).
 #'
-#' @return A GTFS object: a named \code{list} of \code{data.table} objects, each
+#' @return A GTFS object: a named list of \code{data.table} objects, each
 #'   table corresponding to a distinct text file from the given GTFS feed.
 #'
 #' @seealso \code{\link{get_gtfs_standards}}
@@ -49,14 +49,203 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
     tmp <- tempfile(pattern = "gtfs", fileext = ".zip")
     utils::download.file(path, tmp, method = "auto", quiet = quiet)
 
-    if (!quiet) cli::cli_alert_success(paste0("File downloaded to ", tmp, "."))
+    if (!quiet) message("File downloaded to ", tmp, ".")
 
     path <- tmp
 
   }
 
-  # GTFS standards
+  # retrieve which files are inside the GTFS and remove '.txt' from their names
+
+  files_in_gtfs <- zip::zip_list(path)$filename
+  files_in_gtfs <- gsub(".txt", "", files_in_gtfs)
+
+  # read all text files if 'files' is NULL. else, only the ones specified
+
+  if (is.null(files))
+    files_to_read <- files_in_gtfs
+  else
+    files_to_read <- files
+
+  # check if all specified files exist and raise exception if any does not
+
+  missing_files <- files_to_read[! files_to_read %chin% files_in_gtfs]
+
+  if (!identical(missing_files, character(0)))
+    warning(
+      "The provided GTFS feed doesn't contain the following text file(s): ",
+      paste0("'", missing_files, "'", collapse = ", ")
+    )
+
+  # remove 'missing_files' from 'files_to_read' and raise error if no valid
+  # files were specified
+
+  files_to_read <- setdiff(files_to_read, missing_files)
+
+  if (identical(files_to_read, character(0)))
+    stop("The provided GTFS feed doesn't contain any of the specified files.")
+
+  # extract text files to temporary folder to later read them
+  # 'unlink()' makes sure that previous imports don't interfere with current one
+
+  tmpdir <- file.path(tempdir(), "gtfsio")
+  unlink(tmpdir, recursive = TRUE, force = TRUE)
+
+  zip::unzip(
+    path,
+    files = paste0(files_to_read, ".txt"),
+    exdir = tmpdir,
+    overwrite = TRUE
+  )
+
+  if (!quiet)
+    message(
+      "Unzipped the following files to ", tmpdir, ":\n",
+      paste0("  * ", files_to_read, ".txt", collapse = "\n")
+    )
+
+  # get GTFS standards to assign correct classes to each field
 
   gtfs_standards <- get_gtfs_standards()
+
+  # read files into list
+
+  gtfs <- lapply(
+    X = files_to_read,
+    FUN = read_files,
+    gtfs_standards,
+    fields,
+    tmpdir,
+    quiet
+  )
+
+  # set list names as text files names
+
+  names(gtfs) <- files_to_read
+
+  # set 'gtfs' class
+
+  class(gtfs) <- "gtfs"
+
+  return(gtfs)
+
+}
+
+
+
+#' Read a GTFS text file
+#'
+#' Reads a GTFS text file from the main \code{.zip} file.
+#'
+#' @param file A string. The name of the file (without \code{.txt} extension) to
+#'   be read.
+#' @param gtfs_standards A named list. Created by
+#'   \code{\link{get_gtfs_standards}}.
+#' @param fields A named list. Passed by the user to \code{\link{import_gtfs}}.
+#' @param tmpdir A string. The path to the temporary folder where GTFS text
+#'   files were unzipped to.
+#' @param quiet Whether to hide log messages and progress bars (defaults to
+#'   TRUE).
+#'
+#' @return A \code{data.table} representing the desired text file according to
+#'   the standards for reading and writing GTFS feeds with R.
+#'
+#' @seealso \code{\link{get_gtfs_standards}}
+#'
+#' @keywords internal
+read_files <- function(file, gtfs_standards, fields, tmpdir, quiet) {
+
+  # create object to hold the file with '.txt' extension
+
+  file_txt <- paste0(file, ".txt")
+
+  if (!quiet) message("Reading ", file_txt)
+
+  # get standards for reading and fields to be read from the given 'file'
+
+  file_standards <- gtfs_standards[[file]]
+  fields <- fields[[file]]
+
+  # read 'file' first row to figure out which fields are present
+  # if 'file_standards' is NULL then file is undocumented
+
+  if (is.null(file_standards) & !quiet)
+    message("  - File undocumented. Trying to read it as a csv.")
+
+  sample_dt <- data.table::fread(file.path(tmpdir, file_txt), nrows = 1)
+
+  # if 'file' is completely empty (even without a header), return a NULL
+  # 'data.table'
+
+  if (ncol(sample_dt) == 0) {
+
+    if (!quiet) message("  - File is empty. Returning a NULL data.table")
+    return(data.table::data.table(NULL))
+
+  }
+
+  # retrieve which fields are inside the file
+
+  fields_in_file <- names(sample_dt)
+
+  # read all fields if 'fields' is NULL. else, only the ones specified
+
+  if (is.null(fields))
+    fields_to_read <- fields_in_file
+  else
+    fields_to_read <- fields
+
+  # check if all specified fields exist and raise exception if any does not
+
+  missing_fields <- fields_to_read[! fields_to_read %chin% fields_in_file]
+
+  if (!identical(missing_fields, character(0)))
+    warning(
+      "'", file, "' doesn't contain the following field(s): ",
+      paste0("'", missing_fields, "'", collapse = ", ")
+    )
+
+  # remove 'missing_fields' from 'fields_to_read' and return a NULL 'data.table'
+  # if no valid fields were specified
+
+  fields_to_read <- setdiff(fields_to_read, missing_fields)
+
+  if (identical(fields_to_read, character(0))) {
+
+    if (!quiet)
+      message("  - No valid fields were provided. Returning a NULL data.table")
+
+    return(data.table::data.table(NULL))
+
+  }
+
+  # get the standard data types of documented fields from 'file_standards'
+
+  doc_fields <- fields_to_read[fields_to_read %chin% names(file_standards)]
+
+  doc_classes <- vapply(
+    doc_fields,
+    function(field) file_standards[[field]][[1]],
+    character(1)
+  )
+
+  # set all undocumented files/fields to be read as character
+
+  undoc_fields <- setdiff(fields_to_read, doc_fields)
+  undoc_classes <- rep("character", length(undoc_fields))
+  names(undoc_classes) <- undoc_fields
+
+  # join together both documented and undocumented fields classes
+
+  fields_classes <- c(doc_classes, undoc_classes)
+
+  # read the file specifying the column classes
+
+  full_dt <- data.table::fread(
+    file.path(tmpdir, file_txt),
+    select = fields_classes
+  )
+
+  return(full_dt)
 
 }

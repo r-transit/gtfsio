@@ -24,8 +24,8 @@ files whose fields you want to subset).}
 (defaults to \code{TRUE}).}
 }
 \value{
-A GTFS object: a named \code{list} of \code{data.table}s, in which
-  each table represents a GTFS text file.
+A GTFS object: a named list of \code{data.table} objects, each
+  table corresponding to a distinct text file from the given GTFS feed.
 }
 \description{
 Imports GTFS transit feeds from either a local \code{.zip} file or an URL.

@@ -2,7 +2,7 @@ Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS)
     Data
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person(given = "Daniel",
            family = "Herszenhut",
@@ -15,7 +15,6 @@ License: MIT + file LICENSE
 URL: https://github.com/r-transit/gtfsio
 BugReports: https://github.com/r-transit/gtfsio/issues
 Imports: 
-    cli,
     data.table,
     utils,
     zip

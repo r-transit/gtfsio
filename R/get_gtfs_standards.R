@@ -1,8 +1,8 @@
 #' Generate GTFS standards
 #'
-#' Generates a \code{list} specifying the standards to be used when reading and
-#' writing GTFS feeds with R. Each index (also a \code{list}) represents a
-#' distinct GTFS text file, and describes:
+#' Generates a list specifying the standards to be used when reading and writing
+#' GTFS feeds with R. Each index (also a list) represents a distinct GTFS text
+#' file, and describes:
 #' \itemize{
 #'   \item whether this file is required, optional or conditionally required;
 #'   \item the fields that compose each file, including which R data type is
@@ -11,8 +11,8 @@
 #'     GTFS \code{ENUM}s.
 #' }
 #'
-#' @return A named \code{list}, in which each index represents the R equivalent
-#'   of each GTFS text file standard.
+#' @return A named list, in which each index represents the R equivalent of each
+#'   GTFS text file standard.
 #'
 #' @section Details:
 #' GTFS standards were derived from
@@ -298,9 +298,17 @@ get_gtfs_standards <- function() {
     url           = "character"
   )
 
-  # tr anslate GTFS reference types to R types
+  # translate GTFS reference types to R types
 
   gtfs_standards <- lapply(gtfs_standards, translate_types, r_equivalents)
+
+  # correct a small special case:
+  # 'translations' 'table_name' field is an ENUM, but its allowed values are
+  # strings, not integers. this results in an warning when importing the GTFS
+  # using data.table::fread(). so change R equivalent to character, instead of
+  # integer
+
+  gtfs_standards$translations$table_name[[1]] <- "character"
 
   return(gtfs_standards)
 
