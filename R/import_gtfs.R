@@ -25,6 +25,26 @@
 #' @family io
 #'
 #' @export
+#'
+#' @examples
+#' \donttest{
+#' # path to local gtfs.zip
+#' gtfszip <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
+#'
+#' # read all files and columns
+#' gtfs <- import_gtfs(gtfszip)
+#'
+#' # read all columns from selected files
+#' gtfs1 <- import_gtfs(path=gtfszip, files = c('trips', 'stops'))
+#'
+#' # read specific columns from slected files
+#' gtfs2 <- import_gtfs(path=gtfszip,
+#'                      files = c('trips', 'stops', 'frequencies'),
+#'                      fields = list('trips'=c("route_id", "trip_id"),
+#'                                    'stop'=c('stop_id', 'stop_lat', 'stop_lon')))
+#'
+#' }
+
 import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
 
   # input checking ('files' and 'fields' are validated further down the code)

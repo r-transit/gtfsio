@@ -32,6 +32,25 @@ Imports GTFS transit feeds from either a local \code{.zip} file or an URL.
 Columns are parsed according to the standards for reading and writing GTFS
 feeds specified in \code{\link{get_gtfs_standards}}.
 }
+\examples{
+\donttest{
+# path to local gtfs.zip
+gtfszip <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
+
+# read all files and columns
+gtfs <- import_gtfs(gtfszip)
+
+# read all columns from selected files
+gtfs1 <- import_gtfs(path=gtfszip, files = c('trips', 'stops'))
+
+# read specific columns from slected files
+gtfs2 <- import_gtfs(path=gtfszip,
+                     files = c('trips', 'stops', 'frequencies'),
+                     fields = list('trips'=c("route_id", "trip_id"),
+                                   'stop'=c('stop_id', 'stop_lat', 'stop_lon')))
+
+}
+}
 \seealso{
 \code{\link{get_gtfs_standards}}
 }
