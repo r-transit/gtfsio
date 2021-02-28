@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^\.pre-commit-config\.yaml$
 ^codemeta\.json$
+^\.github$
+^README\.Rmd$
+^codecov\.yml$
+^cran-comments\.md$

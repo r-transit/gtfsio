@@ -1,7 +1,7 @@
 #' Generate GTFS standards
 #'
 #' Generates a list specifying the standards to be used when reading and writing
-#' GTFS feeds with R. Each index (also a list) represents a distinct GTFS text
+#' GTFS feeds with R. Each element (also a list) represents a distinct GTFS text
 #' file, and describes:
 #' \itemize{
 #'   \item whether this file is required, optional or conditionally required;
@@ -11,8 +11,8 @@
 #'     GTFS \code{ENUM}s.
 #' }
 #'
-#' @return A named list, in which each index represents the R equivalent of each
-#'   GTFS text file standard.
+#' @return A named list, in which each element represents the R equivalent of
+#'   each GTFS text file standard.
 #'
 #' @section Details:
 #' GTFS standards were derived from
@@ -328,9 +328,9 @@ get_gtfs_standards <- function() {
 #' @keywords internal
 translate_types <- function(text_file, r_equivalents) {
 
-  # for each text_file index:
+  # for each text_file element:
   # - check if it's a list.
-  #  - if it's not, then it's the 'file_spec' index. return 'file_spec' value
+  #  - if it's not, then it's the 'file_spec' element. return 'file_spec' value
   #  - if it is, replace first entry (GTFS spec type) for an equivalent R type
 
   text_file <- lapply(
