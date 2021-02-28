@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • gtfsio</title>
+<title>Changelog • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -58,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,52 +108,34 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/r-transit/gtfsio/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <table class="ref-index">
-
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="get_gtfs_standards.html">get_gtfs_standards()</a></code> </p>
-        </td>
-        <td><p>Generate GTFS standards</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gtfsio.html">gtfsio</a></code> </p>
-        </td>
-        <td><p>gtfsio: Read and Write General Transit Feed Specification (GTFS) Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="import_gtfs.html">import_gtfs()</a></code> </p>
-        </td>
-        <td><p>Import GTFS transit feeds</p></td>
-      </tr>
-    </tbody>
-    </table>
+    <div id="gtfsio-000xxxx" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0">
+<a href="#gtfsio-000xxxx" class="anchor"></a>gtfsio 0.0.0.xxxx</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<div id="functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#functions" class="anchor"></a>Functions</h3>
+<ul>
+<li>
+<code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code> - returns the standards for reading and writing GTFS feeds with R as a named list. Each element (also a list) represents a distinct GTFS text file, and describes: whether this file is required, optional or conditionally required; the fields that compose each file, including which R data type is best suited to represent it, whether the field is required, optional or conditionally required, and which values it can assume (most relevant to GTFS <code>ENUM</code>s.</li>
+<li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> - imports GTFS transit feeds from either a local <code>.zip</code> file or an URL. Columns are parsed according to the standards specified in <code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code>.</li>
+</ul>
+</div>
+</div>
+<div id="notes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#notes" class="anchor"></a>Notes</h2>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -161,6 +143,7 @@
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
