@@ -7,12 +7,12 @@
 get_gtfs_standards()
 }
 \value{
-A named list, in which each index represents the R equivalent of each
-  GTFS text file standard.
+A named list, in which each element represents the R equivalent of
+  each GTFS text file standard.
 }
 \description{
 Generates a list specifying the standards to be used when reading and writing
-GTFS feeds with R. Each index (also a list) represents a distinct GTFS text
+GTFS feeds with R. Each element (also a list) represents a distinct GTFS text
 file, and describes:
 \itemize{
   \item whether this file is required, optional or conditionally required;

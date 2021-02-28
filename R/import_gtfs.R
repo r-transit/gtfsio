@@ -17,8 +17,8 @@
 #' @param quiet A logical. Whether to hide log messages and progress bars
 #'   (defaults to \code{TRUE}).
 #'
-#' @return A GTFS object: a named list of \code{data.table} objects, each
-#'   table corresponding to a distinct text file from the given GTFS feed.
+#' @return A GTFS object: a named list of dataframes, each one corresponding to
+#'   a distinct text file from the given GTFS feed.
 #'
 #' @seealso \code{\link{get_gtfs_standards}}
 #'
@@ -101,12 +101,25 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
     )
 
   # remove 'missing_files' from 'files_to_read' and raise error if no valid
-  # files were specified
+  # files were specified (if this errors is not thrown here, zip::unzip() will
+  # fail because it will atempt to unzip a file called '.txt')
 
   files_to_read <- setdiff(files_to_read, missing_files)
 
   if (identical(files_to_read, character(0)))
     stop("The provided GTFS feed doesn't contain any of the specified files.")
+
+  # raise exception if a file is specified in 'files' but does not appear in
+  # 'files_to_read'
+
+  files_misspec <- names(fields)[! names(fields) %chin% files_to_read]
+
+  if (!is.null(files_misspec) & !identical(files_misspec, character(0)))
+    warning(
+      "The following files were specified in 'fields' but either were not ",
+      "specified in 'files' or do no exist: ",
+      paste0("'", files_misspec, "'", collapse = ", ")
+    )
 
   # extract text files to temporary folder to later read them
   # 'unlink()' makes sure that previous imports don't interfere with current one
@@ -142,13 +155,9 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
     quiet
   )
 
-  # set list names as text files names
+  # create gtfs object from 'gtfs'
 
-  names(gtfs) <- files_to_read
-
-  # set 'gtfs' class
-
-  class(gtfs) <- "gtfs"
+  gtfs <- new_gtfs(gtfs, names = files_to_read)
 
   return(gtfs)
 

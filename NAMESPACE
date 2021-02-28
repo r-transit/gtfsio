@@ -2,5 +2,6 @@
 
 export(get_gtfs_standards)
 export(import_gtfs)
+export(new_gtfs)
 importFrom(data.table,"%chin%")
 importFrom(data.table,":=")
