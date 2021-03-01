@@ -7,9 +7,7 @@
 #' \code{gtfs} (TODO: remember to add link to gtfs()) for a user-friendlier and more thoroughly checked
 #' constructor.
 #'
-#' @param x A list. Each element must represent a distinct GTFS text file.
-#' @param names A character vector. The name of each \code{gtfs} object element
-#'   (i.e. the name of the GTFS text files that each dataframe represents).
+#' @param x A named list. Each element must represent a distinct GTFS text file.
 #' @param subclass A character vector. Subclasses to be assigned to the
 #'   \code{gtfs} object.
 #' @param ... Name-value pairs. Additional attributes.
@@ -32,23 +30,31 @@
 #' stop_times <- data.table::fread(file.path(tmpdir, "stop_times.txt"))
 #' calendar <- data.table::fread(file.path(tmpdir, "calendar.txt"))
 #'
-#' flist <- list(agency, stops, routes, trips, stop_times, calendar)
-#' fname <- c("agency", "stops", "routes", "trips", "stop_times", "calendar")
+#' txt_files <- list(
+#'   agency = agency,
+#'   stops = stops,
+#'   routes = routes,
+#'   trips = trips,
+#'   stop_times = stop_times,
+#'   calendar = calendar
+#' )
 #'
-#' gtfs <- new_gtfs(flist, fname)
+#' gtfs <- new_gtfs(txt_files)
 #'
 #' class(gtfs)
 #' names(gtfs)
 #'
 #' @export
-new_gtfs <- function(x, names, subclass = character(), ...) {
+new_gtfs <- function(x, subclass = character(), ...) {
 
   # input checking
 
   if (!is.list(x)) stop("'x' must be a list.")
 
-  if (!is.character(names) & length(names) != length(x))
-    stop("'names' must be a character vector with the same length of 'x'.")
+  if (is.null(names(x))) stop("'x' must be a named list.")
+
+  x_names <- setdiff(names(x), "")
+  if (length(x_names) != length(x)) stop("Every element in 'x' must be named.")
 
   if (!is.character(subclass)) stop("'subclass' must be a character vector.")
 
@@ -59,6 +65,6 @@ new_gtfs <- function(x, names, subclass = character(), ...) {
 
   # create object
 
-  gtfs <- structure(x, names = names, class = class)
+  gtfs <- structure(x, class = class)
 
 }

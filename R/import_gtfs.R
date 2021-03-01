@@ -155,6 +155,10 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
     quiet
   )
 
+  # assign names to 'gtfs'
+
+  names(gtfs) <- files_to_read
+
   # create gtfs object from 'gtfs'
 
   gtfs <- new_gtfs(gtfs, names = files_to_read)

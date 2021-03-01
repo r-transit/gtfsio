@@ -4,13 +4,10 @@
 \alias{new_gtfs}
 \title{GTFS object constructor}
 \usage{
-new_gtfs(x, names, subclass = character(), ...)
+new_gtfs(x, subclass = character(), ...)
 }
 \arguments{
-\item{x}{A list. Each element must represent a distinct GTFS text file.}
-
-\item{names}{A character vector. The name of each \code{gtfs} object element
-(i.e. the name of the GTFS text files that each dataframe represents).}
+\item{x}{A named list. Each element must represent a distinct GTFS text file.}
 
 \item{subclass}{A character vector. Subclasses to be assigned to the
 \code{gtfs} object.}
@@ -42,10 +39,16 @@ trips <- data.table::fread(file.path(tmpdir, "trips.txt"))
 stop_times <- data.table::fread(file.path(tmpdir, "stop_times.txt"))
 calendar <- data.table::fread(file.path(tmpdir, "calendar.txt"))
 
-flist <- list(agency, stops, routes, trips, stop_times, calendar)
-fname <- c("agency", "stops", "routes", "trips", "stop_times", "calendar")
+txt_files <- list(
+  agency = agency,
+  stops = stops,
+  routes = routes,
+  trips = trips,
+  stop_times = stop_times,
+  calendar = calendar
+)
 
-gtfs <- new_gtfs(flist, fname)
+gtfs <- new_gtfs(txt_files)
 
 class(gtfs)
 names(gtfs)

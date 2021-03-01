@@ -6,6 +6,6 @@
 
 - `get_gtfs_standards()` - returns the standards for reading and writing GTFS feeds with R as a named list. Each element (also a list) represents a distinct GTFS text file, and describes: whether this file is required, optional or conditionally required; the fields that compose each file, including which R data type is best suited to represent it, whether the field is required, optional or conditionally required, and which values it can assume (most relevant to GTFS `ENUM`s.
 - `import_gtfs()` - imports GTFS transit feeds from either a local `.zip` file or an URL. Columns are parsed according to the standards specified in `get_gtfs_standards()`.
-- `new_gtfs()` - creates a GTFS object, mostly useful for package authors who may want to either create `gtfs` objects in their packages or create subclasses of the main `gtfs` class.
+- `new_gtfs()` - `gtfs` objects constructor, mostly useful for package authors who may want to either create `gtfs` objects in their packages or create subclasses of the main `gtfs` class.
 
 ## Notes
