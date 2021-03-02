@@ -7,7 +7,8 @@
 new_gtfs(x, subclass = character(), ...)
 }
 \arguments{
-\item{x}{A named list. Each element must represent a distinct GTFS text file.}
+\item{x}{A GTFS-like object (either a GTFS object or a named list). Each
+element must represent a distinct GTFS text file.}
 
 \item{subclass}{A character vector. Subclasses to be assigned to the
 \code{gtfs} object.}
@@ -15,8 +16,8 @@ new_gtfs(x, subclass = character(), ...)
 \item{...}{Name-value pairs. Additional attributes.}
 }
 \value{
-A GTFS object: a named list of dataframes, each one corresponding to
-  a distinct GTFS text file.
+A GTFS object: a named list of data frames, each one corresponding to
+  a distinct GTFS text file, with \code{gtfs} class.
 }
 \description{
 Creates a GTFS object. Mostly useful for package authors who may want to

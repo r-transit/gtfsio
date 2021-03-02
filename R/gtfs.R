@@ -7,13 +7,14 @@
 #' \code{gtfs} (TODO: remember to add link to gtfs()) for a user-friendlier and more thoroughly checked
 #' constructor.
 #'
-#' @param x A named list. Each element must represent a distinct GTFS text file.
+#' @param x A GTFS-like object (either a GTFS object or a named list). Each
+#'   element must represent a distinct GTFS text file.
 #' @param subclass A character vector. Subclasses to be assigned to the
 #'   \code{gtfs} object.
 #' @param ... Name-value pairs. Additional attributes.
 #'
-#' @return A GTFS object: a named list of dataframes, each one corresponding to
-#'   a distinct GTFS text file.
+#' @return A GTFS object: a named list of data frames, each one corresponding to
+#'   a distinct GTFS text file, with \code{gtfs} class.
 #'
 #' @seealso \code{gtfs} (TODO: remember to add link to gtfs())
 #'
@@ -53,7 +54,7 @@ new_gtfs <- function(x, subclass = character(), ...) {
 
   if (is.null(names(x))) stop("'x' must be a named list.")
 
-  x_names <- setdiff(names(x), "")
+  x_names <- names(x)[! names(x) %chin% ""]
   if (length(x_names) != length(x)) stop("Every element in 'x' must be named.")
 
   if (!is.character(subclass)) stop("'subclass' must be a character vector.")
@@ -66,5 +67,7 @@ new_gtfs <- function(x, subclass = character(), ...) {
   # create object
 
   gtfs <- structure(x, class = class)
+
+  return(gtfs)
 
 }
