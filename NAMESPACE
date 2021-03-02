@@ -3,6 +3,7 @@
 S3method("$",gtfs)
 S3method("[",gtfs)
 S3method("[[",gtfs)
+S3method(print,gtfs)
 export(get_gtfs_standards)
 export(import_gtfs)
 export(new_gtfs)

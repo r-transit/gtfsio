@@ -13,7 +13,7 @@
 #'
 #' @family subset
 #'
-#' @name subset.gtfs
+#' @name gtfs_subset
 #'
 #' @examples
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
@@ -42,7 +42,7 @@
 #' bad_element <- gtfs[["ola"]] # results in warning
 NULL
 
-#' @rdname subset.gtfs
+#' @rdname gtfs_subset
 #' @param name A string. The name of the element to be returned.
 #' @export
 `$.gtfs` <- function(x, name) {
@@ -55,7 +55,7 @@ NULL
 
 }
 
-#' @rdname subset.gtfs
+#' @rdname gtfs_subset
 #' @export
 `[.gtfs` <- function(x, value) {
 
@@ -71,7 +71,7 @@ NULL
 
 }
 
-#' @rdname subset.gtfs
+#' @rdname gtfs_subset
 #' @export
 `[[.gtfs` <- function(x, value) {
 
