@@ -5,12 +5,12 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "gtfsio",
-  "description": "Fast and flexible tools to read and write General\n    Transit Feed Specification (GTFS) files.",
-  "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS)\n    Data",
+  "description": "Provides a 'gtfs' class to represent General\n    Transit Feed Specification (GTFS) files, and fast and flexible tools\n    to read and write such files.",
+  "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS)\n    Files",
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.9007",
+  "version": "0.0.0.9008",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -26,9 +26,45 @@
       "@id": "https://orcid.org/0000-0001-8066-1105"
     }
   ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Flavio",
+      "familyName": "Poletti",
+      "email": "flavio.poletti@hotmail.ch"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Mark",
+      "familyName": "Padgham",
+      "email": "mark.padgham@email.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Rafael H. M.",
+      "familyName": "Pereira",
+      "email": "rafa.pereira.br@gmail.com",
+      "@id": "https://orcid.org/0000-0003-2125-7465"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Tom",
+      "familyName": "Buckley",
+      "email": "tom@tbuckl.com"
+    }
+  ],
+  "copyrightHolder": [
+    {
+      "@type": "Organization",
+      "name": "Ipea - Institute for Applied Economic Research"
+    }
+  ],
+  "funder": [
+    {
+      "@type": "Organization",
+      "name": "Ipea - Institute for Applied Economic Research"
+    }
+  ],
   "maintainer": [
     {
       "@type": "Person",
@@ -70,13 +106,12 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "48.406KB",
+  "fileSize": "50.576KB",
   "keywords": [
     "r",
     "gtfs"
   ],
   "releaseNotes": "https://github.com/r-transit/gtfsio/blob/master/NEWS.md",
-  "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md",
   "contIntegration": "https://codecov.io/gh/r-transit/gtfsio?branch=master",
   "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html"
 }

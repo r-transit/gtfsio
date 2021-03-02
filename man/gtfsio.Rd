@@ -7,8 +7,9 @@
 \alias{gtfsio-package}
 \title{gtfsio: Read and Write General Transit Feed Specification (GTFS) Data}
 \description{
-Fast and flexible tools to read and write General
-    Transit Feed Specification (GTFS) files.
+Provides a 'gtfs' class to represent General
+    Transit Feed Specification (GTFS) files, and fast and flexible tools
+    to read and write such files.
 }
 \seealso{
 Useful links:
@@ -20,5 +21,13 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Daniel Herszenhut \email{dhersz@gmail.com} (\href{https://orcid.org/0000-0001-8066-1105}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Flavio Poletti \email{flavio.poletti@hotmail.ch} [contributor]
+  \item Mark Padgham \email{mark.padgham@email.com} [contributor]
+  \item Rafael H. M. Pereira \email{rafa.pereira.br@gmail.com} (\href{https://orcid.org/0000-0003-2125-7465}{ORCID}) [contributor]
+  \item Tom Buckley \email{tom@tbuckl.com} [contributor]
+}
 
 }
