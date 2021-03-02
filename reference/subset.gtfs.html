@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import GTFS transit feeds — import_gtfs • gtfsio</title>
+<title>Subset a GTFS object — subset.gtfs • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,11 @@
 
 
 
-<meta property="og:title" content="Import GTFS transit feeds — import_gtfs" />
-<meta property="og:description" content="Imports GTFS transit feeds from either a local .zip file or an URL.
-Columns are parsed according to the standards for reading and writing GTFS
-feeds specified in get_gtfs_standards." />
+<meta property="og:title" content="Subset a GTFS object — subset.gtfs" />
+<meta property="og:description" content="Subsetting a GTFS object using [, [[ and $ is very
+similar to subsetting lists, but a bit more verbose, as warnings are thrown
+when attempting to subset a missing element. When using [ the
+resulting object inherits classes (and subclasses) from the original object." />
 
 
 
@@ -113,86 +114,85 @@ feeds specified in get_gtfs_standards." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import GTFS transit feeds</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/import_gtfs.R'><code>R/import_gtfs.R</code></a></small>
-    <div class="hidden name"><code>import_gtfs.Rd</code></div>
+    <h1>Subset a GTFS object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/gtfs_subset.R'><code>R/gtfs_subset.R</code></a></small>
+    <div class="hidden name"><code>subset.gtfs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Imports GTFS transit feeds from either a local <code>.zip</code> file or an URL.
-Columns are parsed according to the standards for reading and writing GTFS
-feeds specified in <code><a href='get_gtfs_standards.html'>get_gtfs_standards</a></code>.</p>
+    <p>Subsetting a GTFS object using <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>, <code><a href='https://rdrr.io/r/base/Extract.html'>[[</a></code> and <code><a href='https://rdrr.io/r/base/Extract.html'>$</a></code> is very
+similar to subsetting lists, but a bit more verbose, as warnings are thrown
+when attempting to subset a missing element. When using <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code> the
+resulting object inherits classes (and subclasses) from the original object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import_gtfs</span><span class='op'>(</span><span class='va'>path</span>, files <span class='op'>=</span> <span class='cn'>NULL</span>, fields <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"># S3 method for gtfs
+$(x, name)
+
+# S3 method for gtfs
+[(x, value)
+
+# S3 method for gtfs
+[[(x, value)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>A string. The path to a GTFS <code>.zip</code> file.</p></td>
+      <th>x</th>
+      <td><p>A GTFS object.</p></td>
     </tr>
     <tr>
-      <th>files</th>
-      <td><p>A character vector. The text files to be read from the GTFS,
-without the <code>.txt</code> extension. If <code>NULL</code> (the default), all
-existing text files are read.</p></td>
+      <th>name</th>
+      <td><p>A string. The name of the element to be returned.</p></td>
     </tr>
     <tr>
-      <th>fields</th>
-      <td><p>A named list. The fields to be read from each text file, in the
-format <code><a href='https://rdrr.io/r/base/list.html'>list(file1 = c("field1", "field2"))</a></code>. If <code>NULL</code> (the
-default), all fields from the files specified in <code>files</code> are read. If
-a file is specified in <code>files</code> but not in <code>fields</code>, all fields
-from that file will be read (i.e. you may specify in <code>fields</code> only
-files whose fields you want to subset).</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>A logical. Whether to hide log messages and progress bars
-(defaults to <code>TRUE</code>).</p></td>
+      <th>value</th>
+      <td><p>Either a numeric or a character vector. Designates the elements
+to be returned.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A GTFS object: a named list of dataframes, each one corresponding to
-  a distinct text file from the given GTFS feed.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='get_gtfs_standards.html'>get_gtfs_standards</a></code></p></div>
+    <p>A GTFS object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>gtfs_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/ggl_gtfs.zip"</span>, package <span class='op'>=</span> <span class='st'>"gtfsio"</span><span class='op'>)</span>
 
-<span class='co'># read all files and columns</span>
-<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'>import_gtfs</span><span class='op'>(</span><span class='va'>gtfs_path</span><span class='op'>)</span>
+<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='import_gtfs.html'>import_gtfs</a></span><span class='op'>(</span><span class='va'>gtfs_path</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>gtfs</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      
 #&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         
 #&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      
 #&gt; [13] "translations"    "trips"           "agency"          "attributions"   
-#&gt; [17] "calendar"       </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>gtfs</span><span class='op'>$</span><span class='va'>trips</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "route_id"      "service_id"    "trip_id"       "trip_headsign"
-#&gt; [5] "block_id"     </div><div class='input'>
-<span class='co'># read all columns from selected files</span>
-<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'>import_gtfs</span><span class='op'>(</span><span class='va'>gtfs_path</span>, files <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"trips"</span>, <span class='st'>"stops"</span><span class='op'>)</span><span class='op'>)</span>
+#&gt; [17] "calendar"       </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>gtfs</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "gtfs"</div><div class='input'>
+<span class='co'># '[' behaviour</span>
+<span class='va'>small_gtfs</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>gtfs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "trips" "stops"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>gtfs</span><span class='op'>$</span><span class='va'>trips</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "route_id"      "service_id"    "trip_id"       "trip_headsign"
-#&gt; [5] "block_id"     </div><div class='input'>
-<span class='co'># read specific columns from selected files</span>
-<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'>import_gtfs</span><span class='op'>(</span>
-  <span class='va'>gtfs_path</span>,
-  files <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"trips"</span>, <span class='st'>"stops"</span><span class='op'>)</span>,
-  fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    trips <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"route_id"</span>, <span class='st'>"trip_id"</span><span class='op'>)</span>,
-    stops <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"stop_id"</span>, <span class='st'>"stop_lat"</span>, <span class='st'>"stop_lon"</span><span class='op'>)</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>
-
-</div></pre>
+</div><div class='output co'>#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      
+#&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         
+#&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      
+#&gt; [13] "translations"    "trips"           "agency"          "attributions"   
+#&gt; [17] "calendar"       </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>small_gtfs</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "gtfs"</div><div class='input'>
+<span class='va'>bad_gtfs</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>[</span><span class='st'>"ola"</span><span class='op'>]</span> <span class='co'># results in warning</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: This GTFS object doesn't contain the following element(s): 'ola'</span></div><div class='input'>
+<span class='co'># '$' behaviour</span>
+<span class='va'>stop_times</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>$</span><span class='va'>stop_times</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>stop_times</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "trip_id"        "arrival_time"   "departure_time" "stop_id"       
+#&gt; [5] "stop_sequence"  "pickup_type"    "drop_off_type" </div><div class='input'>
+<span class='va'>bad_element</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>$</span><span class='va'>ola</span> <span class='co'># results in warning</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: This GTFS object doesn't contain the following element(s): 'ola'</span></div><div class='input'>
+<span class='co'># '[[' behaviour</span>
+<span class='va'>shapes</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>$</span><span class='va'>shapes</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>shapes</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "shape_id"            "shape_pt_lat"        "shape_pt_lon"       
+#&gt; [4] "shape_pt_sequence"   "shape_dist_traveled"</div><div class='input'>
+<span class='va'>bad_element</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>[[</span><span class='st'>"ola"</span><span class='op'>]</span><span class='op'>]</span> <span class='co'># results in warning</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: This GTFS object doesn't contain the following element(s): 'ola'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
