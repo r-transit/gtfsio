@@ -56,5 +56,5 @@ names(gtfs)
 
 }
 \seealso{
-\code{gtfs} (TODO: remember to add link to gtfs())
+\code{\link{assert_gtfs}}, \code{gtfs} (TODO: remember to add link to gtfs())
 }
