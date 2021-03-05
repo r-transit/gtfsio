@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • gtfsio</title>
+<title>GTFS object validator — assert_gtfs • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,13 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="GTFS object validator — assert_gtfs" />
+<meta property="og:description" content="Asserts that a GTFS object is valid. Valid objects are those in which:
+Every element is named.
+Every element inherits from data.frames.
+The exception to the second rule are objects that contain an element named
+&quot;.&quot;. In such case, this element is actually composed by a named list
+of elements who inherit from data.frames." />
 
 
 
@@ -58,7 +64,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,78 +114,41 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>GTFS object validator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/gtfs.R'><code>R/gtfs.R</code></a></small>
+    <div class="hidden name"><code>assert_gtfs.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Asserts that a GTFS object is valid. Valid objects are those in which:</p><ul>
+<li><p>Every element is named.</p></li>
+<li><p>Every element inherits from <code>data.frame</code>s.</p></li>
+</ul><p>The exception to the second rule are objects that contain an element named
+<code>"."</code>. In such case, this element is actually composed by a named list
+of elements who inherit from <code>data.frame</code>s.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>assert_gtfs</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="assert_gtfs.html">assert_gtfs()</a></code> </p>
-        </td>
-        <td><p>GTFS object validator</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_gtfs_standards.html">get_gtfs_standards()</a></code> </p>
-        </td>
-        <td><p>Generate GTFS standards</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gtfs_subset.html">`$`(<i>&lt;gtfs&gt;</i>)</a></code> <code><a href="gtfs_subset.html">`[`(<i>&lt;gtfs&gt;</i>)</a></code> <code><a href="gtfs_subset.html">`[[`(<i>&lt;gtfs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Subset a GTFS object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gtfsio.html">gtfsio</a></code> </p>
-        </td>
-        <td><p>gtfsio: Read and Write General Transit Feed Specification (GTFS) Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="import_gtfs.html">import_gtfs()</a></code> </p>
-        </td>
-        <td><p>Import GTFS transit feeds</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="new_gtfs.html">new_gtfs()</a></code> </p>
-        </td>
-        <td><p>GTFS object constructor</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.gtfs.html">print(<i>&lt;gtfs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print a GTFS object</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A GTFS object.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The same GTFS object passed to <code>x</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='new_gtfs.html'>new_gtfs</a></code>, <code>gtfs</code> (TODO: remember to add link to gtfs())</p></div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
