@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print a GTFS object — print.gtfs • gtfsio</title>
+<title>Check the existence of text files in a GTFS object — check_files_exist • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Print a GTFS object — print.gtfs" />
-<meta property="og:description" content="Prints a GTFS object suppressing the class attribute." />
+<meta property="og:title" content="Check the existence of text files in a GTFS object — check_files_exist" />
+<meta property="og:description" content="Checks the existence of elements inside a GTFS object that represent specific
+GTFS text files." />
 
 
 
@@ -111,17 +112,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print a GTFS object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/gtfs_print.R'><code>R/gtfs_print.R</code></a></small>
-    <div class="hidden name"><code>print.gtfs.Rd</code></div>
+    <h1>Check the existence of text files in a GTFS object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/check.R'><code>R/check.R</code></a></small>
+    <div class="hidden name"><code>check_files_exist.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prints a GTFS object suppressing the <code>class</code> attribute.</p>
+    <p>Checks the existence of elements inside a GTFS object that represent specific
+GTFS text files.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for gtfs</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_files_exist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>files</span><span class='op'>)</span>
+
+<span class='fu'>assert_files_exist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>files</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,34 +134,26 @@
       <td><p>A GTFS object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Optional arguments ultimately passed to <code>format</code>.</p></td>
+      <th>file</th>
+      <td><p>A character vector. The files to check the existence of.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The GTFS object that was printed, invisibly.</p>
+    <p><code>check_files_exist</code> returns <code>TRUE</code> if the check is successful, and
+  <code>FALSE</code> otherwise. <br />
+<code>assert_files_exist</code> returns <code>x</code> invisibly if the check is
+  successful, and throws an error otherwise.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>gtfs_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/ggl_gtfs.zip"</span>, package <span class='op'>=</span> <span class='st'>"gtfsio"</span><span class='op'>)</span>
 <span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='import_gtfs.html'>import_gtfs</a></span><span class='op'>(</span><span class='va'>gtfs_path</span><span class='op'>)</span>
 
-<span class='co'># subset 'gtfs' for a smaller output</span>
-<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='va'>gtfs</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"routes"</span>, <span class='st'>"trips"</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>gtfs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $routes
-#&gt;    route_id route_short_name route_long_name
-#&gt; 1:        A               17         Mission
-#&gt;                                                 route_desc route_type
-#&gt; 1: The ""A"" route travels from lower Mission to Downtown.          3
-#&gt; 
-#&gt; $trips
-#&gt;    route_id service_id trip_id trip_headsign block_id
-#&gt; 1:        A         WE    AWE1      Downtown        1
-#&gt; 2:        A         WE    AWE2      Downtown        2
-#&gt; </div><div class='input'>
+<span class='fu'>check_files_exist</span><span class='op'>(</span><span class='va'>gtfs</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"calendar"</span>, <span class='st'>"agency"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>check_files_exist</span><span class='op'>(</span><span class='va'>gtfs</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"calendar"</span>, <span class='st'>"oi"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
