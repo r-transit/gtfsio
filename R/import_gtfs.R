@@ -22,7 +22,7 @@
 #'
 #' @seealso \code{\link{get_gtfs_standards}}
 #'
-#' @family io
+#' @family io-functions
 #'
 #' @examples
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
