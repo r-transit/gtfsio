@@ -56,4 +56,3 @@ names(shapes)
 
 bad_element <- gtfs[["ola"]] # results in warning
 }
-\concept{subset}

@@ -59,4 +59,4 @@ gtfs <- import_gtfs(
 \seealso{
 \code{\link{get_gtfs_standards}}
 }
-\concept{io}
+\concept{io functions}

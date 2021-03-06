@@ -11,8 +11,6 @@
 #'
 #' @return A GTFS object.
 #'
-#' @family subset
-#'
 #' @name gtfs_subset
 #'
 #' @examples
