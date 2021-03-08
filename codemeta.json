@@ -5,12 +5,12 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "gtfsio",
-  "description": "Provides a 'gtfs' class to represent General\n    Transit Feed Specification (GTFS) files, and fast and flexible tools\n    to read and write such files.",
+  "description": "Tools for the development of packages that interact\n    with General Transit Feed Specification (GTFS) files. Defines a 'gtfs'\n    class to represent GTFS files and provides fast and flexible functions\n    to read, write and check such files.",
   "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS)\n    Files",
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.9012",
+  "version": "0.0.0.9013",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -106,7 +106,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "57.684KB",
+  "fileSize": "66.278KB",
   "keywords": [
     "r",
     "gtfs"

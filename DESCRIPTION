@@ -2,7 +2,7 @@ Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS)
     Files
-Version: 0.0.0.9012
+Version: 0.0.0.9013
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",
@@ -28,9 +28,10 @@ Authors@R:
              email = "tom@tbuckl.com"),
       person(given = "Ipea - Institute for Applied Economic Research",
              role = c("cph", "fnd")))
-Description: Provides a 'gtfs' class to represent General
-    Transit Feed Specification (GTFS) files, and fast and flexible tools
-    to read and write such files.
+Description: Tools for the development of packages that interact
+    with General Transit Feed Specification (GTFS) files. Defines a 'gtfs'
+    class to represent GTFS files and provides fast and flexible functions
+    to read, write and check such files.
 License: MIT + file LICENSE
 URL: https://github.com/r-transit/gtfsio
 BugReports: https://github.com/r-transit/gtfsio/issues

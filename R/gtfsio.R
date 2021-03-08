@@ -9,3 +9,6 @@
 #'
 #' @importFrom data.table %chin% :=
 "_PACKAGE"
+
+# prevent data.table's NSE-related notes
+utils::globalVariables("..fields")

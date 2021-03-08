@@ -12,7 +12,7 @@ assert_files_exist(x, files)
 \arguments{
 \item{x}{A GTFS object.}
 
-\item{file}{A character vector. The files to check the existence of.}
+\item{files}{A character vector. The files to check the existence of.}
 }
 \value{
 \code{check_files_exist} returns \code{TRUE} if the check is successful, and
@@ -32,5 +32,10 @@ check_files_exist(gtfs, c("calendar", "agency"))
 
 check_files_exist(gtfs, c("calendar", "oi"))
 
+}
+\seealso{
+Other checking functions: 
+\code{\link{check_fields_exist}()},
+\code{\link{check_fields_types}()}
 }
 \concept{checking functions}
