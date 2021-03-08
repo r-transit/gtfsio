@@ -2,7 +2,7 @@ Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS)
     Files
-Version: 0.0.0.9013
+Version: 0.0.0.9014
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",

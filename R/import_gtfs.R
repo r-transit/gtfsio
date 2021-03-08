@@ -14,10 +14,19 @@
 #'   a file is specified in \code{files} but not in \code{fields}, all fields
 #'   from that file will be read (i.e. you may specify in \code{fields} only
 #'   files whose fields you want to subset).
+#' @param extra_spec A named list. Custom specification used when reading
+#'   undocumented fields, in the format
+#'   \code{list(file1 = c(field1 = "type1", field2 = "type2"))}. If \code{NULL}
+#'   (the default), all undocumented fields are read as character. Similarly,
+#'   if an undocumented field is not specified in \code{extra_spec}, it is read
+#'   as character (i.e. you may specify in \code{extra_spec} only the fields
+#'   that you want to read as a different type). Only supports the
+#'   \code{character}, \code{integer} and \code{numeric} types, also used in
+#'   \code{\link{get_gtfs_standards}}.
 #' @param quiet A logical. Whether to hide log messages and progress bars
 #'   (defaults to \code{TRUE}).
 #'
-#' @return A GTFS object: a named list of dataframes, each one corresponding to
+#' @return A GTFS object: a named list of data frames, each one corresponding to
 #'   a distinct text file from the given GTFS feed.
 #'
 #' @seealso \code{\link{get_gtfs_standards}}
@@ -48,9 +57,14 @@
 #' )
 #'
 #' @export
-import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
+import_gtfs <- function(path,
+                        files = NULL,
+                        fields = NULL,
+                        extra_spec = NULL,
+                        quiet = TRUE) {
 
-  # input checking ('files' and 'fields' are validated further down the code)
+  # input checking ('files', 'fields' and 'extra_spec' are more thoroughly
+  # validated further down the code)
 
   if (!is.character(path) | length(path) > 1)
     stop("'path' must be a character vector of length 1.")
@@ -64,6 +78,10 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
 
   if (!is.logical(quiet) | length(quiet) > 1)
     stop("'quiet' must be a logical vector of length 1.")
+
+  for (input_types in extra_spec)
+    if (any(! input_types %chin% c("character", "integer", "numeric")))
+      stop("Only character, integer and numeric are supported in 'extra_spec'.")
 
   # if 'path' is an URL, download it and save path to downloaded file to 'path'
 
@@ -90,32 +108,23 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
   else
     files_to_read <- files
 
-  # check if all specified files exist and raise exception if any does not
+  # check if all specified files exist and raise an error if any does not
 
   missing_files <- files_to_read[! files_to_read %chin% files_in_gtfs]
 
   if (!identical(missing_files, character(0)))
-    warning(
+    stop(
       "The provided GTFS feed doesn't contain the following text file(s): ",
       paste0("'", missing_files, "'", collapse = ", ")
     )
 
-  # remove 'missing_files' from 'files_to_read' and raise error if no valid
-  # files were specified (if this errors is not thrown here, zip::unzip() will
-  # fail because it will atempt to unzip a file called '.txt')
-
-  files_to_read <- setdiff(files_to_read, missing_files)
-
-  if (identical(files_to_read, character(0)))
-    stop("The provided GTFS feed doesn't contain any of the specified files.")
-
-  # raise exception if a file is specified in 'files' but does not appear in
+  # raise an error if a file is specified in 'files' but does not appear in
   # 'files_to_read'
 
   files_misspec <- names(fields)[! names(fields) %chin% files_to_read]
 
   if (!is.null(files_misspec) & !identical(files_misspec, character(0)))
-    warning(
+    stop(
       "The following files were specified in 'fields' but either were not ",
       "specified in 'files' or do no exist: ",
       paste0("'", files_misspec, "'", collapse = ", ")
@@ -151,6 +160,7 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
     FUN = read_files,
     gtfs_standards,
     fields,
+    extra_spec,
     tmpdir,
     quiet
   )
@@ -178,6 +188,8 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
 #' @param gtfs_standards A named list. Created by
 #'   \code{\link{get_gtfs_standards}}.
 #' @param fields A named list. Passed by the user to \code{\link{import_gtfs}}.
+#' @param extra_spec A named list. Passed by the user to
+#'   \code{\link{import_gtfs}}.
 #' @param tmpdir A string. The path to the temporary folder where GTFS text
 #'   files were unzipped to.
 #' @param quiet Whether to hide log messages and progress bars (defaults to
@@ -189,7 +201,12 @@ import_gtfs <- function(path, files = NULL, fields = NULL, quiet = TRUE) {
 #' @seealso \code{\link{get_gtfs_standards}}
 #'
 #' @keywords internal
-read_files <- function(file, gtfs_standards, fields, tmpdir, quiet) {
+read_files <- function(file,
+                       gtfs_standards,
+                       fields,
+                       extra_spec,
+                       tmpdir,
+                       quiet) {
 
   # create object to hold the file with '.txt' extension
 
@@ -200,7 +217,23 @@ read_files <- function(file, gtfs_standards, fields, tmpdir, quiet) {
   # get standards for reading and fields to be read from the given 'file'
 
   file_standards <- gtfs_standards[[file]]
-  fields <- fields[[file]]
+  fields         <- fields[[file]]
+  extra_spec     <- extra_spec[[file]]
+
+  # 'extra_spec' should specify how specify how extra fields in either
+  # documented or extra files are read. throw an error if it refers to
+  # documented fields
+
+  spec_both <- names(extra_spec)[names(extra_spec) %chin% names(file_standards)]
+
+  if (any(names(extra_spec) %chin% names(file_standards)))
+    stop(
+      "The following field(s) from the '",
+      file,
+      "' file were specified in 'extra_spec' but are already documented in ",
+      "the official GTFS reference: ",
+      paste0("'", spec_both, "'", collapse = ", ")
+    )
 
   # read 'file' first row to figure out which fields are present
   # if 'file_standards' is NULL then file is undocumented
@@ -236,24 +269,22 @@ read_files <- function(file, gtfs_standards, fields, tmpdir, quiet) {
   missing_fields <- fields_to_read[! fields_to_read %chin% fields_in_file]
 
   if (!identical(missing_fields, character(0)))
-    warning(
+    stop(
       "'", file, "' doesn't contain the following field(s): ",
       paste0("'", missing_fields, "'", collapse = ", ")
     )
 
-  # remove 'missing_fields' from 'fields_to_read' and return a NULL 'data.table'
-  # if no valid fields were specified
+  # raise an error if a field was specified in 'extra_spec' but does not appear
+  # in 'fields_to_read'
 
-  fields_to_read <- setdiff(fields_to_read, missing_fields)
+  fields_misspec <- setdiff(names(extra_spec), fields_to_read)
 
-  if (identical(fields_to_read, character(0))) {
-
-    if (!quiet)
-      message("  - No valid fields were provided. Returning a NULL data.table")
-
-    return(data.table::data.table(NULL))
-
-  }
+  if (!is.null(fields_misspec) & !identical(fields_misspec, character(0)))
+    stop(
+      "The following files were specified in 'extra_spec' but either were not ",
+      "specified in 'fields' or do no exist: ",
+      paste0("'", fields_misspec, "'", collapse = ", ")
+    )
 
   # get the standard data types of documented fields from 'file_standards'
 
@@ -265,11 +296,15 @@ read_files <- function(file, gtfs_standards, fields, tmpdir, quiet) {
     character(1)
   )
 
-  # set all undocumented files/fields to be read as character
+  # set all undocumented files/fields to be read as character by default
 
   undoc_fields <- setdiff(fields_to_read, doc_fields)
   undoc_classes <- rep("character", length(undoc_fields))
   names(undoc_classes) <- undoc_fields
+
+  # change how fields specified in 'extra_spec' should be read accordingly
+
+  undoc_classes[names(extra_spec)] <- extra_spec
 
   # join together both documented and undocumented fields classes
 

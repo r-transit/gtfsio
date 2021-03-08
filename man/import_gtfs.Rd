@@ -4,7 +4,7 @@
 \alias{import_gtfs}
 \title{Import GTFS transit feeds}
 \usage{
-import_gtfs(path, files = NULL, fields = NULL, quiet = TRUE)
+import_gtfs(path, files = NULL, fields = NULL, extra_spec = NULL, quiet = TRUE)
 }
 \arguments{
 \item{path}{A string. The path to a GTFS \code{.zip} file.}
@@ -20,11 +20,21 @@ a file is specified in \code{files} but not in \code{fields}, all fields
 from that file will be read (i.e. you may specify in \code{fields} only
 files whose fields you want to subset).}
 
+\item{extra_spec}{A named list. Custom specification used when reading
+undocumented fields, in the format
+\code{list(file1 = c(field1 = "type1", field2 = "type2"))}. If \code{NULL}
+(the default), all undocumented fields are read as character. Similarly,
+if an undocumented field is not specified in \code{extra_spec}, it is read
+as character (i.e. you may specify in \code{extra_spec} only the fields
+that you want to read as a different type). Only supports the
+\code{character}, \code{integer} and \code{numeric} types, also used in
+\code{\link{get_gtfs_standards}}.}
+
 \item{quiet}{A logical. Whether to hide log messages and progress bars
 (defaults to \code{TRUE}).}
 }
 \value{
-A GTFS object: a named list of dataframes, each one corresponding to
+A GTFS object: a named list of data frames, each one corresponding to
   a distinct text file from the given GTFS feed.
 }
 \description{

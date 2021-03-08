@@ -4,7 +4,7 @@
 \alias{read_files}
 \title{Read a GTFS text file}
 \usage{
-read_files(file, gtfs_standards, fields, tmpdir, quiet)
+read_files(file, gtfs_standards, fields, extra_spec, tmpdir, quiet)
 }
 \arguments{
 \item{file}{A string. The name of the file (without \code{.txt} extension) to
@@ -14,6 +14,9 @@ be read.}
 \code{\link{get_gtfs_standards}}.}
 
 \item{fields}{A named list. Passed by the user to \code{\link{import_gtfs}}.}
+
+\item{extra_spec}{A named list. Passed by the user to
+\code{\link{import_gtfs}}.}
 
 \item{tmpdir}{A string. The path to the temporary folder where GTFS text
 files were unzipped to.}
