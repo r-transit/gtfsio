@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@
     <p>Reads a GTFS text file from the main <code>.zip</code> file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_files</span><span class='op'>(</span><span class='va'>file</span>, <span class='va'>gtfs_standards</span>, <span class='va'>fields</span>, <span class='va'>tmpdir</span>, <span class='va'>quiet</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_files</span><span class='op'>(</span><span class='va'>file</span>, <span class='va'>gtfs_standards</span>, <span class='va'>fields</span>, <span class='va'>extra_spec</span>, <span class='va'>tmpdir</span>, <span class='va'>quiet</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,6 +138,11 @@ be read.</p></td>
     <tr>
       <th>fields</th>
       <td><p>A named list. Passed by the user to <code><a href='import_gtfs.html'>import_gtfs</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>extra_spec</th>
+      <td><p>A named list. Passed by the user to
+<code><a href='import_gtfs.html'>import_gtfs</a></code>.</p></td>
     </tr>
     <tr>
       <th>tmpdir</th>
