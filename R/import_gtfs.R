@@ -126,7 +126,7 @@ import_gtfs <- function(path,
   if (!is.null(files_misspec) & !identical(files_misspec, character(0)))
     stop(
       "The following files were specified in 'fields' but either were not ",
-      "specified in 'files' or do no exist: ",
+      "specified in 'files' or do not exist: ",
       paste0("'", files_misspec, "'", collapse = ", ")
     )
 
@@ -282,7 +282,7 @@ read_files <- function(file,
   if (!is.null(fields_misspec) & !identical(fields_misspec, character(0)))
     stop(
       "The following files were specified in 'extra_spec' but either were not ",
-      "specified in 'fields' or do no exist: ",
+      "specified in 'fields' or do not exist: ",
       paste0("'", fields_misspec, "'", collapse = ", ")
     )
 
