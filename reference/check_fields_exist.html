@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate GTFS specification types to R equivalent types — translate_types • gtfsio</title>
+<title>Check the existence of fields in a GTFS object element — check_fields_exist • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Translate GTFS specification types to R equivalent types — translate_types" />
-<meta property="og:description" content="Translate GTFS specification types to R equivalent types" />
+<meta property="og:title" content="Check the existence of fields in a GTFS object element — check_fields_exist" />
+<meta property="og:description" content="Checks the existence of fields, represented by columns, inside a GTFS object
+element." />
 
 
 
@@ -111,38 +112,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Translate GTFS specification types to R equivalent types</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/get_gtfs_standards.R'><code>R/get_gtfs_standards.R</code></a></small>
-    <div class="hidden name"><code>translate_types.Rd</code></div>
+    <h1>Check the existence of fields in a GTFS object element</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/check.R'><code>R/check.R</code></a></small>
+    <div class="hidden name"><code>check_fields_exist.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Translate GTFS specification types to R equivalent types</p>
+    <p>Checks the existence of fields, represented by columns, inside a GTFS object
+element.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>translate_types</span><span class='op'>(</span><span class='va'>text_file</span>, <span class='va'>r_equivalents</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_fields_exist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span><span class='op'>)</span>
+
+<span class='fu'>assert_fields_exist</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text_file</th>
-      <td><p>A named <code>list</code> containing a GTFS text file
-specification, as described in the body of
-<code><a href='get_gtfs_standards.html'>get_gtfs_standards</a></code>.</p></td>
+      <th>x</th>
+      <td><p>A GTFS object.</p></td>
     </tr>
     <tr>
-      <th>r_equivalents</th>
-      <td><p>A named <code>character vector</code>, in which each name is
-the GTFS specification type and the content its R equivalent.</p></td>
+      <th>file</th>
+      <td><p>A string. The element, that represents a GTFS text file, where
+fields should be searched.</p></td>
+    </tr>
+    <tr>
+      <th>fields</th>
+      <td><p>A character vector. The fields to check the existence of.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named <code>list</code> holding a GTFS text file specification, but with
-  R data types instead of GTFS spec data types.</p>
+    <p><code>check_fields_exist</code> returns <code>TRUE</code> if the check is successful, and
+  <code>FALSE</code> otherwise. <br />
+<code>assert_fields_exist</code> returns <code>x</code> invisibly if the check is
+  successful, and throws an error otherwise.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p>Other checking functions: 
+<code><a href='check_fields_types.html'>check_fields_types</a>()</code>,
+<code><a href='check_files_exist.html'>check_files_exist</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>gtfs_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/ggl_gtfs.zip"</span>, package <span class='op'>=</span> <span class='st'>"gtfsio"</span><span class='op'>)</span>
+<span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='import_gtfs.html'>import_gtfs</a></span><span class='op'>(</span><span class='va'>gtfs_path</span><span class='op'>)</span>
+
+<span class='fu'>check_fields_exist</span><span class='op'>(</span><span class='va'>gtfs</span>, <span class='st'>"calendar"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"monday"</span>, <span class='st'>"tuesday"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>check_fields_exist</span><span class='op'>(</span><span class='va'>gtfs</span>, <span class='st'>"calendar"</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"monday"</span>, <span class='st'>"oi"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
