@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.9016",
+  "version": "0.0.0.9017",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -131,7 +131,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "70.835KB",
+  "fileSize": "72.624KB",
   "keywords": [
     "r",
     "gtfs"
