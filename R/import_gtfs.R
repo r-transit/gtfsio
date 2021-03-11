@@ -311,10 +311,18 @@ read_files <- function(file,
   fields_classes <- c(doc_classes, undoc_classes)
 
   # read the file specifying the column classes
+  # if a warning is thrown (e.g. due to a parsing failure) and 'quiet' != FALSE,
+  # print warning message to console to help debugging (otherwise all warnings
+  # messages are thrown simultaneously at the end, which doesn't help as much)
 
-  full_dt <- data.table::fread(
-    file.path(tmpdir, file_txt),
-    select = fields_classes
+  withCallingHandlers(
+    {
+      full_dt <- data.table::fread(
+        file.path(tmpdir, file_txt),
+        select = fields_classes
+      )
+    },
+    warning = function(cnd) if(!quiet) message("  - ", conditionMessage(cnd))
   )
 
   return(full_dt)
