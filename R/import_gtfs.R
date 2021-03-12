@@ -171,7 +171,7 @@ import_gtfs <- function(path,
 
   # create gtfs object from 'gtfs'
 
-  gtfs <- new_gtfs(gtfs, names = files_to_read)
+  gtfs <- new_gtfs(gtfs)
 
   return(gtfs)
 
