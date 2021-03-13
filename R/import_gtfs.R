@@ -76,7 +76,7 @@ import_gtfs <- function(path,
   if (!path_is_url & !file.exists(path))
     stop("'path' points to non-existent file: '", path, "'")
 
-  if (!is.logical(quiet) | length(quiet) > 1)
+  if (!is.logical(quiet) | length(quiet) != 1)
     stop("'quiet' must be a logical vector of length 1.")
 
   for (input_types in extra_spec)
