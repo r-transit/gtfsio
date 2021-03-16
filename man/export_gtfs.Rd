@@ -35,7 +35,13 @@ gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 
 gtfs <- import_gtfs(gtfs_path)
 
-export_gtfs(gtfs, tempfile(fileext = ".zip"))
+tmpf <- tempfile(pattern = "gtfs", fileext = ".zip")
+
+export_gtfs(gtfs, tmpf)
+zip::zip_list(tmpf)$filename
+
+export_gtfs(gtfs, tmpf, files = c("shapes", "trips"))
+zip::zip_list(tmpf)$filename
 
 }
 \seealso{

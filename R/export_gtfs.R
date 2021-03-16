@@ -26,7 +26,13 @@
 #'
 #' gtfs <- import_gtfs(gtfs_path)
 #'
-#' export_gtfs(gtfs, tempfile(fileext = ".zip"))
+#' tmpf <- tempfile(pattern = "gtfs", fileext = ".zip")
+#'
+#' export_gtfs(gtfs, tmpf)
+#' zip::zip_list(tmpf)$filename
+#'
+#' export_gtfs(gtfs, tmpf, files = c("shapes", "trips"))
+#' zip::zip_list(tmpf)$filename
 #'
 #' @export
 export_gtfs <- function(gtfs,
@@ -62,8 +68,8 @@ export_gtfs <- function(gtfs,
 
   if (is.null(files)) files <- names(gtfs)
 
-  # remove '.' from 'files' if it exists (e.g. {tidytransit} may place some
-  # auxiliary tables in a sub-list named '.')
+  # remove '.' from 'files' if it exists ({tidytransit} may place some auxiliary
+  # tables in a sub-list named '.')
 
   files <- setdiff(files, ".")
 
@@ -77,5 +83,36 @@ export_gtfs <- function(gtfs,
       "elements specified in 'files': ",
       paste0("'", missing_files, "'", collapse = ", ")
     )
+
+  # create temp directory where files should be written to
+
+  tmpd <- tempfile(pattern = "gtfsio")
+  unlink(tmpd, recursive = TRUE)
+  dir.create(tmpd)
+
+  # write files to 'tmpd'
+
+  if (!quiet) message("Writing text files to ", tmpd)
+
+  for (file in files) {
+
+    filename <- paste0(file, ".txt")
+    filepath <- file.path(tmpd, filename)
+
+    if (!quiet) message("Writing ", filename)
+
+    data.table::fwrite(gtfs[[file]], filepath)
+
+  }
+
+  # zip files to 'path'
+
+  filepaths <- file.path(tmpd, paste0(files, ".txt"))
+
+  zip::zip(path, filepaths, mode = "cherry-pick")
+
+  if (!quiet) message("GTFS object successfully zipped to ", path)
+
+  return(invisible(gtfs))
 
 }
