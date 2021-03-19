@@ -95,7 +95,7 @@ export_gtfs <- function(gtfs,
     )
 
   extra_files <- setdiff(files, names(gtfs_standards))
-  if (standard_only & !identical(extra_files, character(0)))
+  if (standard_only & !is.null(files) & !identical(extra_files, character(0)))
     stop(
       "Non-standard file specified in 'files', ",
       "even though 'standard_only' is set to TRUE: ",
@@ -112,6 +112,10 @@ export_gtfs <- function(gtfs,
   files <- setdiff(files, ".")
 
   # remove extra files from 'files' if 'standard_only' is set to TRUE
+  # 'extra_files' is re-evaluated because 'files' might have changed in the
+  # lines above
+
+  extra_files <- setdiff(files, names(gtfs_standards))
 
   if (standard_only) files <- setdiff(files, extra_files)
 
