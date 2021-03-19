@@ -11,4 +11,4 @@
 "_PACKAGE"
 
 # prevent data.table's NSE-related notes
-utils::globalVariables("..fields")
+utils::globalVariables(c("..fields", "..extra_cols"))

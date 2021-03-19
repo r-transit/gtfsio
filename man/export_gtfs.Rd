@@ -4,7 +4,16 @@
 \alias{export_gtfs}
 \title{Export GTFS objects}
 \usage{
-export_gtfs(gtfs, path, files = NULL, overwrite = TRUE, quiet = TRUE)
+export_gtfs(
+  gtfs,
+  path,
+  files = NULL,
+  standard_only = FALSE,
+  compression_level = 9,
+  as_dir = FALSE,
+  overwrite = TRUE,
+  quiet = TRUE
+)
 }
 \arguments{
 \item{gtfs}{A GTFS object.}
@@ -14,6 +23,16 @@ to.}
 
 \item{files}{A character vector. The name of the elements to be written to
 the feed.}
+
+\item{standard_only}{A logical. Whether only standard files and fields should
+be written (defaults to \code{TRUE}, which drops extra files and fields).}
+
+\item{compression_level}{A numeric, between 1 and 9. The higher the value,
+the best the compression, which demands more processing time. Defaults to 9
+(best compression).}
+
+\item{as_dir}{A logical. Whether the feed should be exported as a directory,
+instead of a \code{.zip} file. Defaults to \code{FALSE}.}
 
 \item{overwrite}{A logical. Whether to overwrite an existing \code{.zip} file
 (defaults to \code{TRUE}).}
@@ -27,8 +46,9 @@ Invisibly returns the same GTFS object passed to \code{gtfs}.
 \description{
 Writes GTFS objects to disk as GTFS transit feeds. The object must be
 formatted according to the standards for reading and writing GTFS transit
-feeds, as specified in \code{\link{get_gtfs_standards}}. If present, does not
-write auxiliary tables held in a sub-list named \code{"."}.
+feeds, as specified in \code{\link{get_gtfs_standards}} (i.e. data types are
+not checked). If present, does not write auxiliary tables held in a sub-list
+named \code{"."}.
 }
 \examples{
 gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
