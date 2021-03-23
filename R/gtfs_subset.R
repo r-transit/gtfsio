@@ -100,7 +100,8 @@ check_invalid_value <- function(x, value) {
     if (!identical(bad_element, character(0)))
       warning(
         "This GTFS object doesn't contain the following element(s): ",
-        paste0("'", bad_element, "'", collapse = ", ")
+        paste0("'", bad_element, "'", collapse = ", "),
+        call. = FALSE
       )
 
   } else if (is.numeric(value)) {
@@ -110,7 +111,8 @@ check_invalid_value <- function(x, value) {
     if (!identical(bad_index, numeric(0)) & !identical(bad_index, integer(0)))
       warning(
         "This GTFS object doesn't contain the following index(es): ",
-        paste0(bad_index, collapse = ", ")
+        paste0(bad_index, collapse = ", "),
+        call. = FALSE
       )
 
   }

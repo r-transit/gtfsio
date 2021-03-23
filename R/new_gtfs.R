@@ -65,7 +65,7 @@ new_gtfs <- function(x, subclass = character(), ...) {
 
   # create object
 
-  gtfs <- structure(x, class = class)
+  gtfs <- structure(x, class = class, ...)
 
   return(gtfs)
 
