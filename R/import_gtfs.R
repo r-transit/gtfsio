@@ -79,9 +79,18 @@ import_gtfs <- function(path,
   if (!is.logical(quiet) | length(quiet) != 1)
     stop("'quiet' must be a logical vector of length 1.")
 
+  if (!is.null(extra_spec) & !is.list(extra_spec))
+    stop("'extra_spec' must be either a list or NULL.")
+
   for (input_types in extra_spec)
     if (any(! input_types %chin% c("character", "integer", "numeric")))
       stop("Only character, integer and numeric are supported in 'extra_spec'.")
+
+  if (!is.null(files) & !is.character(files))
+    stop("'files' must be either a character vector or NULL.")
+
+  if (!is.null(fields) & !is.list(fields))
+    stop("'fields' must be either a list or NULL.")
 
   # if 'path' is an URL, download it and save path to downloaded file to 'path'
 
