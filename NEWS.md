@@ -1,4 +1,4 @@
-# gtfsio 0.0.0.xxxx
+# gtfsio (development version)
 
 ## New features
 

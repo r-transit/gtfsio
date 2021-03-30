@@ -2,7 +2,7 @@ Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS)
     Files
-Version: 0.0.0.9027
+Version: 0.0.0.9028
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",
@@ -42,5 +42,4 @@ Imports:
 Suggests: 
     tinytest
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.1
