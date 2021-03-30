@@ -127,7 +127,7 @@ import_gtfs <- function(path,
       paste0("'", missing_files, "'", collapse = ", ")
     )
 
-  # raise an error if a file is specified in 'files' but does not appear in
+  # raise an error if a file is specified in 'fields' but does not appear in
   # 'files_to_read'
 
   files_misspec <- names(fields)[! names(fields) %chin% files_to_read]
