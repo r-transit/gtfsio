@@ -63,7 +63,7 @@ export_gtfs <- function(gtfs,
     stop("'path' must be a string (a character vector of length 1).")
 
   if (!is.null(files) & !is.character(files))
-    stop("'files' must either be 'NULL' or a character vector.")
+    stop("'files' must either be a character vector or NULL.")
 
   if (!is.logical(standard_only) | length(standard_only) != 1)
     stop("'standard_only' must be a logical vector of length 1.")
@@ -145,7 +145,7 @@ export_gtfs <- function(gtfs,
     filename <- paste0(file, ".txt")
     filepath <- file.path(tmpd, filename)
 
-    if (!quiet) message("Writing ", filename)
+    if (!quiet) message("  - Writing ", filename)
 
     dt <- gtfs[[file]]
 
@@ -170,6 +170,7 @@ export_gtfs <- function(gtfs,
   # if 'path' pointed to an existing file that should not be overwritten).
   # this action prevents zip::zip() from crashing R when 'path' exists, but is a
   # directory, not a file
+  # related issue: https://github.com/r-lib/zip/issues/76
 
   unlink(path, recursive = TRUE)
 
