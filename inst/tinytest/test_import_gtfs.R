@@ -95,6 +95,13 @@ expect_error(
   )
 )
 
+# raise error if field is specified in 'fields' but doesn't exist
+
+expect_error(
+  import_gtfs(path, fields = list(shapes = "ola")),
+  pattern = "'shapes' doesn't contain the following field\\(s\\): 'ola'"
+)
+
 # if 'fields' is NULL (the default), all fields from all files are read
 
 tmpd <- tempfile("gtfsio_test")
@@ -177,11 +184,127 @@ expect_identical(standard_types, actual_types)
 
 # 'extra_spec' behaviour --------------------------------------------------
 
+# raise an error if a field was specified in 'extra_spec' but its format is
+# already specified in the standards
+
+expect_error(
+  import_gtfs(path, extra_spec = list(shapes = c(shape_id = "integer"))),
+  pattern = paste0(
+    "The following field\\(s\\) from the 'shapes' file were specified in ",
+    "'extra_spec' but are already documented in the official GTFS reference: ",
+    "'shape_id'"
+  )
+)
+
+# raise an error if a field was specified in 'extra_spec' but either does not
+# exist or was not specified in 'fields'
+
+expect_error(
+  import_gtfs(path, extra_spec = list(shapes = c(ola = "character"))),
+  pattern = paste0(
+    "The following fields were specified in 'extra_spec' but either were not ",
+    "specified in 'fields' or do not exist: 'ola'"
+  )
+)
+
+expect_error(
+  import_gtfs(
+    path,
+    fields = list(levels = "level_id"),
+    extra_spec = list(levels = c(elevation = "character"))
+  ),
+  pattern = paste0(
+    "The following fields were specified in 'extra_spec' but either were not ",
+    "specified in 'fields' or do not exist: 'elevation'"
+  )
+)
+
+# if 'extra_spec' id NULL (default), extra fields should be read as character
+
+gtfs <- import_gtfs(path)
+
+expect_true(class(gtfs$levels$elevation) == "character")
+
+# else, fields should be read as specified
+
+gtfs <- import_gtfs(path, extra_spec = list(levels = c(elevation = "integer")))
+
+expect_true(class(gtfs$levels$elevation) == "integer")
+
+
+# output should be a 'gtfs' object composed by 'data.table's --------------
+
+gtfs <- import_gtfs(path)
+
+expect_inherits(gtfs, "gtfs")
+
+expect_true(
+  all(vapply(gtfs, function(i) inherits(i, "data.table"), logical(1)))
+)
+
+
+# empty file should be read as a NULL data.table --------------------------
+
+bad_path <- system.file("extdata/bad_gtfs.zip", package = "gtfsio")
+
+expect_warning(bad_gtfs <- import_gtfs(bad_path, files = "agency"))
+
+expect_inherits(bad_gtfs$agency, "data.table")
+expect_true(ncol(bad_gtfs$agency) == 0)
 
 
 # 'quiet' behaviour -------------------------------------------------------
 
+# silent both when reading from local path and url
+
 expect_silent(import_gtfs(path))
 expect_silent(import_gtfs(url))
+
+# loud when quiet = FALSE
+
 expect_message(import_gtfs(path, quiet = FALSE))
-expect_message(import_gtfs(url, quiet = FALSE))
+out <- capture.output(g <- import_gtfs(path, quiet = FALSE), type = "message")
+expect_true(any(grepl("^Unzipped the following files to ", out)))
+expect_true(any(grepl("^  \\*", out)))
+expect_true(any(grepl("^Reading ", out)))
+
+# message when reading from url
+
+out <- capture.output(g <- import_gtfs(url, quiet = FALSE), type = "message")
+expect_true(any(grepl("^File downloaded to ", out)))
+
+# message when reading undocumented file
+
+out <- capture.output(
+  g <- import_gtfs(bad_path, files = "trips_bad_name", quiet = FALSE),
+  type = "message"
+)
+expect_true(any(grepl("^  - File undocumented\\.", out)))
+
+# message when reading empty file
+
+suppressWarnings(
+  out <- capture.output(
+    g <- import_gtfs(bad_path, files = "agency", quiet = FALSE),
+    type = "message"
+  )
+)
+expect_true(any(grepl("^  - File is empty\\.", out)))
+
+# warnings converted to messages upon parsing failures
+
+suppressWarnings(
+  out <- capture.output(
+    g <- import_gtfs(bad_path, files = "fare_rules", quiet = FALSE),
+    type = "message"
+  )
+)
+expect_true(any(grepl("^  - Stopped early on line.", out)))
+
+suppressWarnings(
+  out <- capture.output(
+    g <- import_gtfs(bad_path, files = "stop_times", quiet = FALSE),
+    type = "message"
+  )
+)
+expect_true(any(grepl("^  - Discarded single-line footer", out)))

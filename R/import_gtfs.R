@@ -290,7 +290,7 @@ read_files <- function(file,
 
   if (!is.null(fields_misspec) & !identical(fields_misspec, character(0)))
     stop(
-      "The following files were specified in 'extra_spec' but either were not ",
+      "The following fields were specified in 'extra_spec' but either were not ",
       "specified in 'fields' or do not exist: ",
       paste0("'", fields_misspec, "'", collapse = ", ")
     )
