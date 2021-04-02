@@ -1,0 +1,54 @@
+---
+title: "Introduction to gtfsio"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to gtfsio}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The General Transit Feed Specification (GTFS) data format defines a common scheme for describing transit systems, and is widely used by transit agencies around the world and consumed by many software applications. Thus, many **R** packages have been developed to read, write, manipulate and analyse such feeds, such as `{gtfs2gps}`, `{gtfsrouter}`, `{gtfstools}` and `{tidytransit}`.
+
+Each one of these, however, represent GTFS feeds in a slightly different way, making the interoperability between packages harder to accomplish. At the end of the day, this lack of integration results in a more painful experience to the final user who may want to enjoy functions from different packages.
+
+**gtfsio** offers tools for the development of GTFS-related packages that aim to increase such interoperability. It establishes a standard for representing GTFS feeds using R data types. It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic `gtfs` class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.
+
+This vignette describes the usage of the GTFS reading and writing functions. Please follow the links below for vignettes covering other topics:
+
+- other
+- vignettes
+
+# Basic usage
+
+Before using **gtfsio** please make sure that you have it installed in your computer. You can download either the most stable version from CRAN or the development version from GitHub:
+
+```{r, eval = FALSE}
+# stable version
+install.packages("gtfsio")
+
+# development version
+remotes::install_github("r-transit/gtfsio")
+```
+
+Then attach it to the current R session:
+
+```{r, message = FALSE}
+library(gtfsio)
+```
+
+Throughout this demonstration we will be using a few sample files included in the package:
+
+```{r}
+data_dir <- system.file("extdata", package = "gtfsio")
+list.files(data_dir)
+```
+
+- `ggl_gtfs.zip` has been manually built from the [example GTFS feed](https://developers.google.com/transit/gtfs/examples/gtfs-feed) provided by Google. The files samples are licensed under [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
+- `bad_gtfs.zip` is a modified version of `ggl_gtfs.zip` that includes some issues frequently found in GTFS data.

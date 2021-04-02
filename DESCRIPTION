@@ -1,8 +1,7 @@
 Type: Package
 Package: gtfsio
-Title: Read and Write General Transit Feed Specification (GTFS)
-    Files
-Version: 0.0.0.9032
+Title: Read and Write General Transit Feed Specification (GTFS) Files
+Version: 0.0.0.9033
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",
@@ -28,8 +27,8 @@ Authors@R:
              email = "tom@tbuckl.com"),
       person(given = "Ipea - Institute for Applied Economic Research",
              role = c("cph", "fnd")))
-Description: Tools for the development of packages that interact
-    with General Transit Feed Specification (GTFS) files. Defines a 'gtfs'
+Description: Tools for the development of packages that interact with
+    General Transit Feed Specification (GTFS) files. Defines a 'gtfs'
     class to represent GTFS files and provides fast and flexible functions
     to read, write and check such files.
 License: MIT + file LICENSE
@@ -40,6 +39,10 @@ Imports:
     utils,
     zip
 Suggests: 
+    knitr,
+    rmarkdown,
     tinytest
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 RoxygenNote: 7.1.1

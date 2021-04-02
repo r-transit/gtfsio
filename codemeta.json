@@ -5,12 +5,12 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "gtfsio",
-  "description": "Tools for the development of packages that interact\n    with General Transit Feed Specification (GTFS) files. Defines a 'gtfs'\n    class to represent GTFS files and provides fast and flexible functions\n    to read, write and check such files.",
-  "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS)\n    Files",
+  "description": "Tools for the development of packages that interact with\n    General Transit Feed Specification (GTFS) files. Defines a 'gtfs'\n    class to represent GTFS files and provides fast and flexible functions\n    to read, write and check such files.",
+  "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS) Files",
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.9032",
+  "version": "0.0.0.9033",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -77,6 +77,30 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "tinytest",
       "name": "tinytest",
       "provider": {
@@ -119,7 +143,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "110.907KB",
+  "fileSize": "113.573KB",
   "keywords": [
     "r",
     "gtfs"
