@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9035</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9036</span>
       </span>
     </div>
 
@@ -85,12 +85,8 @@
     
 <p>The General Transit Feed Specification (GTFS) data format defines a common scheme for describing transit systems, and is widely used by transit agencies around the world and consumed by many software applications. Thus, many <strong>R</strong> packages have been developed to read, write, manipulate and analyse such feeds, such as <code>{gtfs2gps}</code>, <code>{gtfsrouter}</code>, <code>{gtfstools}</code> and <code>{tidytransit}</code>.</p>
 <p>Each one of these, however, represent GTFS feeds in a slightly different way, making the interoperability between packages harder to accomplish. At the end of the day, this lack of integration results in a more painful experience to the final user who may want to enjoy functions from different packages.</p>
-<p><strong>gtfsio</strong> offers tools for the development of GTFS-related packages that aim to increase such interoperability. It establishes a standard for representing GTFS feeds using R data types. It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic <code>gtfs</code> class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.</p>
-<p>This vignette describes the usage of the GTFS reading and writing functions. Please follow the links below for vignettes covering other topics:</p>
-<ul>
-<li>other</li>
-<li>vignettes</li>
-</ul>
+<p><strong>gtfsio</strong> offers tools for the development of GTFS-related packages that aim to increase such interoperability. It establishes a standard for representing GTFS feeds using R data types based on <a href="https://developers.google.com/transit/gtfs/reference">Google’s Static GTFS Reference</a>. It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic <code>gtfs</code> class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.</p>
+<p>This vignette describes the basic usage of <strong>gtfsio</strong>. Please read <code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code> documentation for more detail on the standards for reading and writing GTFS feeds using R data types.</p>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
@@ -116,9 +112,12 @@
 <code>bad_gtfs.zip</code> is a modified version of <code>ggl_gtfs.zip</code> that includes some issues frequently found in GTFS data.</li>
 </ul>
 </div>
-<div id="reading-feeds" class="section level1">
+<div id="basic-usage" class="section level1">
 <h1 class="hasAnchor">
-<a href="#reading-feeds" class="anchor"></a>Reading feeds</h1>
+<a href="#basic-usage" class="anchor"></a>Basic usage</h1>
+<div id="reading-feeds" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reading-feeds" class="anchor"></a>Reading feeds</h2>
 <p>To read a feed use the <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> function. It takes either a local path or an URL to a GTFS <code>.zip</code> file and returns a GTFS object (which is, basically, a <code>list</code> of data frames):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"ggl_gtfs.zip"</span><span class="op">)</span>
@@ -203,9 +202,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">levels</span><span class="op">$</span><span class="va">elevation</span><span class="op">)</span>
 <span class="co">#&gt; [1] "integer"</span></code></pre></div>
 </div>
-<div id="writing-feeds" class="section level1">
-<h1 class="hasAnchor">
-<a href="#writing-feeds" class="anchor"></a>Writing feeds</h1>
+<div id="writing-feeds" class="section level2">
+<h2 class="hasAnchor">
+<a href="#writing-feeds" class="anchor"></a>Writing feeds</h2>
 <p>Use <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code> to write a GTFS object to disk. Please note that the function assumes that the object is formatted according to the standards for reading and writing GTFS feeds in <strong>R</strong> - i.e. if it’s not, any conversions should be done before using <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code>.</p>
 <p>Objects are written as <code>.zip</code> feeds by default, but you can also write them as directories using the <code>as_dir</code> argument:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -248,6 +247,60 @@
 <span class="va">levels_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">tmpd</span>, <span class="st">"levels.txt"</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"elevation"</span>, <span class="va">levels_fields</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
+</div>
+<div id="checking-gtfs-objects" class="section level2">
+<h2 class="hasAnchor">
+<a href="#checking-gtfs-objects" class="anchor"></a>Checking GTFS objects</h2>
+<p><strong>gtfsio</strong> also includes functions to check the structure of GTFS objects. <code><a href="../reference/check_files_exist.html">check_files_exist()</a></code> checks the existence of elements representing specific text files inside an object. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_files_exist.html">assert_files_exist()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"shapes"</span>, <span class="st">"trips"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/check_files_exist.html">check_files_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"shapes"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="../reference/check_files_exist.html">check_files_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="fu"><a href="../reference/check_files_exist.html">assert_files_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"shapes"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_files_exist.html">assert_files_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span><span class="op">)</span>
+<span class="co">#&gt; Error in assert_files_exist(gtfs, "stop_times"): The GTFS object is missing the following required element(s): 'stop_times'</span></code></pre></div>
+<p><code><a href="../reference/check_fields_exist.html">check_fields_exist()</a></code> checks the existence of fields, represented by columns, inside GTFS objects. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_fields_exist.html">assert_fields_exist()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span>
+  <span class="va">gtfs_path</span>, 
+  files <span class="op">=</span> <span class="st">"trips"</span>, 
+  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>trips <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="../reference/check_fields_exist.html">check_fields_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="../reference/check_fields_exist.html">check_fields_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="fu"><a href="../reference/check_fields_exist.html">assert_fields_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_fields_exist.html">assert_fields_exist</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span>
+<span class="co">#&gt; Error in assert_fields_exist(gtfs, "trips", fields = "shape_id"): The GTFS object 'trips' element is missing the following required column(s): 'shape_id'</span></code></pre></div>
+<p><code><a href="../reference/check_fields_types.html">check_fields_types()</a></code> checks the types of fields inside GTFS objects. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_fields_types.html">assert_fields_types()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="st">"levels"</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/check_fields_types.html">check_fields_types</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="../reference/check_fields_types.html">check_fields_types</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+
+<span class="fu"><a href="../reference/check_fields_types.html">assert_fields_types</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_fields_types.html">assert_fields_types</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
+<span class="co">#&gt; Error in assert_fields_types(gtfs, "levels", fields = "elevation", types = "integer"): The following columns in the GTFS object 'levels' element do not inherit from the required types:</span>
+<span class="co">#&gt;   - 'elevation': requires integer, but inherits from character</span></code></pre></div>
+<p>Please notes that “lower-level” checks are conducted inside each function - e.g. before checking the type of a field, first the existence of such field is checked:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="st">"shapes"</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/check_fields_types.html">check_fields_types</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span>, fields <span class="op">=</span> <span class="st">"stop_id"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="co">#&gt; Error in assert_files_exist(x, file): The GTFS object is missing the following required element(s): 'stop_times'</span></code></pre></div>
+<p>These functions are great for package interoperability. If two distinct packages represent GTFS text files using the same data structure (both <code>{gtfstools}</code> and <code>{gtfsrouter}</code> use <code>data.table</code>s, for example), they just need to add some basic checks before proceeding with operations on objects created by the other package.</p>
+<p>So, if <code>{gtfsrouter}</code> requires the <code>transfers</code> element to perform some operations, it might as well perform them on an object created by <code>{gtfstools}</code>, as long as it contains a <code>transfers</code> element. Thus, it could greatly benefit of some <code>assert_*</code>/<code>check_*</code> calls before proceeding with such operations.</p>
+</div>
 </div>
   </div>
 
