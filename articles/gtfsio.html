@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9033</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9034</span>
       </span>
     </div>
 
@@ -91,9 +91,9 @@
 <li>other</li>
 <li>vignettes</li>
 </ul>
-<div id="basic-usage" class="section level1">
+<div id="installation" class="section level1">
 <h1 class="hasAnchor">
-<a href="#basic-usage" class="anchor"></a>Basic usage</h1>
+<a href="#installation" class="anchor"></a>Installation</h1>
 <p>Before using <strong>gtfsio</strong> please make sure that you have it installed in your computer. You can download either the most stable version from CRAN or the development version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># stable version</span>
@@ -115,6 +115,154 @@
 <li>
 <code>bad_gtfs.zip</code> is a modified version of <code>ggl_gtfs.zip</code> that includes some issues frequently found in GTFS data.</li>
 </ul>
+</div>
+<div id="reading-feeds" class="section level1">
+<h1 class="hasAnchor">
+<a href="#reading-feeds" class="anchor"></a>Reading feeds</h1>
+<p>To read a feed use the <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> function. It takes either a local path or an URL to a GTFS <code>.zip</code> file and returns a GTFS object (which is, basically, a <code>list</code> of data frames):</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"ggl_gtfs.zip"</span><span class="op">)</span>
+<span class="va">gtfs_url</span>  <span class="op">&lt;-</span> <span class="st">"https://github.com/r-transit/gtfsio/raw/master/inst/extdata/ggl_gtfs.zip"</span>
+
+<span class="va">gtfs_from_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">gtfs_from_path</span><span class="op">)</span>
+<span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      </span>
+<span class="co">#&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         </span>
+<span class="co">#&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      </span>
+<span class="co">#&gt; [13] "translations"    "trips"           "agency"          "attributions"   </span>
+<span class="co">#&gt; [17] "calendar"</span>
+
+<span class="va">gtfs_from_url</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_url</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">gtfs_from_url</span><span class="op">)</span>
+<span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      </span>
+<span class="co">#&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         </span>
+<span class="co">#&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      </span>
+<span class="co">#&gt; [13] "translations"    "trips"           "agency"          "attributions"   </span>
+<span class="co">#&gt; [17] "calendar"</span></code></pre></div>
+<p>The function reads, by default, all <code>.txt</code> files contained in the <code>.zip</code> file. Alternatively, you can specify which files should be read with the <code>files</code> argument (note: without the <code>.txt</code> extension):</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"shapes"</span>, <span class="st">"trips"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">gtfs</span>
+<span class="co">#&gt; $shapes</span>
+<span class="co">#&gt;    shape_id shape_pt_lat shape_pt_lon shape_pt_sequence shape_dist_traveled</span>
+<span class="co">#&gt; 1:    A_shp     37.61956    -122.4816                 1              0.0000</span>
+<span class="co">#&gt; 2:    A_shp     37.64430    -122.4107                 2              6.8310</span>
+<span class="co">#&gt; 3:    A_shp     37.65863    -122.3084                 3             15.8765</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $trips</span>
+<span class="co">#&gt;    route_id service_id trip_id trip_headsign block_id</span>
+<span class="co">#&gt; 1:        A         WE    AWE1      Downtown        1</span>
+<span class="co">#&gt; 2:        A         WE    AWE2      Downtown        2</span></code></pre></div>
+<p>Similarly, you can use the <code>fields</code> argument to read only a few selective fields of a file. These arguments can be combined, offering a great deal of flexibility that can translate into very fast reading times.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span>
+  <span class="va">gtfs_path</span>,
+  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"shapes"</span>, <span class="st">"trips"</span><span class="op">)</span>,
+  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>trips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"trip_id"</span>, <span class="st">"route_id"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">gtfs</span>
+<span class="co">#&gt; $shapes</span>
+<span class="co">#&gt;    shape_id shape_pt_lat shape_pt_lon shape_pt_sequence shape_dist_traveled</span>
+<span class="co">#&gt; 1:    A_shp     37.61956    -122.4816                 1              0.0000</span>
+<span class="co">#&gt; 2:    A_shp     37.64430    -122.4107                 2              6.8310</span>
+<span class="co">#&gt; 3:    A_shp     37.65863    -122.3084                 3             15.8765</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $trips</span>
+<span class="co">#&gt;    trip_id route_id</span>
+<span class="co">#&gt; 1:    AWE1        A</span>
+<span class="co">#&gt; 2:    AWE2        A</span></code></pre></div>
+<p>These fields are parsed according to the standards for reading and writing GTFS feeds in R. Undocumented files and fields (i.e. not specified in the <a href="https://developers.google.com/transit/gtfs/reference">GTFS reference</a>) are read as <code>character</code>, by default. You can overrule this default with <code>extra_spec</code> (note that only undocumented fields should be specified in this argument). <code>ggl_gtfs.zip</code> contains an undocumented field in the <code>levels.txt</code> file, named <code>elevation</code>. Let’s check the effect of <code>extra_spec</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="st">"levels"</span><span class="op">)</span>
+
+<span class="va">gtfs</span><span class="op">$</span><span class="va">levels</span>
+<span class="co">#&gt;    level_id level_index level_name elevation</span>
+<span class="co">#&gt; 1:       L0           0     Street         0</span>
+<span class="co">#&gt; 2:       L1          -1  Mezzanine        -6</span>
+<span class="co">#&gt; 3:       L2          -2 Southbound       -18</span>
+<span class="co">#&gt; 4:       L3          -3 Northbound       -24</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">levels</span><span class="op">$</span><span class="va">elevation</span><span class="op">)</span>
+<span class="co">#&gt; [1] "character"</span>
+
+<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span>
+  <span class="va">gtfs_path</span>, 
+  files <span class="op">=</span> <span class="st">"levels"</span>, 
+  extra_spec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>elevation <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">gtfs</span><span class="op">$</span><span class="va">levels</span>
+<span class="co">#&gt;    level_id level_index level_name elevation</span>
+<span class="co">#&gt; 1:       L0           0     Street         0</span>
+<span class="co">#&gt; 2:       L1          -1  Mezzanine        -6</span>
+<span class="co">#&gt; 3:       L2          -2 Southbound       -18</span>
+<span class="co">#&gt; 4:       L3          -3 Northbound       -24</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">levels</span><span class="op">$</span><span class="va">elevation</span><span class="op">)</span>
+<span class="co">#&gt; [1] "integer"</span></code></pre></div>
+<p>The function also includes a <code>quiet</code> argument that may shed some light on a few problems that your feed might have. Reading <code>bad_gtfs.zip</code>, for example, results in a few <code><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">data.table::fread()</a></code> warnings that are not very informative. <code>quiet</code> message output is more verbose, which helps to diagnose the source of the warnings:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bad_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"bad_gtfs.zip"</span><span class="op">)</span>
+
+<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">bad_path</span><span class="op">)</span>
+<span class="co">#&gt; Warning in data.table::fread(file.path(tmpdir, file_txt), select =</span>
+<span class="co">#&gt; fields_classes): Stopped early on line 7. Expected 5 fields but found 4.</span>
+<span class="co">#&gt; Consider fill=TRUE and comment.char=. First discarded non-empty line: &lt;&lt;a,JSV,</span>
+<span class="co">#&gt; 1,1&gt;&gt;</span>
+<span class="co">#&gt; Warning in data.table::fread(file.path(tmpdir, file_txt), select =</span>
+<span class="co">#&gt; fields_classes): Discarded single-line footer: &lt;&lt;AWD1,0:06:45,0:06:45,S6,6&gt;&gt;</span>
+<span class="co">#&gt; Warning in data.table::fread(file.path(tmpdir, file_txt), nrows = 1): File '/</span>
+<span class="co">#&gt; var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpU4KMws/gtfsio/agency.txt'</span>
+<span class="co">#&gt; has size 0. Returning a NULL data.table.</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span>
+  <span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">bad_path</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="co">#&gt; Unzipped the following files to /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpU4KMws/gtfsio:</span>
+<span class="co">#&gt;   * calendar_dates.txt</span>
+<span class="co">#&gt;   * fare_attributes.txt</span>
+<span class="co">#&gt;   * fare_rules.txt</span>
+<span class="co">#&gt;   * feed_info.txt</span>
+<span class="co">#&gt;   * frequencies.txt</span>
+<span class="co">#&gt;   * levels.txt</span>
+<span class="co">#&gt;   * pathways.txt</span>
+<span class="co">#&gt;   * routes.txt</span>
+<span class="co">#&gt;   * shapes.txt</span>
+<span class="co">#&gt;   * stop_times.txt</span>
+<span class="co">#&gt;   * stops.txt</span>
+<span class="co">#&gt;   * transfers.txt</span>
+<span class="co">#&gt;   * translations.txt</span>
+<span class="co">#&gt;   * agency.txt</span>
+<span class="co">#&gt;   * attributions.txt</span>
+<span class="co">#&gt;   * calendar.txt</span>
+<span class="co">#&gt;   * trips_bad_name.txt</span>
+<span class="co">#&gt; Reading calendar_dates.txt</span>
+<span class="co">#&gt; Reading fare_attributes.txt</span>
+<span class="co">#&gt; Reading fare_rules.txt</span>
+<span class="co">#&gt;   - Stopped early on line 7. Expected 5 fields but found 4. Consider fill=TRUE and comment.char=. First discarded non-empty line: &lt;&lt;a,JSV,1,1&gt;&gt;</span>
+<span class="co">#&gt; Reading feed_info.txt</span>
+<span class="co">#&gt; Reading frequencies.txt</span>
+<span class="co">#&gt; Reading levels.txt</span>
+<span class="co">#&gt; Reading pathways.txt</span>
+<span class="co">#&gt; Reading routes.txt</span>
+<span class="co">#&gt; Reading shapes.txt</span>
+<span class="co">#&gt; Reading stop_times.txt</span>
+<span class="co">#&gt;   - Discarded single-line footer: &lt;&lt;AWD1,0:06:45,0:06:45,S6,6&gt;&gt;</span>
+<span class="co">#&gt; Reading stops.txt</span>
+<span class="co">#&gt; Reading transfers.txt</span>
+<span class="co">#&gt; Reading translations.txt</span>
+<span class="co">#&gt; Reading agency.txt</span>
+<span class="co">#&gt;   - File is empty. Returning a NULL data.table</span>
+<span class="co">#&gt; Reading attributions.txt</span>
+<span class="co">#&gt; Reading calendar.txt</span>
+<span class="co">#&gt; Reading trips_bad_name.txt</span>
+<span class="co">#&gt;   - File undocumented. Trying to read it as a csv.</span></code></pre></div>
+</div>
+<div id="writing-feeds" class="section level1">
+<h1 class="hasAnchor">
+<a href="#writing-feeds" class="anchor"></a>Writing feeds</h1>
 </div>
   </div>
 
