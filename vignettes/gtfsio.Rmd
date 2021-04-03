@@ -25,7 +25,7 @@ This vignette describes the usage of the GTFS reading and writing functions. Ple
 - other
 - vignettes
 
-# Basic usage
+# Installation 
 
 Before using **gtfsio** please make sure that you have it installed in your computer. You can download either the most stable version from CRAN or the development version from GitHub:
 
@@ -52,3 +52,73 @@ list.files(data_dir)
 
 - `ggl_gtfs.zip` has been manually built from the [example GTFS feed](https://developers.google.com/transit/gtfs/examples/gtfs-feed) provided by Google. The files samples are licensed under [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
 - `bad_gtfs.zip` is a modified version of `ggl_gtfs.zip` that includes some issues frequently found in GTFS data.
+
+# Reading feeds
+
+To read a feed use the `import_gtfs()` function. It takes either a local path or an URL to a GTFS `.zip` file and returns a GTFS object (which is, basically, a `list` of data frames):
+
+```{r}
+gtfs_path <- file.path(data_dir, "ggl_gtfs.zip")
+gtfs_url  <- "https://github.com/r-transit/gtfsio/raw/master/inst/extdata/ggl_gtfs.zip"
+
+gtfs_from_path <- import_gtfs(gtfs_path)
+names(gtfs_from_path)
+
+gtfs_from_url <- import_gtfs(gtfs_url)
+names(gtfs_from_url)
+```
+
+The function reads, by default, all `.txt` files contained in the `.zip` file. Alternatively, you can specify which files should be read with the `files` argument (note: without the `.txt` extension): 
+
+```{r}
+gtfs <- import_gtfs(gtfs_path, files = c("shapes", "trips"))
+
+gtfs
+```
+
+Similarly, you can use the `fields` argument to read only a few selective fields of a file. These arguments can be combined, offering a great deal of flexibility that can translate into very fast reading times.
+
+```{r}
+gtfs <- import_gtfs(
+  gtfs_path,
+  files = c("shapes", "trips"),
+  fields = list(trips = c("trip_id", "route_id"))
+)
+
+gtfs
+```
+
+These fields are parsed according to the standards for reading and writing GTFS feeds in R. Undocumented files and fields (i.e. not specified in the [GTFS reference](https://developers.google.com/transit/gtfs/reference)) are read as `character`, by default. You can overrule this default with `extra_spec` (note that only undocumented fields should be specified in this argument). `ggl_gtfs.zip` contains an undocumented field in the `levels.txt` file, named `elevation`. Let's check the effect of `extra_spec`:
+
+```{r}
+gtfs <- import_gtfs(gtfs_path, files = "levels")
+
+gtfs$levels
+
+class(gtfs$levels$elevation)
+
+gtfs <- import_gtfs(
+  gtfs_path, 
+  files = "levels", 
+  extra_spec = list(levels = c(elevation = "integer"))
+)
+
+gtfs$levels
+
+class(gtfs$levels$elevation)
+```
+
+The function also includes a `quiet` argument that may shed some light on a few problems that your feed might have. Reading `bad_gtfs.zip`, for example, results in a few `data.table::fread()` warnings that are not very informative. `quiet` message output is more verbose, which helps to diagnose the source of the warnings:
+
+```{r}
+bad_path <- file.path(data_dir, "bad_gtfs.zip")
+
+gtfs <- import_gtfs(bad_path)
+
+suppressWarnings(
+  gtfs <- import_gtfs(bad_path, quiet = FALSE)
+)
+```
+
+# Writing feeds
+
