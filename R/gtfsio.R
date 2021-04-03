@@ -1,7 +1,11 @@
 #' gtfsio: Read and Write General Transit Feed Specification (GTFS) Data
 #'
-#' Provides a \code{gtfs} class to represent General Transit Feed Specification
-#' (GTFS) files, and fast and flexible tools to read and write such files.
+#' Tools for the development of GTFS-related packages. Establishes a standard
+#' for representing GTFS feeds using R data types. Provides fast and flexible
+#' functions to read and write GTFS feeds while sticking to this standard.
+#' Defines a basic \code{gtfs} class which is meant to be extended by packages
+#' that depend on it. And offers utility functions that support checking the
+#' structure of GTFS objects.
 #'
 #' @docType package
 #' @name gtfsio
