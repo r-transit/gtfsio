@@ -108,17 +108,41 @@ gtfs$levels
 class(gtfs$levels$elevation)
 ```
 
-The function also includes a `quiet` argument that may shed some light on a few problems that your feed might have. Reading `bad_gtfs.zip`, for example, results in a few `data.table::fread()` warnings that are not very informative. `quiet` message output is more verbose, which helps to diagnose the source of the warnings:
-
-```{r}
-bad_path <- file.path(data_dir, "bad_gtfs.zip")
-
-gtfs <- import_gtfs(bad_path)
-
-suppressWarnings(
-  gtfs <- import_gtfs(bad_path, quiet = FALSE)
-)
-```
-
 # Writing feeds
 
+Use `export_gtfs()` to write a GTFS object to disk. Please note that the function assumes that the object is formatted according to the standards for reading and writing GTFS feeds in **R** - i.e. if it's not, any conversions should be done before using `export_gtfs()`.
+
+Objects are written as `.zip` feeds by default, but you can also write them as directories using the `as_dir` argument:
+
+```{r}
+gtfs <- import_gtfs(gtfs_path)
+tmpf <- tempfile(fileext = ".zip")
+tmpd <- tempfile()
+
+export_gtfs(gtfs, tmpf)
+zip::zip_list(tmpf)$filename
+
+export_gtfs(gtfs, tmpd, as_dir = TRUE)
+list.files(tmpd)
+```
+
+The function defaults to writing every element inside a GTFS object as a `.txt` file. As with `import_gtfs()`, use the `files` argument to overrule this behaviour:
+
+```{r}
+export_gtfs(gtfs, tmpf, files = c("shapes", "trips"))
+zip::zip_list(tmpf)$filename
+```
+
+You can also use the `standard_only` argument to export only files and fields specified in the [GTFS reference](https://developers.google.com/transit/gtfs/reference) (i.e. to leave out undocumented files/fields). In the example below, `extra_gtfs` contains both an undocumented file (`extra_file`) and an undocumented field in a regular file (`levels$elevation`) that are not written to disk when using `export_gtfs()`:
+
+```{r}
+extra_gtfs <- gtfs
+extra_gtfs$extra_file <- data.frame(column = "value")
+
+export_gtfs(extra_gtfs, tmpd, as_dir = TRUE, standard_only = TRUE)
+
+"extra_file" %in% sub(".txt", "", list.files(tmpd))
+
+levels_fields <- readLines(file.path(tmpd, "levels.txt"), n = 1L)
+grepl("elevation", levels_fields)
+```
