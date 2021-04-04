@@ -29,7 +29,7 @@ expect_error(
 )
 
 expect_error(
-  import_gtfs(path, extra_spec = list(levels = (elevation = "factor"))),
+  import_gtfs(path, extra_spec = list(levels = c(elevation = "factor"))),
   pattern = paste0(
     "Only character, integer and numeric ",
     "are supported in 'extra_spec'\\."

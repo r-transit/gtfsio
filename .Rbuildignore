@@ -6,3 +6,4 @@
 ^README\.Rmd$
 ^codecov\.yml$
 ^cran-comments\.md$
+^_pkgdown\.yml$

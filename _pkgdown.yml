@@ -1,0 +1,21 @@
+reference:
+  - title: GTFS standards
+  - contents:
+    - get_gtfs_standards
+  - title: Input/output
+  - contents:
+    - import_gtfs
+    - export_gtfs
+  - title: Checking
+  - contents:
+    - check_files_exist
+    - check_fields_exist
+    - check_fields_types
+  - title: Constructor/validator
+  - contents:
+    - new_gtfs
+    - assert_gtfs
+  - title: Methods
+  - contents:
+    - print.gtfs
+    - "[.gtfs"
