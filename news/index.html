@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -117,29 +117,12 @@
       <small>Source: <a href='https://github.com/r-transit/gtfsio/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="gtfsio-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#gtfsio-development-version" class="anchor"></a>gtfsio (development version)</h1>
-<div id="new-features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
-<div id="functions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#functions" class="anchor"></a>Functions</h3>
+    <div id="gtfsio-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#gtfsio-010" class="anchor"></a>gtfsio 0.1.0</h1>
 <ul>
-<li>
-<code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code> - returns the standards for reading and writing GTFS feeds with R as a named list. Each element (also a list) represents a distinct GTFS text file, and describes: whether this file is required, optional or conditionally required; the fields that compose each file, including which R data type is best suited to represent it, whether the field is required, optional or conditionally required, and which values it can assume (most relevant to GTFS <code>ENUM</code>s.</li>
-<li>
-<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> - imports GTFS transit feeds from either a local <code>.zip</code> file or an URL. Columns are parsed according to the standards specified in <code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code>.</li>
-<li>
-<code><a href="../reference/new_gtfs.html">new_gtfs()</a></code> - <code>gtfs</code> objects constructor, mostly useful for package authors who may want to either create <code>gtfs</code> objects in their packages or create subclasses of the main <code>gtfs</code> class.</li>
+<li>First CRAN release!</li>
 </ul>
-</div>
-</div>
-<div id="notes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#notes" class="anchor"></a>Notes</h2>
-</div>
 </div>
   </div>
 
