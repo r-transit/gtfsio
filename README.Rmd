@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 [![B status](https://github.com/r-transit/gtfsio/workflows/R-CMD-check/badge.svg)](https://github.com/r-transit/gtfsio/actions?query=workflow%3AR-CMD-check)
 [![Codecov test coverage](https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg)](https://codecov.io/gh/r-transit/gtfsio?branch=master)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4665904.svg)](https://zenodo.org/record/4665904)
 
 **gtfsio** offers tools for the development of GTFS-related packages. It establishes a standard for representing GTFS feeds using R data types based on [Google's Static GTFS Reference](https://developers.google.com/transit/gtfs/reference). It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic `gtfs` class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.
 
@@ -25,8 +26,7 @@ knitr::opts_chunk$set(
 Stable version:
 
 ```{r, eval = FALSE}
-# soon on CRAN
-# install.packages("gtfsio")
+install.packages("gtfsio")
 ```
 
 Development version:
@@ -74,3 +74,10 @@ For a more complete demonstration please read the [introductory vignette](https:
 - [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
 - [`{gtfsrouter}`](https://github.com/ATFutures/gtfs-router)
 - [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
+
+## Citation
+
+```{r}
+citation("gtfsio")
+```
+

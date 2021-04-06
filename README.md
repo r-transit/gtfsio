@@ -9,6 +9,7 @@ status](https://github.com/r-transit/gtfsio/workflows/R-CMD-check/badge.svg)](ht
 coverage](https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg)](https://codecov.io/gh/r-transit/gtfsio?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4665904.svg)](https://zenodo.org/record/4665904)
 
 **gtfsio** offers tools for the development of GTFS-related packages. It
 establishes a standard for representing GTFS feeds using R data types
@@ -24,8 +25,7 @@ utility functions that support checking the structure of GTFS objects.
 Stable version:
 
 ``` r
-# soon on CRAN
-# install.packages("gtfsio")
+install.packages("gtfsio")
 ```
 
 Development version:
@@ -88,3 +88,25 @@ vignette](https://r-transit.github.io/gtfsio/articles/gtfsio.html).
 -   [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
 -   [`{gtfsrouter}`](https://github.com/ATFutures/gtfs-router)
 -   [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
+
+## Citation
+
+``` r
+citation("gtfsio")
+#> 
+#> To cite package 'gtfsio' in publications use:
+#> 
+#>   Daniel Herszenhut (2021). gtfsio: Read and Write General Transit Feed
+#>   Specification (GTFS) Files. R package version 0.1.0.
+#>   https://CRAN.R-project.org/package=gtfsio
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},
+#>     author = {Daniel Herszenhut},
+#>     year = {2021},
+#>     note = {R package version 0.1.0},
+#>     url = {https://CRAN.R-project.org/package=gtfsio},
+#>   }
+```
