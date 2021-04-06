@@ -94,19 +94,22 @@ vignette](https://r-transit.github.io/gtfsio/articles/gtfsio.html).
 ``` r
 citation("gtfsio")
 #> 
-#> To cite package 'gtfsio' in publications use:
+#> To cite gtfsio in publications use:
 #> 
-#>   Daniel Herszenhut (2021). gtfsio: Read and Write General Transit Feed
-#>   Specification (GTFS) Files. R package version 0.1.0.
-#>   https://CRAN.R-project.org/package=gtfsio
+#>   Herszenhut, Daniel. (2021, April 6). gtfsio: Read and Write General
+#>   Transit Feed Specification (GTFS) Files (Version v0.1.0). Zenodo.
+#>   http://doi.org/10.5281/zenodo.4665904
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},
 #>     author = {Daniel Herszenhut},
+#>     month = {apr},
 #>     year = {2021},
-#>     note = {R package version 0.1.0},
-#>     url = {https://CRAN.R-project.org/package=gtfsio},
+#>     publisher = {Zenodo},
+#>     version = {v0.1.0},
+#>     doi = {10.5281/zenodo.4665904},
+#>     url = {https://doi.org/10.5281/zenodo.4665904},
 #>   }
 ```
