@@ -94,6 +94,10 @@ export_gtfs <- function(gtfs,
       "If you meant to create a directory please set 'as_dir' to TRUE."
     )
 
+  if (as_dir & grepl("\\.zip$", path)) {
+    stop("path cannot have '.zip' extension with as_dir=TRUE")
+  }
+
   extra_files <- setdiff(files, names(gtfs_standards))
   if (standard_only & !is.null(files) & !identical(extra_files, character(0)))
     stop(
@@ -130,11 +134,16 @@ export_gtfs <- function(gtfs,
       paste0("'", missing_files, "'", collapse = ", ")
     )
 
-  # create temp directory where files should be written to
-
-  tmpd <- tempfile(pattern = "gtfsio")
-  unlink(tmpd, recursive = TRUE)
-  dir.create(tmpd)
+  # use path or create temp directory where files should be written to
+  if (as_dir) {
+    tmpd <- path
+    unlink(tmpd, recursive = TRUE)
+    dir.create(tmpd)
+  } else {
+    tmpd <- tempfile(pattern = "gtfsio")
+    unlink(tmpd, recursive = TRUE)
+    dir.create(tmpd)
+  }
 
   # write files to 'tmpd'
 
@@ -172,19 +181,8 @@ export_gtfs <- function(gtfs,
   # directory, not a file
   # related issue: https://github.com/r-lib/zip/issues/76
 
-  unlink(path, recursive = TRUE)
-
-  # if 'as_dir' is TRUE, move 'tmpd' to 'path'. else, zip its content to 'path'
-
-  if (as_dir) {
-
+  if (!as_dir) {
     unlink(path, recursive = TRUE)
-    file.rename(tmpd, path)
-
-    if (!quiet)
-      message("GTFS directory successfully moved from ", tmpd, " to ", path)
-
-  } else {
 
     filepaths <- file.path(tmpd, paste0(files, ".txt"))
 
