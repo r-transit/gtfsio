@@ -62,6 +62,9 @@ export_gtfs <- function(gtfs,
   if (!is.character(path) | length(path) != 1)
     stop("'path' must be a string (a character vector of length 1).")
 
+  if (path == tempdir())
+    stop("Please use 'path = tempfile()' instead of tempdir() to designate temporary directories")
+
   if (!is.null(files) & !is.character(files))
     stop("'files' must either be a character vector or NULL.")
 

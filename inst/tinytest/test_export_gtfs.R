@@ -103,7 +103,6 @@ expect_error(
 
 # object should be exported as a zip file by default
 
-file.remove(tmpf)
 export_gtfs(gtfs, tmpf)
 expect_true(file.exists(tmpf))
 expect_false(dir.exists(tmpf))
@@ -222,13 +221,10 @@ exist_pat <- paste0(
   "but 'overwrite' is set to FALSE\\."
 )
 
-invisible(file.create(tmpf))
+expect_true(file.exists(tmpf))
+expect_true(dir.exists(tmpd))
 expect_error(export_gtfs(gtfs, tmpf, overwrite = FALSE), pattern = exist_pat)
-invisible(file.remove(tmpf))
-dir.create(tmpd, showWarnings = FALSE)
 expect_error(export_gtfs(gtfs, tmpd, overwrite = FALSE), pattern = exist_pat)
-unlink(tmpd, recursive = TRUE)
-
 
 # 'quiet' behaviour -------------------------------------------------------
 
@@ -245,7 +241,10 @@ expect_true(any(grepl("^GTFS object successfully zipped to ", out)))
 
 # as_dir = TRUE
 
-expect_message(export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE))
+expect_error(export_gtfs(gtfs, tempdir(), as_dir = TRUE),
+             "Please use 'path = tempfile\\(\\)' instead of tempdir\\(\\) to designate temporary directories")
+
+expect_message(export_gtfs(gtfs, tmpf, as_dir = TRUE, quiet = FALSE))
 out <- capture.output(
   export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE),
   type = "message"
