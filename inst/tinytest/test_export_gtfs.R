@@ -244,7 +244,7 @@ expect_true(any(grepl("^GTFS object successfully zipped to ", out)))
 expect_error(export_gtfs(gtfs, tempdir(), as_dir = TRUE),
              "Please use 'path = tempfile\\(\\)' instead of tempdir\\(\\) to designate temporary directories")
 
-expect_message(export_gtfs(gtfs, tmpf, as_dir = TRUE, quiet = FALSE))
+expect_message(export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE))
 out <- capture.output(
   export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE),
   type = "message"

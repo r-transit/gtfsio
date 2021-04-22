@@ -116,7 +116,7 @@ Objects are written as `.zip` feeds by default, but you can also write them as d
 ```{r}
 gtfs <- import_gtfs(gtfs_path)
 tmpf <- tempfile(fileext = ".zip")
-tmpd <- tempdir()
+tmpd <- tempfile()
 
 export_gtfs(gtfs, tmpf)
 zip::zip_list(tmpf)$filename
