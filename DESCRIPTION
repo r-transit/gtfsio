@@ -1,7 +1,7 @@
 Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS) Files
-Version: 0.1.0.9001
+Version: 0.1.0.9002
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",
@@ -10,20 +10,20 @@ Authors@R:
              comment = c(ORCID = "0000-0001-8066-1105")),
       person(given = "Flavio",
              family = "Poletti",
-             role = "ctb",
+             role = "aut",
              email = "flavio.poletti@hotmail.ch"),
       person(given = "Mark",
              family = "Padgham",
-             role = "ctb",
+             role = "rev",
              email = "mark.padgham@email.com"),
       person(given = "Rafael H. M.",
              family = "Pereira",
-             role = "ctb",
+             role = "rev",
              email = "rafa.pereira.br@gmail.com",
              comment = c(ORCID = "0000-0003-2125-7465")),
       person(given = "Tom",
              family = "Buckley",
-             role = "ctb",
+             role = "rev",
              email = "tom@tbuckl.com"),
       person(given = "Ipea - Institute for Applied Economic Research",
              role = c("cph", "fnd")))
