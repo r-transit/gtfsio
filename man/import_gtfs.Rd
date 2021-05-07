@@ -4,7 +4,14 @@
 \alias{import_gtfs}
 \title{Import GTFS transit feeds}
 \usage{
-import_gtfs(path, files = NULL, fields = NULL, extra_spec = NULL, quiet = TRUE)
+import_gtfs(
+  path,
+  files = NULL,
+  fields = NULL,
+  extra_spec = NULL,
+  skip = NULL,
+  quiet = TRUE
+)
 }
 \arguments{
 \item{path}{A string. The path to a GTFS \code{.zip} file.}
@@ -29,6 +36,10 @@ as character (i.e. you may specify in \code{extra_spec} only the fields
 that you want to read as a different type). Only supports the
 \code{character}, \code{integer} and \code{numeric} types, also used in
 \code{\link{get_gtfs_standards}}.}
+
+\item{skip}{A character vector of files that should not be be read from the GTFS,
+without the \code{.txt} extension. If \code{NULL} (the default), no files
+are skipped. Cannot be used with if \code{files} is set.}
 
 \item{quiet}{A logical. Whether to hide log messages and progress bars
 (defaults to \code{TRUE}).}

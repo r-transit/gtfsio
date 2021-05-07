@@ -23,6 +23,9 @@
 #'   that you want to read as a different type). Only supports the
 #'   \code{character}, \code{integer} and \code{numeric} types, also used in
 #'   \code{\link{get_gtfs_standards}}.
+#' @param skip A character vector of files that should not be be read from the GTFS,
+#'   without the \code{.txt} extension. If \code{NULL} (the default), no files
+#'   are skipped. Cannot be used with if \code{files} is set.
 #' @param quiet A logical. Whether to hide log messages and progress bars
 #'   (defaults to \code{TRUE}).
 #'
@@ -61,6 +64,7 @@ import_gtfs <- function(path,
                         files = NULL,
                         fields = NULL,
                         extra_spec = NULL,
+                        skip = NULL,
                         quiet = TRUE) {
 
   # input checking ('files', 'fields' and 'extra_spec' are more thoroughly
@@ -111,11 +115,18 @@ import_gtfs <- function(path,
   files_in_gtfs <- gsub(".txt", "", files_in_gtfs)
 
   # read all text files if 'files' is NULL. else, only the ones specified
-
   if (is.null(files))
     files_to_read <- files_in_gtfs
-  else
+  else {
     files_to_read <- files
+    if(!is.null(skip)) stop("'files' and 'skip' are provided, please use only one parameter")
+  }
+
+  # remove skipped files from list
+
+  if (!is.null(skip)) {
+    files_to_read <- setdiff(files_to_read, skip)
+  }
 
   # check if all specified files exist and raise an error if any does not
 
