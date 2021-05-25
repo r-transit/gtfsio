@@ -20,7 +20,7 @@
 #' @examples
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 #'
-#' tmpdir <- file.path(tempfile(), "new_gtfs_example")
+#' tmpdir <- tempfile(pattern = "new_gtfs_example")
 #' zip::unzip(gtfs_path, exdir = tmpdir)
 #'
 #' agency <- data.table::fread(file.path(tmpdir, "agency.txt"))

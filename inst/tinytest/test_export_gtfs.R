@@ -101,6 +101,23 @@ expect_error(
   )
 )
 
+# raise an error if path has a '.zip' extension but 'as_dir' is TRUE
+
+expect_error(
+  export_gtfs(gtfs, tmpf, as_dir = TRUE),
+  pattern = "'path' cannot have '\\.zip' extension\\ when 'as_dir' is TRUE\\."
+)
+
+# raise an error if 'as_dir' is TRUE and 'path' is tempdir()
+
+expect_error(
+  export_gtfs(gtfs, tempdir(), as_dir = TRUE),
+  pattern = paste0(
+    "Please use 'tempfile\\(\\)' instead of 'tempdir\\(\\)' to designate ",
+    "temporary directories."
+  )
+)
+
 # object should be exported as a zip file by default
 
 export_gtfs(gtfs, tmpf)
@@ -241,9 +258,6 @@ expect_true(any(grepl("^GTFS object successfully zipped to ", out)))
 
 # as_dir = TRUE
 
-expect_error(export_gtfs(gtfs, tempdir(), as_dir = TRUE),
-             "Please use 'path = tempfile\\(\\)' instead of tempdir\\(\\) to designate temporary directories")
-
 expect_message(export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE))
 out <- capture.output(
   export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE),
@@ -251,4 +265,3 @@ out <- capture.output(
 )
 expect_true(any(grepl("^Writing text files to ", out)))
 expect_true(any(grepl("^  - Writing ", out)))
-expect_true(any(grepl("^Writing text files to ", out)))
