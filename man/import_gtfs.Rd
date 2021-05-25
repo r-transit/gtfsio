@@ -37,9 +37,9 @@ that you want to read as a different type). Only supports the
 \code{character}, \code{integer} and \code{numeric} types, also used in
 \code{\link{get_gtfs_standards}}.}
 
-\item{skip}{A character vector of files that should not be be read from the GTFS,
-without the \code{.txt} extension. If \code{NULL} (the default), no files
-are skipped. Cannot be used with if \code{files} is set.}
+\item{skip}{A character vector. Text files that should not be read from the
+GTFS, without the \code{.txt} extension. If \code{NULL} (the default), no
+files are skipped. Cannot be used if \code{files} is set.}
 
 \item{quiet}{A logical. Whether to hide log messages and progress bars
 (defaults to \code{TRUE}).}

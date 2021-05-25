@@ -310,8 +310,23 @@ suppressWarnings(
 expect_true(any(grepl("^  - Discarded single-line footer", out)))
 
 # 'skip' behaviour -------------------------------------------------------
-g_all = import_gtfs(path)
-g_skipped = import_gtfs(path, skip = c("transfers", "translations"))
-expect_equal(setdiff(names(g_all), names(g_skipped)), c("transfers", "translations"))
-expect_error(import_gtfs(path, file = "dummy1", skip = "dummy2"),
-             "'files' and 'skip' are provided, please use only one parameter")
+
+# Skip the specified text files
+
+g_all <- import_gtfs(path)
+g_skipped <- import_gtfs(path, skip = c("transfers", "translations"))
+
+expect_equal(
+  setdiff(names(g_all), names(g_skipped)),
+  c("transfers", "translations")
+)
+
+# Raise error if both 'files' and 'skip' are not NULL
+
+expect_error(
+  import_gtfs(path, files = "dummy1", skip = "dummy2"),
+  pattern = paste0(
+    "Both 'files' and 'skip' were provided\\. ",
+    "Please use only one of these parameters at a time\\."
+  )
+)
