@@ -74,7 +74,7 @@ feeds specified in get_gtfs_standards." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9004</span>
       </span>
     </div>
 
@@ -127,7 +127,14 @@ Columns are parsed according to the standards for reading and writing GTFS
 feeds specified in <code><a href='get_gtfs_standards.html'>get_gtfs_standards</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import_gtfs</span><span class='op'>(</span><span class='va'>path</span>, files <span class='op'>=</span> <span class='cn'>NULL</span>, fields <span class='op'>=</span> <span class='cn'>NULL</span>, extra_spec <span class='op'>=</span> <span class='cn'>NULL</span>, quiet <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>import_gtfs</span><span class='op'>(</span>
+  <span class='va'>path</span>,
+  files <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fields <span class='op'>=</span> <span class='cn'>NULL</span>,
+  extra_spec <span class='op'>=</span> <span class='cn'>NULL</span>,
+  skip <span class='op'>=</span> <span class='cn'>NULL</span>,
+  quiet <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,6 +169,12 @@ as character (i.e. you may specify in <code>extra_spec</code> only the fields
 that you want to read as a different type). Only supports the
 <code>character</code>, <code>integer</code> and <code>numeric</code> types, also used in
 <code><a href='get_gtfs_standards.html'>get_gtfs_standards</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>skip</th>
+      <td><p>A character vector. Text files that should not be read from the
+GTFS, without the <code>.txt</code> extension. If <code>NULL</code> (the default), no
+files are skipped. Cannot be used if <code>files</code> is set.</p></td>
     </tr>
     <tr>
       <th>quiet</th>
