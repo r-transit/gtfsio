@@ -1,4 +1,4 @@
-# gtfsio (development version)
+# gtfsio 0.1.1 
 
 ## Bug fixes
 
@@ -7,8 +7,6 @@
 ## New features
 
 - `import_gtfs()` has a new `skip` parameter. It may be used similarly to `files`, but you specify the files you *don't want* to read, instead of the ones you do. Thanks Flavio Poletti (@polettif).
-
-## Notes
 
 # gtfsio 0.1.0
 

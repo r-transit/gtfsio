@@ -1,24 +1,31 @@
 ## Test environments
 
-- Local Ubuntu 20.04 installation (R 4.0.5)
+- Local Ubuntu 20.04 installation (R 4.1.0)
 - GitHub Actions:
   - Windows (release, oldrel)
   - MacOS (release, oldrel)
   - Ubuntu 20.04 (devel, release, oldrel)
-- win-builder (devel, release, oldrel)
 - r-hub:
-  - Windows Server 2008 R2 SP1, R-devel, 32/64 bit
   - Ubuntu Linux 20.04.1 LTS, R-release, GCC
   - Fedora Linux, R-devel, clang, gfortran
+  - Oracle Solaris 10, x86, 32 bit, R-release
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* checking CRAN incoming feasibility ... NOTE
-  Maintainer: ‘Daniel Herszenhut <dhersz@gmail.com>’
-  New submission
-  Possibly mis-spelled words in DESCRIPTION:
-    GTFS (3:59, 31:33, 32:18, 33:33, 36:39) 
+## Reverse dependencies
 
-This is gtfsio first submission. GTFS is an acronym for General Transit Feed Specification. The full specification name is provided both in the package title and description.
+Check status summary:
+                  NOTE OK
+  Source packages    0  1
+  Reverse depends    1  0
+
+Check results summary:
+gtfsio ... OK
+rdepends_tidytransit ... NOTE
+* checking installed package size ... NOTE
+* checking dependencies in R code ... NOTE
+* checking data for non-ASCII characters ... NOTE
+
+None of the notes in {tidytransit} check are related to {gtfsio}.
