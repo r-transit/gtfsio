@@ -108,11 +108,11 @@ check_fields_exist <- function(x, file, fields) {
 
   if (!is.character(fields)) stop("'fields' must be a character vector.")
 
-  # assert that 'file' exists
+  # check if 'file' exists, and return FALSE if it doesn't
 
-  assert_files_exist(x, file)
+  if (!check_files_exist(x, file)) return(FALSE)
 
-  # actual checking
+  # checking for field existence
 
   missing_fields <- setdiff(fields, names(x[[file]]))
 
@@ -213,11 +213,11 @@ check_fields_types <- function(x, file, fields, types) {
   if (!is.character(types) | length(types) != length(fields))
     stop("'types' must be a character vector with the same length of 'fields'.")
 
-  # assert that 'fields' exist
+  # check if 'fields' exists, and return FALSE if it doesn't
 
-  assert_fields_exist(x, file, fields)
+  if (!check_fields_exist(x, file, fields)) return(FALSE)
 
-  # actual checking - compare the desired types to the actual types
+  # checking - compare the desired types to the actual types
 
   actual_types <- vapply(x[[file]][, ..fields], class, character(1))
 

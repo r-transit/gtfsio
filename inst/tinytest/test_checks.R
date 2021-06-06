@@ -93,15 +93,17 @@ expect_error(
   pattern = "\\'fields\\' must be a character vector\\."
 )
 
-# 'file' must exist
+# if 'file' doesn't exist, expect FALSE
 
-expect_error(
-  check_fields_exist(gtfs, "oi", "shape_id"),
-  pattern = paste0(
-    "The GTFS object is missing the following ",
-    "required element\\(s\\): \\'oi\\'"
-  )
-)
+expect_false(check_fields_exist(gtfs, "oi", "shape_id"))
+
+# expect_error(
+#   check_fields_exist(gtfs, "oi", "shape_id"),
+#   pattern = paste0(
+#     "The GTFS object is missing the following ",
+#     "required element\\(s\\): \\'oi\\'"
+#   )
+# )
 
 # expected results
 
@@ -254,15 +256,17 @@ expect_error(
   )
 )
 
-# 'fields' must exist
+# if 'fields' doesn't exist, expect FALSE
 
-expect_error(
-  check_fields_types(gtfs, "shapes", "oi", "character"),
-  pattern = paste0(
-    "The GTFS object \\'shapes\\' element is missing the following ",
-    "required column\\(s\\): \\'oi\\'"
-  )
-)
+expect_false(check_fields_types(gtfs, "shapes", "oi", "character"))
+
+# expect_error(
+#   check_fields_types(gtfs, "shapes", "oi", "character"),
+#   pattern = paste0(
+#     "The GTFS object \\'shapes\\' element is missing the following ",
+#     "required column\\(s\\): \\'oi\\'"
+#   )
+# )
 
 # expected results
 

@@ -194,6 +194,8 @@ Please notes that "lower-level" checks are conducted inside each function - e.g.
 gtfs <- import_gtfs(gtfs_path, files = "shapes")
 
 check_fields_types(gtfs, "stop_times", fields = "stop_id", types = "character")
+
+assert_fields_types(gtfs, "stop_times", fileds = "stop_id", types = "character")
 ```
 
 These functions are great for package interoperability. If two distinct packages represent GTFS text files using the same data structure (both `{gtfstools}` and `{gtfsrouter}` use `data.table`s, for example), they just need to add some basic checks before proceeding with operations on objects created by the other package.
