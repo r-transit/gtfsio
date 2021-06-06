@@ -1,12 +1,8 @@
-# gtfsio (development version)
+# gtfsio 0.1.2
 
 ## Bug fixes
 
 - Fixed a bug (or perhaps, changed the behaviour) of `check_fields_exist()` and `check_fields_types()` when a lower-level test (i.e. if the file that holds such field exists, for example) failed. Now it returns `FALSE` instead of raising an error.
-
-## New features
-
-## Notes
 
 # gtfsio 0.1.1
 

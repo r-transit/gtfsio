@@ -31,6 +31,9 @@ install.packages("gtfsio")
 Development version:
 
 ``` r
+install.packages("gtfsio", repos = "https://dhersz.r-universe.dev")
+
+#or
 # install.packages("remotes")
 remotes::install_github("r-transit/gtfsio")
 ```
@@ -96,18 +99,20 @@ citation("gtfsio")
 #> 
 #> To cite gtfsio in publications use:
 #> 
-#>   Daniel Herszenhut & Flavio Poletti. (2021). gtfsio: Read and Write
-#>   General Transit Feed Specification (GTFS) Files. Zenodo.
-#>   http://doi.org/10.5281/zenodo.4665903
+#>   Daniel Herszenhut & Flavio Poletti. (2021, June 6). gtfsio: Read and
+#>   Write General Transit Feed Specification (GTFS) Files (Version
+#>   v0.1.2). Zenodo. http://doi.org/10.5281/zenodo.4904777
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},
 #>     author = {Daniel Herszenhut and Flavio Poletti},
+#>     month = {jun},
 #>     year = {2021},
 #>     publisher = {Zenodo},
-#>     doi = {10.5281/zenodo.4665903},
-#>     url = {https://doi.org/10.5281/zenodo.4665903},
+#>     version = {v0.1.2},
+#>     doi = {10.5281/zenodo.4904777},
+#>     url = {https://doi.org/10.5281/zenodo.4904777},
 #>   }
 ```

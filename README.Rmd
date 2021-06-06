@@ -32,6 +32,9 @@ install.packages("gtfsio")
 Development version:
 
 ```{r, eval = FALSE}
+install.packages("gtfsio", repos = "https://dhersz.r-universe.dev")
+
+#or
 # install.packages("remotes")
 remotes::install_github("r-transit/gtfsio")
 ```
