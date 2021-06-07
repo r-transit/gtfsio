@@ -8,8 +8,8 @@ status](https://github.com/r-transit/gtfsio/workflows/R-CMD-check/badge.svg)](ht
 [![Codecov test
 coverage](https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg)](https://codecov.io/gh/r-transit/gtfsio?branch=master)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4665903.svg)](https://zenodo.org/record/4665903)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4904777.svg)](https://zenodo.org/record/4904777)
 
 **gtfsio** offers tools for the development of GTFS-related packages. It
 establishes a standard for representing GTFS feeds using R data types
@@ -99,7 +99,7 @@ citation("gtfsio")
 #> 
 #> To cite gtfsio in publications use:
 #> 
-#>   Daniel Herszenhut & Flavio Poletti. (2021, June 6). gtfsio: Read and
+#>   Daniel Herszenhut & Flavio Poletti. (2021, June). gtfsio: Read and
 #>   Write General Transit Feed Specification (GTFS) Files (Version
 #>   v0.1.2). Zenodo. http://doi.org/10.5281/zenodo.4904777
 #> 
