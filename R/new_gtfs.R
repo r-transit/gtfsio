@@ -13,7 +13,7 @@
 #' @param ... Name-value pairs. Additional attributes.
 #'
 #' @return A GTFS object: a named list of data frames, each one corresponding to
-#'   a distinct GTFS text file, with \code{gtfs} class.
+#'   a distinct GTFS text file, with \code{gtfs} and \code{list} classes.
 #'
 #' @family constructors
 #'
@@ -58,10 +58,10 @@ new_gtfs <- function(x, subclass = character(), ...) {
 
   if (!is.character(subclass)) stop("'subclass' must be a character vector.")
 
-  # append "gtfs" to 'subclass', so any objects created by 'new_gtfs()' always
-  # inherit from gtfs class
+  # append "gtfs" and "list" to 'subclass', so any objects created by
+  # 'new_gtfs()' always inherit from gtfs and list classes
 
-  class <- c(subclass, "gtfs")
+  class <- c(subclass, "gtfs", "list")
 
   # create object
 

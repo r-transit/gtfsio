@@ -40,18 +40,19 @@ expect_error(
 
 no_class_gtfs <- unclass(gtfs)
 
-# by default an object created with new_gtfs() should inherent from 'gtfs' only
+# by default an object created with new_gtfs() should inherent from 'gtfs' and
+# 'list' only
 
 default <- new_gtfs(no_class_gtfs)
 
-expect_identical(class(default), "gtfs")
+expect_identical(class(default), c("gtfs", "list"))
 
-# if a subclass is specified, the object should inherit both from 'gtfs' and the
-# subclass
+# if a subclass is specified, the object should inherit from 'gtfs', 'list' and
+# the subclass
 
 extra_class <- new_gtfs(no_class_gtfs, subclass = "subclass")
 
-expect_identical(class(extra_class), c("subclass", "gtfs"))
+expect_identical(class(extra_class), c("subclass", "gtfs", "list"))
 
 # attributes passed to '...' should be assigned to the object
 

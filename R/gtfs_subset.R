@@ -28,7 +28,7 @@
 
   # make sure that the resulting object keeps the original object classes
 
-  subclass <- setdiff(class(x), "gtfs")
+  subclass <- setdiff(class(x), c("gtfs", "list"))
 
   return(new_gtfs(NextMethod(), subclass = subclass))
 
