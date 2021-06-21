@@ -75,7 +75,7 @@ import_gtfs <- function(path,
 
   if (!grepl("\\.zip$", path)) stop("'path' must have '.zip' extension.")
 
-  path_is_url <- grepl("^http[s]?://.*", path)
+  path_is_url <- grepl("^http[s]?\\:\\/\\/\\.*", path)
 
   if (!path_is_url & !file.exists(path))
     stop("'path' points to non-existent file: '", path, "'")
@@ -118,7 +118,7 @@ import_gtfs <- function(path,
   # retrieve which files are inside the GTFS and remove '.txt' from their names
 
   files_in_gtfs <- zip::zip_list(path)$filename
-  files_in_gtfs <- gsub(".txt", "", files_in_gtfs)
+  files_in_gtfs <- gsub("\\.txt", "", files_in_gtfs)
 
   # read only the text files specified either in 'files' or in 'skip'.
   # if both are NULL, read all text files
