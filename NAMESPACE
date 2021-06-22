@@ -2,6 +2,7 @@
 
 S3method("[",gtfs)
 S3method(print,gtfs)
+S3method(summary,gtfs)
 export(assert_fields_exist)
 export(assert_fields_types)
 export(assert_files_exist)

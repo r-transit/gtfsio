@@ -4,6 +4,8 @@
 
 ## New features
 
+- Added new `summary.gtfs` method
+
 ## Notes
 
 # gtfsio 0.1.2

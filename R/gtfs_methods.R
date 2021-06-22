@@ -24,3 +24,22 @@ print.gtfs <- function(x, ...) {
   return(invisible(x))
 
 }
+
+#' Print summary of a GTFS object
+#'
+#' @name summary.gtfs
+#' @param object A GTFS object
+#' @param ... ignored here
+#'
+#' @examples
+#' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
+#' gtfs <- import_gtfs(gtfs_path)
+#' summary (gtfs)
+#' @export
+summary.gtfs <- function (object, ...) {
+
+    message ("A gtfs object with the following tables ",
+             "and respective numbers of entries in each:")
+
+    print (vapply (object, nrow, numeric (1)))
+}
