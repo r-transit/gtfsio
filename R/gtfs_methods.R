@@ -38,8 +38,8 @@ print.gtfs <- function(x, ...) {
 #' @export
 summary.gtfs <- function (object, ...) {
 
-    message ("A gtfs object with the following tables ",
-             "and respective numbers of entries in each:")
+    cat ("A gtfs object with the following tables ",
+         "and respective numbers of entries in each:\n")
 
     print (vapply (object, nrow, numeric (1)))
 }
