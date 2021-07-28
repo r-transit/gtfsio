@@ -7,9 +7,9 @@
 \method{summary}{gtfs}(object, ...)
 }
 \arguments{
-\item{object}{A GTFS object}
+\item{object}{A GTFS object.}
 
-\item{...}{ignored here}
+\item{...}{Ignored.}
 }
 \description{
 Print summary of a GTFS object
@@ -17,5 +17,7 @@ Print summary of a GTFS object
 \examples{
 gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 gtfs <- import_gtfs(gtfs_path)
-summary (gtfs)
+
+summary(gtfs)
+
 }

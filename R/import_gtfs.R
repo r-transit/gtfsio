@@ -193,10 +193,13 @@ import_gtfs <- function(path,
   # assign names to 'gtfs', noting that zip_list may return full paths, which
   # need to be stripped here
 
-  file_names <- vapply (files_to_read, function (i)
-                        utils::tail (strsplit (i, .Platform$file.sep) [[1]], 1),
-                        character (1),
-                        USE.NAMES = FALSE)
+  file_names <- vapply(
+    files_to_read,
+    function(i) utils::tail(strsplit(i, .Platform$file.sep)[[1]], 1),
+    character(1),
+    USE.NAMES = FALSE
+  )
+
   names(gtfs) <- file_names
 
   # create gtfs object from 'gtfs'
