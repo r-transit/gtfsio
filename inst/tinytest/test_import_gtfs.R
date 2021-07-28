@@ -46,6 +46,11 @@ expect_error(
   pattern = "'fields' must be either a list or NULL\\."
 )
 
+expect_error(
+  import_gtfs(path, skip = NA),
+  pattern = "'skip' must be either a character vector or NULL\\."
+)
+
 
 # 'files' behaviour -------------------------------------------------------
 

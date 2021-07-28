@@ -96,6 +96,9 @@ import_gtfs <- function(path,
   if (!is.null(fields) & !is.list(fields))
     stop("'fields' must be either a list or NULL.")
 
+  if (!is.null(skip) & !is.character(skip))
+    stop("'skip' must be either a character vector or NULL.")
+
   if (!is.null(files) & !is.null(skip))
     stop(
       "Both 'files' and 'skip' were provided. ",
@@ -349,9 +352,11 @@ read_files <- function(file,
         select = fields_classes
       )
     },
-    warning = function(cnd) if(!quiet) message("  - ", conditionMessage(cnd))
+    warning = function(cnd) if (!quiet) message("  - ", conditionMessage(cnd))
   )
 
   return(full_dt)
 
 }
+
+
