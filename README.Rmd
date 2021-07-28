@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/gtfsio)](https://CRAN.R-project.org/package=gtfsio)
 [![B status](https://github.com/r-transit/gtfsio/workflows/R-CMD-check/badge.svg)](https://github.com/r-transit/gtfsio/actions?query=workflow%3AR-CMD-check)
 [![Codecov test coverage](https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg)](https://codecov.io/gh/r-transit/gtfsio?branch=master)
-[![Lifecycle: stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Lifecycle: maturing](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN/METACRAN Total downloads](http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow)](https://CRAN.R-project.org/package=gtfsio)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4904777.svg)](https://zenodo.org/record/4904777)
 
@@ -35,7 +35,7 @@ Development version:
 ```{r, eval = FALSE}
 install.packages("gtfsio", repos = "https://dhersz.r-universe.dev")
 
-#or
+# or
 # install.packages("remotes")
 remotes::install_github("r-transit/gtfsio")
 ```

@@ -2,9 +2,11 @@
 
 ## Bug fixes
 
+- `import_gtfs()` would ocasionally include the full path to a table to their name in a GTFS object (#17). Fixed by Mark Padgham (@mapdge) in #18.
+
 ## New features
 
-- Added new `summary.gtfs` method
+- Added new `summary.gtfs` method. Thanks Mark Padgham (@mapdge).
 
 ## Notes
 

@@ -8,8 +8,9 @@ status](https://github.com/r-transit/gtfsio/workflows/R-CMD-check/badge.svg)](ht
 [![Codecov test
 coverage](https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg)](https://codecov.io/gh/r-transit/gtfsio?branch=master)
 [![Lifecycle:
-stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![CRAN/METACRAN Total downloads](http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow)](https://CRAN.R-project.org/package=gtfsio)
+maturing](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN/METACRAN Total
+downloads](http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow)](https://CRAN.R-project.org/package=gtfsio)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4904777.svg)](https://zenodo.org/record/4904777)
 
 **gtfsio** offers tools for the development of GTFS-related packages. It
@@ -34,7 +35,7 @@ Development version:
 ``` r
 install.packages("gtfsio", repos = "https://dhersz.r-universe.dev")
 
-#or
+# or
 # install.packages("remotes")
 remotes::install_github("r-transit/gtfsio")
 ```
@@ -64,7 +65,7 @@ provided by **gtfsio**:
 
 ``` r
 class(gtfs)
-#> [1] "gtfs"
+#> [1] "gtfs" "list"
 ```
 
 Use the `export_gtfs()` function to write GTFS objects to disk:
