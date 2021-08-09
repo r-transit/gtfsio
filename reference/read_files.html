@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9005</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
     <p>Reads a GTFS text file from the main <code>.zip</code> file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_files</span><span class='op'>(</span><span class='va'>file</span>, <span class='va'>gtfs_standards</span>, <span class='va'>fields</span>, <span class='va'>extra_spec</span>, <span class='va'>tmpdir</span>, <span class='va'>quiet</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_files</span><span class='op'>(</span><span class='va'>file</span>, <span class='va'>gtfs_standards</span>, <span class='va'>fields</span>, <span class='va'>extra_spec</span>, <span class='va'>tmpdir</span>, <span class='va'>quiet</span>, <span class='va'>encoding</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +156,13 @@ files were unzipped to.</p></td>
       <th>quiet</th>
       <td><p>Whether to hide log messages and progress bars (defaults to
 TRUE).</p></td>
+    </tr>
+    <tr>
+      <th>encoding</th>
+      <td><p>A string. Passed to <code><a href='https://Rdatatable.gitlab.io/data.table/reference/fread.html'>fread</a></code>, defaults
+to <code>"unknown"</code>. Other possible options are <code>"UTF-8"</code> and
+<code>"Latin-1"</code>. Please note that this is not used to re-encode the input,
+but to enable handling encoded strings in their native encoding.</p></td>
     </tr>
     </table>
 
