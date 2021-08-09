@@ -4,7 +4,7 @@
 \alias{read_files}
 \title{Read a GTFS text file}
 \usage{
-read_files(file, gtfs_standards, fields, extra_spec, tmpdir, quiet)
+read_files(file, gtfs_standards, fields, extra_spec, tmpdir, quiet, encoding)
 }
 \arguments{
 \item{file}{A string. The name of the file (without \code{.txt} extension) to
@@ -23,6 +23,11 @@ files were unzipped to.}
 
 \item{quiet}{Whether to hide log messages and progress bars (defaults to
 TRUE).}
+
+\item{encoding}{A string. Passed to \code{\link[data.table]{fread}}, defaults
+to \code{"unknown"}. Other possible options are \code{"UTF-8"} and
+\code{"Latin-1"}. Please note that this is not used to re-encode the input,
+but to enable handling encoded strings in their native encoding.}
 }
 \value{
 A \code{data.table} representing the desired text file according to

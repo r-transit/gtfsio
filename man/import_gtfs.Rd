@@ -10,7 +10,8 @@ import_gtfs(
   fields = NULL,
   extra_spec = NULL,
   skip = NULL,
-  quiet = TRUE
+  quiet = TRUE,
+  encoding = "unknown"
 )
 }
 \arguments{
@@ -43,6 +44,11 @@ files are skipped. Cannot be used if \code{files} is set.}
 
 \item{quiet}{A logical. Whether to hide log messages and progress bars
 (defaults to \code{TRUE}).}
+
+\item{encoding}{A string. Passed to \code{\link[data.table]{fread}}, defaults
+to \code{"unknown"}. Other possible options are \code{"UTF-8"} and
+\code{"Latin-1"}. Please note that this is not used to re-encode the input,
+but to enable handling encoded strings in their native encoding.}
 }
 \value{
 A GTFS object: a named list of data frames, each one corresponding to

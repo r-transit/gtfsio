@@ -51,6 +51,17 @@ expect_error(
   pattern = "'skip' must be either a character vector or NULL\\."
 )
 
+encoding_pat <- paste0(
+  "'encoding' must be be a character vector of length 1 and one of ",
+  "c\\('unknown', 'UTF-8', 'Latin-1'\\)\\."
+)
+expect_error(import_gtfs(path, encoding = ""), pattern = encoding_pat)
+expect_error(import_gtfs(path, encoding = TRUE), pattern = encoding_pat)
+expect_error(
+  import_gtfs(path, encoding = c("unknown", "UTF-8")),
+  pattern = encoding_pat
+)
+
 
 # 'files' behaviour -------------------------------------------------------
 
@@ -314,6 +325,7 @@ suppressWarnings(
 )
 expect_true(any(grepl("^  - Discarded single-line footer", out)))
 
+
 # 'skip' behaviour -------------------------------------------------------
 
 # Skip the specified text files
@@ -335,3 +347,31 @@ expect_error(
     "Please use only one of these parameters at a time\\."
   )
 )
+
+
+# 'encoding' behaviour ----------------------------------------------------
+
+gtfs <- import_gtfs(path)
+
+gtfs$agency <- rbind(
+  gtfs$agency,
+  data.table::data.table(
+    agency_id = "agência",
+    agency_name = "Agência do busão",
+    agency_url = "https://www.agencia.com/",
+    agency_timezone = "UTC",
+    agency_lang = "pt"
+  )
+)
+
+tmpf <- tempfile("import_gtfs_test", fileext = ".zip")
+export_gtfs(gtfs, tmpf)
+
+gtfs_unknown <- import_gtfs(tmpf, files = "agency", encoding = "unknown")
+gtfs_utf8 <- import_gtfs(tmpf, files = "agency", encoding = "UTF-8")
+gtfs_latin1 <- import_gtfs(tmpf, files = "agency", encoding = "Latin-1")
+
+# 'unknown' guesses 'UTF-8', which is the correct, and 'Latin-1' is wrong
+expect_identical(gtfs_utf8$agency, gtfs$agency)
+expect_identical(gtfs_utf8$agency, gtfs_unknown$agency)
+expect_false(identical(gtfs_utf8$agency, gtfs_latin1$agency))

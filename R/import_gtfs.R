@@ -28,6 +28,10 @@
 #'   files are skipped. Cannot be used if \code{files} is set.
 #' @param quiet A logical. Whether to hide log messages and progress bars
 #'   (defaults to \code{TRUE}).
+#' @param encoding A string. Passed to \code{\link[data.table]{fread}}, defaults
+#'   to \code{"unknown"}. Other possible options are \code{"UTF-8"} and
+#'   \code{"Latin-1"}. Please note that this is not used to re-encode the input,
+#'   but to enable handling encoded strings in their native encoding.
 #'
 #' @return A GTFS object: a named list of data frames, each one corresponding to
 #'   a distinct text file from the given GTFS feed.
@@ -65,7 +69,8 @@ import_gtfs <- function(path,
                         fields = NULL,
                         extra_spec = NULL,
                         skip = NULL,
-                        quiet = TRUE) {
+                        quiet = TRUE,
+                        encoding = "unknown") {
 
   # input checking ('files', 'fields' and 'extra_spec' are more thoroughly
   # validated further down the code)
@@ -103,6 +108,17 @@ import_gtfs <- function(path,
     stop(
       "Both 'files' and 'skip' were provided. ",
       "Please use only one of these parameters at a time."
+    )
+
+  val_enc <- c("unknown", "UTF-8", "Latin-1")
+  if (
+    length(encoding) > 1 |
+    !is.character(encoding) |
+    !all(encoding %in% val_enc)
+  )
+    stop(
+      "'encoding' must be be a character vector of length 1 and one of ",
+      "c('unknown', 'UTF-8', 'Latin-1')."
     )
 
   # if 'path' is an URL, download it and save path to downloaded file to 'path'
@@ -187,7 +203,8 @@ import_gtfs <- function(path,
     fields,
     extra_spec,
     tmpdir,
-    quiet
+    quiet,
+    encoding
   )
 
   # assign names to 'gtfs', noting that zip_list may return full paths, which
@@ -227,6 +244,10 @@ import_gtfs <- function(path,
 #'   files were unzipped to.
 #' @param quiet Whether to hide log messages and progress bars (defaults to
 #'   TRUE).
+#' @param encoding A string. Passed to \code{\link[data.table]{fread}}, defaults
+#'   to \code{"unknown"}. Other possible options are \code{"UTF-8"} and
+#'   \code{"Latin-1"}. Please note that this is not used to re-encode the input,
+#'   but to enable handling encoded strings in their native encoding.
 #'
 #' @return A \code{data.table} representing the desired text file according to
 #'   the standards for reading and writing GTFS feeds with R.
@@ -239,7 +260,8 @@ read_files <- function(file,
                        fields,
                        extra_spec,
                        tmpdir,
-                       quiet) {
+                       quiet,
+                       encoding) {
 
   # create object to hold the file with '.txt' extension
 
@@ -352,7 +374,8 @@ read_files <- function(file,
     {
       full_dt <- data.table::fread(
         file.path(tmpdir, file_txt),
-        select = fields_classes
+        select = fields_classes,
+        encoding = encoding
       )
     },
     warning = function(cnd) if (!quiet) message("  - ", conditionMessage(cnd))
@@ -361,5 +384,3 @@ read_files <- function(file,
   return(full_dt)
 
 }
-
-
