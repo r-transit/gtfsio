@@ -367,11 +367,7 @@ gtfs$agency <- rbind(
 tmpf <- tempfile("import_gtfs_test", fileext = ".zip")
 export_gtfs(gtfs, tmpf)
 
-gtfs_unknown <- import_gtfs(tmpf, files = "agency", encoding = "unknown")
 gtfs_utf8 <- import_gtfs(tmpf, files = "agency", encoding = "UTF-8")
 gtfs_latin1 <- import_gtfs(tmpf, files = "agency", encoding = "Latin-1")
 
-# 'unknown' guesses 'UTF-8', which is the correct, and 'Latin-1' is wrong
-expect_identical(gtfs_utf8$agency, gtfs$agency)
-expect_identical(gtfs_utf8$agency, gtfs_unknown$agency)
 expect_false(identical(gtfs_utf8$agency, gtfs_latin1$agency))
