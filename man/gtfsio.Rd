@@ -29,11 +29,11 @@ Useful links:
 Authors:
 \itemize{
   \item Flavio Poletti \email{flavio.poletti@hotmail.ch}
+  \item Mark Padgham \email{mark.padgham@email.com}
 }
 
 Other contributors:
 \itemize{
-  \item Mark Padgham \email{mark.padgham@email.com} [reviewer]
   \item Rafael H. M. Pereira \email{rafa.pereira.br@gmail.com} (\href{https://orcid.org/0000-0003-2125-7465}{ORCID}) [reviewer]
   \item Tom Buckley \email{tom@tbuckl.com} [reviewer]
   \item Ipea - Institute for Applied Economic Research [copyright holder, funder]

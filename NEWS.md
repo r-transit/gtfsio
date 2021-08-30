@@ -1,4 +1,4 @@
-# gtfsio (development version)
+# gtfsio 0.2.0
 
 ## Bug fixes
 
@@ -8,8 +8,6 @@
 
 - Added new `summary.gtfs` method. Thanks Mark Padgham (@mapdge).
 - `import_gtfs()` has a new `encoding` parameter, used to handle encoded strings in their native encoding.
-
-## Notes
 
 # gtfsio 0.1.2
 

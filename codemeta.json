@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.2.9006",
+  "version": "0.2.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "author": [
     {
       "@type": "Person",
@@ -30,6 +30,12 @@
       "givenName": "Flavio",
       "familyName": "Poletti",
       "email": "flavio.poletti@hotmail.ch"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Mark",
+      "familyName": "Padgham",
+      "email": "mark.padgham@email.com"
     }
   ],
   "contributor": {},
@@ -123,7 +129,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "151536.835KB",
+  "fileSize": "249032.896KB",
   "keywords": [
     "r",
     "gtfs"
@@ -155,6 +161,11 @@
           "@type": "Person",
           "givenName": "Flavio",
           "familyName": "Poletti"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Mark",
+          "familyName": "Padgham"
         }
       ],
       "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS) Files",

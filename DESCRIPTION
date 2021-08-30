@@ -1,7 +1,7 @@
 Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS) Files
-Version: 0.1.2.9006
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",
@@ -14,7 +14,7 @@ Authors@R:
              email = "flavio.poletti@hotmail.ch"),
       person(given = "Mark",
              family = "Padgham",
-             role = "rev",
+             role = "aut",
              email = "mark.padgham@email.com"),
       person(given = "Rafael H. M.",
              family = "Pereira",

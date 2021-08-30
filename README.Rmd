@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg)](https://codecov.io/gh/r-transit/gtfsio?branch=master)
 [![Lifecycle: maturing](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN/METACRAN Total downloads](http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow)](https://CRAN.R-project.org/package=gtfsio)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4904777.svg)](https://zenodo.org/record/4904777)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5337518.svg)](https://zenodo.org/record/5337518)
 
 **gtfsio** offers tools for the development of GTFS-related packages. It establishes a standard for representing GTFS feeds using R data types based on [Google's Static GTFS Reference](https://developers.google.com/transit/gtfs/reference). It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic `gtfs` class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.
 
