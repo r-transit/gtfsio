@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -109,11 +109,12 @@
 <span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      </span>
-<span class="co">#&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         </span>
-<span class="co">#&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      </span>
-<span class="co">#&gt; [13] "translations"    "trips"           "agency"          "attributions"   </span>
-<span class="co">#&gt; [17] "calendar"</span></code></pre></div>
+<span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"     </span>
+<span class="co">#&gt;  [4] "feed_info"       "frequencies"     "levels"         </span>
+<span class="co">#&gt;  [7] "pathways"        "routes"          "shapes"         </span>
+<span class="co">#&gt; [10] "stop_times"      "stops"           "transfers"      </span>
+<span class="co">#&gt; [13] "translations"    "trips"           "agency"         </span>
+<span class="co">#&gt; [16] "attributions"    "calendar"</span></code></pre></div>
 <p><code><a href="reference/import_gtfs.html">import_gtfs()</a></code> returns a <code>gtfs</code> object. The <code>gtfs</code> class might be extended by other packages using the constructor, validator and methods provided by <strong>gtfsio</strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span>
@@ -125,12 +126,15 @@
 <span class="fu"><a href="reference/export_gtfs.html">export_gtfs</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="va">tmpf</span><span class="op">)</span>
 
 <span class="fu">zip</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zip/man/zip_list.html">zip_list</a></span><span class="op">(</span><span class="va">tmpf</span><span class="op">)</span><span class="op">$</span><span class="va">filename</span>
-<span class="co">#&gt;  [1] "calendar_dates.txt"  "fare_attributes.txt" "fare_rules.txt"     </span>
-<span class="co">#&gt;  [4] "feed_info.txt"       "frequencies.txt"     "levels.txt"         </span>
-<span class="co">#&gt;  [7] "pathways.txt"        "routes.txt"          "shapes.txt"         </span>
-<span class="co">#&gt; [10] "stop_times.txt"      "stops.txt"           "transfers.txt"      </span>
-<span class="co">#&gt; [13] "translations.txt"    "trips.txt"           "agency.txt"         </span>
-<span class="co">#&gt; [16] "attributions.txt"    "calendar.txt"</span></code></pre></div>
+<span class="co">#&gt;  [1] "calendar_dates.txt"  "fare_attributes.txt"</span>
+<span class="co">#&gt;  [3] "fare_rules.txt"      "feed_info.txt"      </span>
+<span class="co">#&gt;  [5] "frequencies.txt"     "levels.txt"         </span>
+<span class="co">#&gt;  [7] "pathways.txt"        "routes.txt"         </span>
+<span class="co">#&gt;  [9] "shapes.txt"          "stop_times.txt"     </span>
+<span class="co">#&gt; [11] "stops.txt"           "transfers.txt"      </span>
+<span class="co">#&gt; [13] "translations.txt"    "trips.txt"          </span>
+<span class="co">#&gt; [15] "agency.txt"          "attributions.txt"   </span>
+<span class="co">#&gt; [17] "calendar.txt"</span></code></pre></div>
 <p>For a more complete demonstration please read the <a href="https://r-transit.github.io/gtfsio/articles/gtfsio.html">introductory vignette</a>.</p>
 </div>
 <div id="gtfs-related-packages" class="section level2">
@@ -151,21 +155,23 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite gtfsio in publications use:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Daniel Herszenhut &amp; Flavio Poletti. (2021, June). gtfsio: Read and</span>
-<span class="co">#&gt;   Write General Transit Feed Specification (GTFS) Files (Version</span>
-<span class="co">#&gt;   v0.1.2). Zenodo. http://doi.org/10.5281/zenodo.4904777</span>
+<span class="co">#&gt;   Daniel Herszenhut, Flavio Poletti &amp; Mark Padgham.</span>
+<span class="co">#&gt;   (2021, August). gtfsio: Read and Write General</span>
+<span class="co">#&gt;   Transit Feed Specification (GTFS) Files (Version</span>
+<span class="co">#&gt;   v0.2.0). Zenodo.</span>
+<span class="co">#&gt;   http://doi.org/10.5281/zenodo.5337518</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   @Manual{,</span>
 <span class="co">#&gt;     title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},</span>
-<span class="co">#&gt;     author = {Daniel Herszenhut and Flavio Poletti},</span>
-<span class="co">#&gt;     month = {jun},</span>
+<span class="co">#&gt;     author = {Daniel Herszenhut and Flavio Poletti and Mark Padgham},</span>
+<span class="co">#&gt;     month = {aug},</span>
 <span class="co">#&gt;     year = {2021},</span>
 <span class="co">#&gt;     publisher = {Zenodo},</span>
-<span class="co">#&gt;     version = {v0.1.2},</span>
-<span class="co">#&gt;     doi = {10.5281/zenodo.4904777},</span>
-<span class="co">#&gt;     url = {https://doi.org/10.5281/zenodo.4904777},</span>
+<span class="co">#&gt;     version = {v0.2.0},</span>
+<span class="co">#&gt;     doi = {10.5281/zenodo.5337518},</span>
+<span class="co">#&gt;     url = {https://doi.org/10.5281/zenodo.5337518},</span>
 <span class="co">#&gt;   }</span></code></pre></div>
 </div>
 </div>
@@ -202,6 +208,7 @@
 <ul class="list-unstyled">
 <li>Daniel Herszenhut <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-8066-1105" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Flavio Poletti <br><small class="roles"> Author </small>  </li>
+<li>Mark Padgham <br><small class="roles"> Author </small>  </li>
 <li>Ipea - Institute for Applied Economic Research <br><small class="roles"> Copyright holder, funder </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
@@ -215,7 +222,7 @@
 <li><a href="https://codecov.io/gh/r-transit/gtfsio?branch=master"><img src="https://codecov.io/gh/r-transit/gtfsio/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://CRAN.R-project.org/package=gtfsio"><img src="http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow" alt="CRAN/METACRAN Total downloads"></a></li>
-<li><a href="https://zenodo.org/record/4904777"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4904777.svg" alt="DOI"></a></li>
+<li><a href="https://zenodo.org/record/5337518"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5337518.svg" alt="DOI"></a></li>
 </ul>
 </div>
 </div>
@@ -223,7 +230,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Daniel Herszenhut, Flavio Poletti, Ipea - Institute for Applied Economic Research.</p>
+  <p>Developed by Daniel Herszenhut, Flavio Poletti, Mark Padgham, Ipea - Institute for Applied Economic Research.</p>
 </div>
 
 <div class="pkgdown">
