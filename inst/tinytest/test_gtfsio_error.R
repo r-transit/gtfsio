@@ -1,34 +1,36 @@
 # input checks
 
 expect_error(
-  gtfsio_error(message = c("oi", "ola"), subclass = "test"),
+  gtfsio:::gtfsio_error(message = c("oi", "ola"), subclass = "test"),
   class = "simpleError"
 )
 
 expect_error(
-  gtfsio_error(message = "oi", subclass = 1),
+  gtfsio:::gtfsio_error(message = "oi", subclass = 1),
   class = "simpleError"
 )
 
 # error structure
 
 an_error <- tryCatch(
-  gtfsio_error("oi", subclass = "test"),
+  gtfsio:::gtfsio_error("oi", subclass = "test"),
   error = function(cnd) cnd
 )
 
 expect_true(
-  all(c("test", "doTryCatch_error", "gtfsio_error") %in% class(an_error))
+  all(
+    c("test", "doTryCatch_error", "gtfsio_error") %in% class(an_error)
+  )
 )
 expect_equal(an_error$message, "oi")
 
 # checking the function that is assigned to the error
 
 fake_fn <- function(parent = FALSE) {
-  if (!parent) gtfsio_error("oi", "test")
+  if (!parent) gtfsio:::gtfsio_error("oi", "test")
 
   parent_call <- sys.call(-1)
-  gtfsio_error("oi", "test", call = parent_call)
+  gtfsio:::gtfsio_error("oi", "test", call = parent_call)
 }
 
 other_error <- tryCatch(

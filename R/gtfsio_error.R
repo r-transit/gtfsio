@@ -3,6 +3,8 @@
 #' @param message The message to inform about the error.
 #' @param subclass The subclass of the error.
 #' @param call A call to associate the error with.
+#'
+#' @keywords internal
 gtfsio_error <- function(message, subclass, call = sys.call(-1)) {
 
   # input checking
