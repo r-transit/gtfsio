@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate GTFS specification types to R equivalent types — translate_types • gtfsio</title>
+<title>gtfsio's custom error condition constructor — gtfsio_error • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Translate GTFS specification types to R equivalent types — translate_types" />
-<meta property="og:description" content="Translate GTFS specification types to R equivalent types" />
+<meta property="og:title" content="gtfsio's custom error condition constructor — gtfsio_error" />
+<meta property="og:description" content="gtfsio's custom error condition constructor" />
 
 
 
@@ -114,37 +114,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Translate GTFS specification types to R equivalent types</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/get_gtfs_standards.R'><code>R/get_gtfs_standards.R</code></a></small>
-    <div class="hidden name"><code>translate_types.Rd</code></div>
+    <h1>gtfsio's custom error condition constructor</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/gtfsio_error.R'><code>R/gtfsio_error.R</code></a></small>
+    <div class="hidden name"><code>gtfsio_error.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Translate GTFS specification types to R equivalent types</p>
+    <p>gtfsio's custom error condition constructor</p>
     </div>
 
-    <pre class="usage"><span class='fu'>translate_types</span><span class='op'>(</span><span class='va'>text_file</span>, <span class='va'>r_equivalents</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gtfsio_error</span><span class='op'>(</span><span class='va'>message</span>, <span class='va'>subclass</span>, call <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>sys.call</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text_file</th>
-      <td><p>A named <code>list</code> containing a GTFS text file
-specification, as described in the body of
-<code><a href='get_gtfs_standards.html'>get_gtfs_standards</a></code>.</p></td>
+      <th>message</th>
+      <td><p>The message to inform about the error.</p></td>
     </tr>
     <tr>
-      <th>r_equivalents</th>
-      <td><p>A named <code>character vector</code>, in which each name is
-the GTFS specification type and the content its R equivalent.</p></td>
+      <th>subclass</th>
+      <td><p>The subclass of the error.</p></td>
+    </tr>
+    <tr>
+      <th>call</th>
+      <td><p>A call to associate the error with.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A named <code>list</code> holding a GTFS text file specification, but with
-  R data types instead of GTFS spec data types.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
