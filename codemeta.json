@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.0",
+  "version": "0.2.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -129,7 +129,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "249032.896KB",
+  "fileSize": "268607.255KB",
   "keywords": [
     "r",
     "gtfs"
@@ -169,10 +169,10 @@
         }
       ],
       "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS) Files",
-      "identifier": "10.5281/zenodo.4904777",
-      "url": "https://doi.org/10.5281/zenodo.4904777",
-      "@id": "https://doi.org/10.5281/zenodo.4904777",
-      "sameAs": "https://doi.org/10.5281/zenodo.4904777"
+      "identifier": "10.5281/zenodo.5337518",
+      "url": "https://doi.org/10.5281/zenodo.5337518",
+      "@id": "https://doi.org/10.5281/zenodo.5337518",
+      "sameAs": "https://doi.org/10.5281/zenodo.5337518"
     }
   ],
   "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md"
