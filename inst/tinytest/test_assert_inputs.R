@@ -1,8 +1,19 @@
-# setup - creating a function to emulate how assert_vector() would be called in
-# practice
 
-fake_fn <- function(x, class, len = NULL, null_ok = FALSE) {
-  gtfsio:::assert_vector(x, class, len, null_ok)
+
+# assert_vector() ---------------------------------------------------------
+
+# creating a function to emulate how assert_vector()
+# would be called in practice
+ 
+fake_fn <- function(x,
+                    class,
+                    len = NULL,
+                    null_ok = FALSE,
+                    var_name = NULL,
+                    n_call = -1L) {
+
+  gtfsio:::assert_vector(x, class, len, null_ok, var_name, n_call)
+
 }
 
 # input checks
@@ -43,3 +54,34 @@ expect_error(
 
 expect_true(fake_fn(NULL, "character", null_ok = TRUE))
 expect_error(fake_fn(NULL, "character", null_ok = FALSE))
+
+# check that 'var_name' is used correctly in the informative messages
+
+expect_error(
+  fake_fn("a", "integer", var_name = "oie"),
+  pattern = "'oie' must be a\\(n\\) integer vector\\."
+)
+
+# check that 'n_call' works correctly
+# using a function to wrap fake_fn, and this function should be associated with
+# the error if n_call = -2
+
+another_fn <- function(x, class) fake_fn(x, class, n_call = -2L)
+expect_error(another_fn("a", "integer"), class = c("another_fn_error"))
+
+
+# assert_list() -----------------------------------------------------------
+
+# another setup function
+
+list_fn <- function(x, len = NULL, null_ok = FALSE) {
+
+  gtfsio:::assert_list(x, len, null_ok)
+
+}
+
+# check that info message is correct
+expect_error(list_fn(1), pattern = "'x' must be a list\\.")
+
+# check that error class is correct
+expect_error(list_fn(1), class = "list_fn_error")
