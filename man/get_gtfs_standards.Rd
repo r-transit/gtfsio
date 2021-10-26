@@ -8,44 +8,44 @@ get_gtfs_standards()
 }
 \value{
 A named list, in which each element represents the R equivalent of
-  each GTFS text file standard.
+each GTFS text file standard.
 }
 \description{
 Generates a list specifying the standards to be used when reading and writing
 GTFS feeds with R. Each element (also a list) represents a distinct GTFS text
 file, and describes:
 \itemize{
-  \item whether this file is required, optional or conditionally required;
-  \item the fields that compose each file, including which R data type is
-    best suited to represent it, whether the field is required, optional or
-    conditionally required, and which values it can assume (most relevant to
-    GTFS \code{ENUM}s.
+\item whether this file is required, optional or conditionally required;
+\item the fields that compose each file, including which R data type is
+best suited to represent it, whether the field is required, optional or
+conditionally required, and which values it can assume (most relevant to
+GTFS \code{ENUM}s.
 }
 }
 \section{Details}{
 
 GTFS standards were derived from
-  \href{https://developers.google.com/transit/gtfs/reference}{
-  Google's Static GTFS Reference}. The R data types chosen to represent each
-  GTFS data type are described below:
-  \itemize{
-    \item Color = \code{character}
-    \item Currency code = \code{character}
-    \item Date = \code{integer}
-    \item Email = \code{character}
-    \item ENUM = \code{integer}
-    \item ID = \code{character}
-    \item Integer = \code{integer}
-    \item Language code = \code{character}
-    \item Latitude = \code{numeric}
-    \item Longitude = \code{numeric}
-    \item Float = \code{numeric}
-    \item Phone number = \code{character}
-    \item Text = \code{character}
-    \item Time = \code{character}
-    \item Timezone = \code{character}
-    \item URL = \code{character}
-  }
+\href{https://developers.google.com/transit/gtfs/reference}{
+Google's Static GTFS Reference}. The R data types chosen to represent each
+GTFS data type are described below:
+\itemize{
+\item Color = \code{character}
+\item Currency code = \code{character}
+\item Date = \code{integer}
+\item Email = \code{character}
+\item ENUM = \code{integer}
+\item ID = \code{character}
+\item Integer = \code{integer}
+\item Language code = \code{character}
+\item Latitude = \code{numeric}
+\item Longitude = \code{numeric}
+\item Float = \code{numeric}
+\item Phone number = \code{character}
+\item Text = \code{character}
+\item Time = \code{character}
+\item Timezone = \code{character}
+\item URL = \code{character}
+}
 }
 
 \examples{

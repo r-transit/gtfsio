@@ -31,7 +31,7 @@ but to enable handling encoded strings in their native encoding.}
 }
 \value{
 A \code{data.table} representing the desired text file according to
-  the standards for reading and writing GTFS feeds with R.
+the standards for reading and writing GTFS feeds with R.
 }
 \description{
 Reads a GTFS text file from the main \code{.zip} file.

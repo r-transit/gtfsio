@@ -4,7 +4,7 @@
 \alias{gtfsio_error}
 \title{gtfsio's custom error condition constructor}
 \usage{
-gtfsio_error(message, subclass, call = sys.call(-1))
+gtfsio_error(message, subclass = character(0), call = sys.call(-1))
 }
 \arguments{
 \item{message}{The message to inform about the error.}

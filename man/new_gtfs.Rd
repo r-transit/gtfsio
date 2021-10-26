@@ -17,7 +17,7 @@ element must represent a distinct GTFS text file.}
 }
 \value{
 A GTFS object: a named list of data frames, each one corresponding to
-  a distinct GTFS text file, with \code{gtfs} and \code{list} classes.
+a distinct GTFS text file, with \code{gtfs} and \code{list} classes.
 }
 \description{
 Creates a GTFS object. Mostly useful for package authors who may want to

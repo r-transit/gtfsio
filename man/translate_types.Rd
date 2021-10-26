@@ -16,7 +16,7 @@ the GTFS specification type and the content its R equivalent.}
 }
 \value{
 A named \code{list} holding a GTFS text file specification, but with
-  R data types instead of GTFS spec data types.
+R data types instead of GTFS spec data types.
 }
 \description{
 Translate GTFS specification types to R equivalent types

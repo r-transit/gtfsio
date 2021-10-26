@@ -16,9 +16,9 @@ assert_files_exist(x, files)
 }
 \value{
 \code{check_files_exist} returns \code{TRUE} if the check is successful, and
-  \code{FALSE} otherwise. \cr
+\code{FALSE} otherwise. \cr
 \code{assert_files_exist} returns \code{x} invisibly if the check is
-  successful, and throws an error otherwise.
+successful, and throws an error otherwise.
 }
 \description{
 Checks the existence of elements inside a GTFS object that represent specific

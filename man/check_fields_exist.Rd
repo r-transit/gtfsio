@@ -19,9 +19,9 @@ fields should be searched.}
 }
 \value{
 \code{check_fields_exist} returns \code{TRUE} if the check is successful, and
-  \code{FALSE} otherwise. \cr
+\code{FALSE} otherwise. \cr
 \code{assert_fields_exist} returns \code{x} invisibly if the check is
-  successful, and throws an error otherwise.
+successful, and throws an error otherwise.
 }
 \description{
 Checks the existence of fields, represented by columns, inside a GTFS object

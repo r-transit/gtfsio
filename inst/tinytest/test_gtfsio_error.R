@@ -13,10 +13,15 @@ expect_error(
 # error structure
 
 an_error <- tryCatch(
+  gtfsio:::gtfsio_error("oi"),
+  error = function(cnd) cnd
+)
+expect_true(all(c("doTryCatch_error", "gtfsio_error") %in% class(an_error)))
+
+an_error <- tryCatch(
   gtfsio:::gtfsio_error("oi", subclass = "test"),
   error = function(cnd) cnd
 )
-
 expect_true(
   all(
     c("test", "doTryCatch_error", "gtfsio_error") %in% class(an_error)

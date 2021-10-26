@@ -52,7 +52,7 @@ but to enable handling encoded strings in their native encoding.}
 }
 \value{
 A GTFS object: a named list of data frames, each one corresponding to
-  a distinct text file from the given GTFS feed.
+a distinct text file from the given GTFS feed.
 }
 \description{
 Imports GTFS transit feeds from either a local \code{.zip} file or an URL.

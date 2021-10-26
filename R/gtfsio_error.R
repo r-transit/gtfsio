@@ -5,7 +5,9 @@
 #' @param call A call to associate the error with.
 #'
 #' @keywords internal
-gtfsio_error <- function(message, subclass, call = sys.call(-1)) {
+gtfsio_error <- function(message,
+                         subclass = character(0),
+                         call = sys.call(-1)) {
 
   # input checking
 

@@ -15,8 +15,8 @@ The same GTFS object passed to \code{x}.
 \description{
 Asserts that a GTFS object is valid. Valid objects are those in which:
 \itemize{
-  \item Every element is named.
-  \item Every element inherits from \code{data.frame}s.
+\item Every element is named.
+\item Every element inherits from \code{data.frame}s.
 }
 The exception to the second rule are objects that contain an element named
 \code{"."}. In such case, this element is actually composed by a named list

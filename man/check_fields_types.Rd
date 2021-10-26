@@ -22,9 +22,9 @@ types that each field must inherit from.}
 }
 \value{
 \code{check_fields_types} returns \code{TRUE} if the check is successful, and
-  \code{FALSE} otherwise. \cr
+\code{FALSE} otherwise. \cr
 \code{assert_fields_types} returns \code{x} invisibly if the check is
-  successful, and throws an error otherwise.
+successful, and throws an error otherwise.
 }
 \description{
 Checks the types of fields, represented by columns, inside a GTFS object
