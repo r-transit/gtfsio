@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • gtfsio</title>
+<title>Assert that an input is a vector with desired properties — assert_vector • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Assert that an input is a vector with desired properties — assert_vector" />
+<meta property="og:description" content="Assert that an input is a vector with desired properties" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,148 +112,47 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Assert that an input is a vector with desired properties</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/assert_inputs.R'><code>R/assert_inputs.R</code></a></small>
+    <div class="hidden name"><code>assert_vector.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Assert that an input is a vector with desired properties</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>assert_vector</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>class</span>, len <span class='op'>=</span> <span class='cn'>NULL</span>, null_ok <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-gtfs-standards" class="hasAnchor"><a href="#section-gtfs-standards" class="anchor"></a>GTFS standards</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="get_gtfs_standards.html">get_gtfs_standards()</a></code> </p>
-        </td>
-        <td><p>Generate GTFS standards</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-input-output" class="hasAnchor"><a href="#section-input-output" class="anchor"></a>Input/output</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="import_gtfs.html">import_gtfs()</a></code> </p>
-        </td>
-        <td><p>Import GTFS transit feeds</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="export_gtfs.html">export_gtfs()</a></code> </p>
-        </td>
-        <td><p>Export GTFS objects</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-checking" class="hasAnchor"><a href="#section-checking" class="anchor"></a>Checking</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="check_files_exist.html">check_files_exist()</a></code> <code><a href="check_files_exist.html">assert_files_exist()</a></code> </p>
-        </td>
-        <td><p>Check the existence of text files in a GTFS object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_fields_exist.html">check_fields_exist()</a></code> <code><a href="check_fields_exist.html">assert_fields_exist()</a></code> </p>
-        </td>
-        <td><p>Check the existence of fields in a GTFS object element</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_fields_types.html">check_fields_types()</a></code> <code><a href="check_fields_types.html">assert_fields_types()</a></code> </p>
-        </td>
-        <td><p>Check the types of fields in a GTFS object element</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-constructor-validator" class="hasAnchor"><a href="#section-constructor-validator" class="anchor"></a>Constructor/validator</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="new_gtfs.html">new_gtfs()</a></code> </p>
-        </td>
-        <td><p>GTFS object constructor</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="assert_gtfs.html">assert_gtfs()</a></code> </p>
-        </td>
-        <td><p>GTFS object validator</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-methods" class="hasAnchor"><a href="#section-methods" class="anchor"></a>Methods</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="print.gtfs.html">print(<i>&lt;gtfs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print a GTFS object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sub-.gtfs.html">`[`(<i>&lt;gtfs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Subset a GTFS object</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A vector. The input to be analysed.</p></td>
+    </tr>
+    <tr>
+      <th>class</th>
+      <td><p>A string. The class that this input should inherit from.</p></td>
+    </tr>
+    <tr>
+      <th>len</th>
+      <td><p>An integer. The length of the vector. If <code>NULL</code>, length is not
+checked.</p></td>
+    </tr>
+    <tr>
+      <th>null_ok</th>
+      <td><p>A logical. Whether the input could also be <code>NULL</code>.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>TRUE</code> if the check is successful. Throws an error describing the
+issue with the input otherwise.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
