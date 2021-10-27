@@ -11,9 +11,19 @@ fake_fn <- function(x,
                     null_ok = FALSE,
                     var_name = NULL,
                     subset_of = NULL,
+                    named = FALSE,
                     n_call = -1L) {
 
-  gtfsio:::assert_vector(x, class, len, null_ok, var_name, subset_of, n_call)
+  gtfsio:::assert_vector(
+    x,
+    class,
+    len,
+    null_ok,
+    var_name,
+    subset_of,
+    named,
+    n_call
+  )
 
 }
 
@@ -75,6 +85,22 @@ expect_error(
   pattern = "'x' must be a subset of \\['c', 'b'\\]\\."
 )
 
+# check that 'named' works correctly
+
+expect_true(fake_fn(c(oi = "a"), "character", named = TRUE))
+expect_error(
+  fake_fn("a", "character", named = TRUE),
+  pattern = "'x' must be a named character vector\\."
+)
+expect_error(
+  fake_fn(list(1), "list", named = TRUE),
+  pattern = "'x' must be a named list\\."
+)
+expect_error(
+  fake_fn(list(oi = 1, 2), "list", named = TRUE),
+  pattern = "Every element in 'x' must be named\\."
+)
+
 # check that 'n_call' works correctly
 # using a function to wrap fake_fn, and this function should be associated with
 # the error if n_call = -2
@@ -98,3 +124,31 @@ expect_error(list_fn(1), pattern = "'x' must be a list\\.")
 
 # check that error class is correct
 expect_error(list_fn(1), class = "list_fn_error")
+
+
+# assert_class() ----------------------------------------------------------
+
+# yet another setup function
+
+class_fn <- function(x, class, call = -1) {
+
+  gtfsio:::assert_class(x, class, call)
+
+}
+
+# check that it errors if 'class' is not a character vector
+expect_error(class_fn(1, 1), class = "bad_class_argument")
+expect_error(class_fn(1, 1), class = "assert_class_error")
+
+# check that info message is correct
+expect_error(
+  class_fn(1, "a"),
+  pattern = "'x' must inherit from the 'a' class\\."
+)
+expect_error(
+  class_fn(1, c("a", "b")),
+  pattern = "'x' must inherit from the 'a', 'b' class\\."
+)
+
+# check that error class is correct
+expect_error(class_fn(1, "a"), class = "class_fn_error")
