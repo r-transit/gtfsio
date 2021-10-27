@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9009</span>
       </span>
     </div>
 
@@ -130,10 +130,13 @@
   null_ok <span class='op'>=</span> <span class='cn'>FALSE</span>,
   var_name <span class='op'>=</span> <span class='cn'>NULL</span>,
   subset_of <span class='op'>=</span> <span class='cn'>NULL</span>,
+  named <span class='op'>=</span> <span class='cn'>FALSE</span>,
   n_call <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>
 <span class='op'>)</span>
 
-<span class='fu'>assert_list</span><span class='op'>(</span><span class='va'>x</span>, len <span class='op'>=</span> <span class='cn'>NULL</span>, null_ok <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+<span class='fu'>assert_list</span><span class='op'>(</span><span class='va'>x</span>, len <span class='op'>=</span> <span class='cn'>NULL</span>, null_ok <span class='op'>=</span> <span class='cn'>FALSE</span>, named <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>assert_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>class</span>, n_call <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,6 +167,12 @@ message. If <code>NULL</code>, the name is guessed from the function call.</p></
       <th>subset_of</th>
       <td><p>A character vector. If <code>x</code> is a character vector, specifies
 which values it can take. If <code>NULL</code>, values are not checked.</p></td>
+    </tr>
+    <tr>
+      <th>named</th>
+      <td><p>A logical. Whether the input should be a named vector/list. If
+<code>FALSE</code> this check is not enforced (i.e. the input object can be named even
+if named is <code>FALSE</code>).</p></td>
     </tr>
     <tr>
       <th>n_call</th>
