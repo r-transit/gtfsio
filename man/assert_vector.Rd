@@ -17,7 +17,7 @@ assert_vector(
   n_call = -1L
 )
 
-assert_list(x, len = NULL, null_ok = FALSE)
+assert_list(x, len = NULL, null_ok = FALSE, named = FALSE)
 
 assert_class(x, class, n_call = -1)
 }

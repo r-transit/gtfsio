@@ -15,6 +15,8 @@ tester <- function(data_path = path,
 
 # basic input checking ----------------------------------------------------
 
+a_list <- list(1)
+
 expect_error(tester(factor(path)), class = "bad_path_argument")
 expect_error(tester(c(path, path)), class = "bad_path_argument")
 expect_error(tester(c(path, path)), class = "import_gtfs_error")
@@ -26,6 +28,7 @@ expect_error(tester(quiet = "TRUE"), class = "bad_quiet_argument")
 expect_error(tester(quiet = rep(TRUE, 2)), class = "bad_quiet_argument")
 expect_error(tester(extra_spec = NA), class = "bad_extra_spec_argument")
 expect_error(tester(extra_spec = NA), class = "import_gtfs_error")
+expect_error(tester(extra_spec = a_list), class = "bad_extra_spec_argument")
 expect_error(
   tester(extra_spec = list(levels = c(elevation = "factor"))),
   pattern = paste0(

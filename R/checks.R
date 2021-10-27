@@ -25,11 +25,8 @@
 #' @export
 check_files_exist <- function(x, files) {
 
-  # input checking
-
-  if (!inherits(x, "gtfs")) stop("'x' must inherit from the 'gtfs' class.")
-
-  if (!is.character(files)) stop("'files' must be a character vector.")
+  assert_class(x, "gtfs")
+  assert_vector(files, "character")
 
   # actual checking
 
@@ -47,11 +44,8 @@ check_files_exist <- function(x, files) {
 #' @export
 assert_files_exist <- function(x, files) {
 
-  # input checking
-
-  if (!inherits(x, "gtfs")) stop("'x' must inherit from the 'gtfs' class.")
-
-  if (!is.character(files)) stop("'files' must be a character vector.")
+  assert_class(x, "gtfs")
+  assert_vector(files, "character")
 
   # actual checking
 
@@ -99,14 +93,9 @@ assert_files_exist <- function(x, files) {
 #' @export
 check_fields_exist <- function(x, file, fields) {
 
-  # input checking
-
-  if (!inherits(x, "gtfs")) stop("'x' must inherit from the 'gtfs' class.")
-
-  if (!is.character(file) | length(file) != 1)
-    stop("'file' must be a string (a character vector of length 1).")
-
-  if (!is.character(fields)) stop("'fields' must be a character vector.")
+  assert_class(x, "gtfs")
+  assert_vector(file, "character", len = 1L)
+  assert_vector(fields, "character")
 
   # check if 'file' exists, and return FALSE if it doesn't
 
@@ -128,17 +117,9 @@ check_fields_exist <- function(x, file, fields) {
 #' @export
 assert_fields_exist <- function(x, file, fields) {
 
-  # input checking
-
-  if (!inherits(x, "gtfs")) stop("'x' must inherit from the 'gtfs' class.")
-
-  if (!is.character(file) | length(file) != 1)
-    stop("'file' must be a string (a character vector of length 1).")
-
-  if (!is.character(fields)) stop("'fields' must be a character vector.")
-
-  # assert that 'file' exists
-
+  assert_class(x, "gtfs")
+  assert_vector(file, "character", len = 1L)
+  assert_vector(fields, "character")
   assert_files_exist(x, file)
 
   # actual checking
@@ -201,17 +182,15 @@ assert_fields_exist <- function(x, file, fields) {
 #' @export
 check_fields_types <- function(x, file, fields, types) {
 
-  # input checking
-
-  if (!inherits(x, "gtfs")) stop("'x' must inherit from the 'gtfs' class.")
-
-  if (!is.character(file) | length(file) != 1)
-    stop("'file' must be a string (a character vector of length 1).")
-
-  if (!is.character(fields)) stop("'fields' must be a character vector.")
+  assert_class(x, "gtfs")
+  assert_vector(file, "character", len = 1L)
+  assert_vector(fields, "character")
 
   if (!is.character(types) | length(types) != length(fields))
-    stop("'types' must be a character vector with the same length of 'fields'.")
+    gtfsio_error(
+      "'types' must be a character vector with the same length of 'fields'.",
+      subclass = "bad_types_argument"
+    )
 
   # check if 'fields' exists, and return FALSE if it doesn't
 
@@ -233,21 +212,16 @@ check_fields_types <- function(x, file, fields, types) {
 #' @export
 assert_fields_types <- function(x, file, fields, types) {
 
-  # input checking
-
-  if (!inherits(x, "gtfs")) stop("'x' must inherit from the 'gtfs' class.")
-
-  if (!is.character(file) | length(file) != 1)
-    stop("'file' must be a string (a character vector of length 1).")
-
-  if (!is.character(fields)) stop("'fields' must be a character vector.")
+  assert_class(x, "gtfs")
+  assert_vector(file, "character", len = 1L)
+  assert_vector(fields, "character")
+  assert_fields_exist(x, file, fields)
 
   if (!is.character(types) | length(types) != length(fields))
-    stop("'types' must be a character vector with the same length of 'fields'.")
-
-  # assert that 'fields' exist
-
-  assert_fields_exist(x, file, fields)
+    gtfsio_error(
+      "'types' must be a character vector with the same length of 'fields'.",
+      subclass = "bad_types_argument"
+    )
 
   # actual checking - compare the desired types to the actual types
 

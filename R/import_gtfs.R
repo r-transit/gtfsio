@@ -79,7 +79,7 @@ import_gtfs <- function(path,
 
   assert_vector(path, "character", len = 1L)
   assert_vector(quiet, "logical", len = 1L)
-  assert_list(extra_spec, null_ok = TRUE)
+  assert_list(extra_spec, null_ok = TRUE, named = TRUE)
   assert_vector(files, "character", null_ok = TRUE)
   assert_list(fields, null_ok = TRUE)
   assert_vector(skip, "character", null_ok = TRUE)

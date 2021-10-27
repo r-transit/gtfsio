@@ -8,11 +8,15 @@ gtfs <- import_gtfs(gtfs_path)
 
 expect_error(
   check_files_exist(unclass(gtfs), "shapes"),
-  pattern = "\\'x\\' must inherit from the \\'gtfs\\' class\\."
+  class = "bad_x_argument"
+)
+expect_error(
+  check_files_exist(unclass(gtfs), "shapes"),
+  class = "check_files_exist_error"
 )
 expect_error(
   check_files_exist(gtfs, factor("shapes")),
-  pattern = "\\'files\\' must be a character vector\\."
+  class = "bad_files_argument"
 )
 
 # expected results
@@ -29,11 +33,11 @@ expect_false(check_files_exist(gtfs, c("shapes", "ola")))
 
 expect_error(
   assert_files_exist(unclass(gtfs), "shapes"),
-  pattern = "\\'x\\' must inherit from the \\'gtfs\\' class\\."
+  class = "bad_x_argument"
 )
 expect_error(
   assert_files_exist(gtfs, factor("shapes")),
-  pattern = "\\'files\\' must be a character vector\\."
+  class = "bad_files_argument"
 )
 
 # expected results
@@ -72,38 +76,24 @@ expect_error(
 
 expect_error(
   check_fields_exist(unclass(gtfs), "shapes", "shape_id"),
-  pattern = "\\'x\\' must inherit from the \\'gtfs\\' class\\."
+  class = "bad_x_argument"
 )
 expect_error(
   check_fields_exist(gtfs, factor("shapes"), "shape_id"),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   check_fields_exist(gtfs, c("trips", "shapes"), "shape_id"),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   check_fields_exist(gtfs, "shapes", factor("shape_id")),
-  pattern = "\\'fields\\' must be a character vector\\."
+  class = "bad_fields_argument"
 )
 
 # if 'file' doesn't exist, expect FALSE
 
 expect_false(check_fields_exist(gtfs, "oi", "shape_id"))
-
-# expect_error(
-#   check_fields_exist(gtfs, "oi", "shape_id"),
-#   pattern = paste0(
-#     "The GTFS object is missing the following ",
-#     "required element\\(s\\): \\'oi\\'"
-#   )
-# )
 
 # expected results
 
@@ -119,25 +109,19 @@ expect_false(check_fields_exist(gtfs, "shapes", c("shape_id", "oi")))
 
 expect_error(
   assert_fields_exist(unclass(gtfs), "shapes", "shape_id"),
-  pattern = "\\'x\\' must inherit from the \\'gtfs\\' class\\."
+  class = "bad_x_argument"
 )
 expect_error(
   assert_fields_exist(gtfs, factor("shapes"), "shape_id"),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   assert_fields_exist(gtfs, c("trips", "shapes"), "shape_id"),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   assert_fields_exist(gtfs, "shapes", factor("shape_id")),
-  pattern = "\\'fields\\' must be a character vector\\."
+  class = "bad_fields_argument"
 )
 
 # 'file' must exist
@@ -196,7 +180,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = "\\'x\\' must inherit from the \\'gtfs\\' class\\."
+  class = "bad_x_argument"
 )
 expect_error(
   check_fields_types(
@@ -205,10 +189,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   check_fields_types(
@@ -217,10 +198,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   check_fields_types(
@@ -229,7 +207,7 @@ expect_error(
     factor("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = "\\'fields\\' must be a character vector\\."
+  class = "bad_fields_argument"
 )
 expect_error(
   check_fields_types(
@@ -238,10 +216,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     factor("character", "numeric")
   ),
-  pattern = paste0(
-    "\\'types\\' must be a character vector with ",
-    "the same length of \\'fields\\'\\."
-  )
+  class = "bad_types_argument"
 )
 expect_error(
   check_fields_types(
@@ -250,10 +225,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character")
   ),
-  pattern = paste0(
-    "\\'types\\' must be a character vector with ",
-    "the same length of \\'fields\\'\\."
-  )
+  class = "bad_types_argument"
 )
 
 # if 'fields' doesn't exist, expect FALSE
@@ -301,7 +273,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = "\\'x\\' must inherit from the \\'gtfs\\' class\\."
+  class = "bad_x_argument"
 )
 expect_error(
   assert_fields_types(
@@ -310,10 +282,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   assert_fields_types(
@@ -322,10 +291,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = paste0(
-    "\\'file\\' must be a string ",
-    "\\(a character vector of length 1\\)\\."
-  )
+  class = "bad_file_argument"
 )
 expect_error(
   assert_fields_types(
@@ -334,7 +300,7 @@ expect_error(
     factor("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   ),
-  pattern = "\\'fields\\' must be a character vector\\."
+  class = "bad_fields_argument"
 )
 expect_error(
   assert_fields_types(
@@ -343,10 +309,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     factor("character", "numeric")
   ),
-  pattern = paste0(
-    "\\'types\\' must be a character vector with ",
-    "the same length of \\'fields\\'\\."
-  )
+  class = "bad_types_argument"
 )
 expect_error(
   assert_fields_types(
@@ -355,10 +318,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character")
   ),
-  pattern = paste0(
-    "\\'types\\' must be a character vector with ",
-    "the same length of \\'fields\\'\\."
-  )
+  class = "bad_types_argument"
 )
 
 # 'fields' must exist

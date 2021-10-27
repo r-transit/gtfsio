@@ -29,11 +29,8 @@ tester <- function(gtfs_obj = gtfs,
 
 # basic input checks ------------------------------------------------------
 
-expect_error(
-  tester(unclass(gtfs)),
-  pattern = "'gtfs' must inherit from the 'gtfs' class\\."
-)
-
+expect_error(tester(unclass(gtfs)), class = "bad_gtfs_argument")
+expect_error(tester(unclass(gtfs)), class = "export_gtfs_error")
 expect_error(tester(path = factor(tmpf)), class = "bad_path_argument")
 expect_error(tester(path = c(tmpf, tmpf)), class = "bad_path_argument")
 expect_error(tester(files = NA), class = "bad_files_argument")

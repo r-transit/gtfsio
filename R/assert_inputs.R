@@ -111,14 +111,14 @@ assert_vector <- function(x,
     )
 
   vector_name2 <- ifelse(class == "list", "list.", paste0(class, " vector."))
-  if (named && is.null(names(x)))
+  if (named && is.null(names(x)) && !is.null(x))
     gtfsio_error(
       paste0(input_name, " must be a named ", vector_name2),
       input_error_class,
       error_call
     )
 
-  non_empty_names <- setdiff(names(x), "")
+  non_empty_names <- names(x)[! names(x) %chin% ""]
   if (named && (!is.null(names(x)) && length(non_empty_names) != length(x)))
     gtfsio_error(
       paste0("Every element in ", input_name, " must be named."),
@@ -135,7 +135,7 @@ assert_vector <- function(x,
 #' @rdname assert_vector
 #' @family input assertion
 #' @keywords internal
-assert_list <- function(x, len = NULL, null_ok = FALSE) {
+assert_list <- function(x, len = NULL, null_ok = FALSE, named = FALSE) {
 
   # input checks are all conducted inside assert_vector()
 
@@ -148,6 +148,7 @@ assert_list <- function(x, len = NULL, null_ok = FALSE) {
     len = len,
     null_ok = null_ok,
     var_name = var_name,
+    named = named,
     n_call = -2L
   )
 

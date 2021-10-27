@@ -56,9 +56,7 @@ export_gtfs <- function(gtfs,
 
   # basic input checking
 
-  if (!inherits(gtfs, "gtfs"))
-    stop("'gtfs' must inherit from the 'gtfs' class.")
-
+  assert_class(gtfs, "gtfs")
   assert_vector(path, "character", len = 1L)
   assert_vector(files, "character", null_ok = TRUE)
   assert_vector(standard_only, "logical", len = 1L)
@@ -101,7 +99,7 @@ export_gtfs <- function(gtfs,
       paste0("'", extra_files, "'", collapse = ", ")
     )
 
- # if files is NULL then all 'gtfs' elements should be written
+  # if files is NULL then all 'gtfs' elements should be written
 
   if (is.null(files)) files <- names(gtfs)
 

@@ -6,17 +6,18 @@ gtfs <- import_gtfs(gtfs_path)
 
 # 'x' must be a list
 
-expect_error(new_gtfs(1:5), pattern = "\\'x\\' must be a list\\.")
+expect_error(
+  new_gtfs(1:5),
+  pattern = "'x' must be a list\\.",
+  class = "bad_x_argument"
+)
+expect_error(new_gtfs(1:5), class = "new_gtfs_error")
 
 # 'x' must be a named list
 
-no_names        <- gtfs
+no_names <- gtfs
 names(no_names) <- NULL
-
-expect_error(
-  new_gtfs(no_names),
-  pattern = "\\'x\\' must be a named list\\."
-)
+expect_error(new_gtfs(no_names), pattern = "'x' must be a named list\\.")
 
 # every single element of 'x' must be named
 
@@ -25,14 +26,15 @@ missing_one_name[[18]] <- data.frame(a = 1)
 
 expect_error(
   new_gtfs(missing_one_name),
-  pattern = "Every element in \\'x\\' must be named\\."
+  pattern = "Every element in 'x' must be named\\."
 )
 
 # 'subclass' must be a character vector
 
 expect_error(
   new_gtfs(gtfs, subclass = factor("subclass")),
-  pattern = "\\'subclass\\' must be a character vector\\."
+  pattern = "'subclass' must be a\\(n\\) character vector\\.",
+  class = "bad_subclass_argument"
 )
 
 

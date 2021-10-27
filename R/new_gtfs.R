@@ -49,14 +49,8 @@ new_gtfs <- function(x, subclass = character(), ...) {
 
   # input checking
 
-  if (!is.list(x)) stop("'x' must be a list.")
-
-  if (is.null(names(x))) stop("'x' must be a named list.")
-
-  x_names <- names(x)[! names(x) %chin% ""]
-  if (length(x_names) != length(x)) stop("Every element in 'x' must be named.")
-
-  if (!is.character(subclass)) stop("'subclass' must be a character vector.")
+  assert_list(x, named = TRUE)
+  assert_vector(subclass, "character")
 
   # append "gtfs" and "list" to 'subclass', so any objects created by
   # 'new_gtfs()' always inherit from gtfs and list classes

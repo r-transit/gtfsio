@@ -113,17 +113,23 @@ expect_error(another_fn("a", "integer"), class = c("another_fn_error"))
 
 # another setup function
 
-list_fn <- function(x, len = NULL, null_ok = FALSE) {
+list_fn <- function(x, len = NULL, null_ok = FALSE, named = FALSE) {
 
-  gtfsio:::assert_list(x, len, null_ok)
+  gtfsio:::assert_list(x, len, null_ok, named)
 
 }
 
 # check that info message is correct
 expect_error(list_fn(1), pattern = "'x' must be a list\\.")
+expect_error(
+  list_fn(list(1), named = TRUE),
+  pattern = "'x' must be a named list\\."
+)
 
 # check that error class is correct
 expect_error(list_fn(1), class = "list_fn_error")
+
+# check that error class is correct
 
 
 # assert_class() ----------------------------------------------------------
