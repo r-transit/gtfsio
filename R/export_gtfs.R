@@ -59,8 +59,13 @@ export_gtfs <- function(gtfs,
   if (!inherits(gtfs, "gtfs"))
     stop("'gtfs' must inherit from the 'gtfs' class.")
 
-  if (!is.character(path) | length(path) != 1)
-    stop("'path' must be a string (a character vector of length 1).")
+  assert_vector(path, "character", len = 1L)
+  assert_vector(files, "character", null_ok = TRUE)
+  assert_vector(standard_only, "logical", len = 1L)
+  assert_vector(compression_level, "numeric", len = 1L)
+  assert_vector(as_dir, "logical", len = 1L)
+  assert_vector(overwrite, "logical", len = 1L)
+  assert_vector(quiet, "logical", len = 1L)
 
   if (path == tempdir())
     stop(
@@ -69,24 +74,6 @@ export_gtfs <- function(gtfs,
         "temporary directories."
       )
     )
-
-  if (!is.null(files) & !is.character(files))
-    stop("'files' must either be a character vector or NULL.")
-
-  if (!is.logical(standard_only) | length(standard_only) != 1)
-    stop("'standard_only' must be a logical vector of length 1.")
-
-  if (!is.numeric(compression_level) | length(compression_level) != 1)
-    stop("'compression_level' must be a numeric vector of length 1.")
-
-  if (!is.logical(as_dir) | length(as_dir) != 1)
-    stop("'as_dir' must be a logical vector of length 1.")
-
-  if (!is.logical(overwrite) | length(overwrite) != 1)
-    stop("'overwrite' must be a logical vector of length 1.")
-
-  if (!is.logical(quiet) | length(quiet) != 1)
-    stop("'quiet' must be a logical vector of length 1.")
 
   # input checks that depend on more than one argument
 

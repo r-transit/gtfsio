@@ -17,23 +17,15 @@ tester <- function(data_path = path,
 
 expect_error(tester(factor(path)), class = "bad_path_argument")
 expect_error(tester(c(path, path)), class = "bad_path_argument")
-
+expect_error(tester(c(path, path)), class = "import_gtfs_error")
 expect_error(
   tester(sub(".zip", "", path)),
   pattern = "'path' must have '\\.zip' extension\\."
 )
-
-missing_path <- sub("ggl", "", path)
-expect_error(
-  tester(missing_path),
-  pattern = paste0("'path' points to non-existent file: '", missing_path, "'")
-)
-
 expect_error(tester(quiet = "TRUE"), class = "bad_quiet_argument")
 expect_error(tester(quiet = rep(TRUE, 2)), class = "bad_quiet_argument")
-
 expect_error(tester(extra_spec = NA), class = "bad_extra_spec_argument")
-
+expect_error(tester(extra_spec = NA), class = "import_gtfs_error")
 expect_error(
   tester(extra_spec = list(levels = c(elevation = "factor"))),
   pattern = paste0(
@@ -41,16 +33,20 @@ expect_error(
     "are supported in 'extra_spec'\\."
   )
 )
-
 expect_error(tester(files = NA), class = "bad_files_argument")
 expect_error(tester(fields = NA), class = "bad_fields_argument")
 expect_error(tester(skip = NA), class = "bad_skip_argument")
-
 expect_error(tester(encoding = ""), class = "bad_encoding_argument")
 expect_error(tester(encoding = TRUE), class = "bad_encoding_argument")
 expect_error(
   tester(encoding = c("unknown", "UTF-8")),
   class = "bad_encoding_argument"
+)
+
+missing_path <- sub("ggl", "", path)
+expect_error(
+  tester(missing_path),
+  pattern = paste0("'path' points to non-existent file: '", missing_path, "'")
 )
 
 
@@ -319,7 +315,7 @@ expect_true(any(grepl("^  - Discarded single-line footer", out)))
 
 # 'skip' behaviour -------------------------------------------------------
 
-# Skip the specified text files
+# skip the specified text files
 
 g_all <- import_gtfs(path)
 g_skipped <- tester(skip = c("transfers", "translations"))
@@ -329,7 +325,7 @@ expect_equal(
   c("transfers", "translations")
 )
 
-# Raise error if both 'files' and 'skip' are not NULL
+# raise error if both 'files' and 'skip' are not NULL
 
 expect_error(
   tester(files = "dummy1", skip = "dummy2"),

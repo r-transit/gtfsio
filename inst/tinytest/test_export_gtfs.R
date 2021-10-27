@@ -4,72 +4,61 @@ tmpf <- tempfile(fileext = ".zip")
 tmpd <- tempfile()
 gtfs_standards <- get_gtfs_standards()
 
+tester <- function(gtfs_obj = gtfs,
+                   path = tmpf,
+                   files = NULL,
+                   standard_only = FALSE,
+                   compression_level = 9,
+                   as_dir = FALSE,
+                   overwrite = TRUE,
+                   quiet = TRUE) {
+
+  export_gtfs(
+    gtfs_obj,
+    path,
+    files,
+    standard_only,
+    compression_level,
+    as_dir,
+    overwrite,
+    quiet
+  )
+
+}
+
 
 # basic input checks ------------------------------------------------------
 
 expect_error(
-  export_gtfs(unclass(gtfs), tmpf),
+  tester(unclass(gtfs)),
   pattern = "'gtfs' must inherit from the 'gtfs' class\\."
 )
 
-path_pat <- "'path' must be a string \\(a character vector of length 1\\)\\."
-expect_error(export_gtfs(gtfs, factor(tmpf)), pattern = path_pat)
-expect_error(export_gtfs(gtfs, c(tmpf, tmpf)), pattern = path_pat)
-
+expect_error(tester(path = factor(tmpf)), class = "bad_path_argument")
+expect_error(tester(path = c(tmpf, tmpf)), class = "bad_path_argument")
+expect_error(tester(files = NA), class = "bad_files_argument")
+expect_error(tester(standard_only = NA), class = "bad_standard_only_argument")
 expect_error(
-  export_gtfs(gtfs, tmpf, files = NA),
-  pattern = "'files' must either be a character vector or NULL\\."
-)
-
-std_pat <- "'standard_only' must be a logical vector of length 1\\."
-expect_error(
-  export_gtfs(gtfs, tmpf, standard_only = "TRUE"),
-  pattern = std_pat
+  tester(standard_only = c(TRUE, TRUE)),
+  class = "bad_standard_only_argument"
 )
 expect_error(
-  export_gtfs(gtfs, tmpf, standard_only = c(TRUE, TRUE)),
-  pattern = std_pat
-)
-
-comp_pat <- "'compression_level' must be a numeric vector of length 1\\."
-expect_error(
-  export_gtfs(gtfs, tmpf, compression_level = "1"),
-  pattern = comp_pat
+  tester(compression_level = c(1, 9)),
+  class = "bad_compression_level_argument"
 )
 expect_error(
-  export_gtfs(gtfs, tmpf, compression_level = c(1, 9)),
-  pattern = comp_pat
+  tester(compression_level = "1"),
+  class = "bad_compression_level_argument"
 )
-
-dir_pat <- "'as_dir' must be a logical vector of length 1\\."
+expect_error(tester(as_dir = NA), class = "bad_as_dir_argument")
+expect_error(tester(as_dir = c(TRUE, TRUE)), class = "bad_as_dir_argument")
+expect_error(tester(overwrite = NA), class = "bad_overwrite_argument")
 expect_error(
-  export_gtfs(gtfs, tmpf, as_dir = "TRUE"),
-  pattern = dir_pat
+  tester(overwrite = c(TRUE, TRUE)),
+  class = "bad_overwrite_argument"
 )
-expect_error(
-  export_gtfs(gtfs, tmpf, as_dir = c(TRUE, TRUE)),
-  pattern = dir_pat
-)
-
-ovwt_pat <- "'overwrite' must be a logical vector of length 1\\."
-expect_error(
-  export_gtfs(gtfs, tmpf, overwrite = "TRUE"),
-  pattern = ovwt_pat
-)
-expect_error(
-  export_gtfs(gtfs, tmpf, overwrite = c(TRUE, TRUE)),
-  pattern = ovwt_pat
-)
-
-quiet_pat <- "'quiet' must be a logical vector of length 1\\."
-expect_error(
-  export_gtfs(gtfs, tmpf, quiet = "TRUE"),
-  pattern = quiet_pat
-)
-expect_error(
-  export_gtfs(gtfs, tmpf, quiet = c(TRUE, TRUE)),
-  pattern = quiet_pat
-)
+expect_error(tester(quiet = NA), class = "bad_quiet_argument")
+expect_error(tester(quiet = c(TRUE, TRUE)), class = "bad_quiet_argument")
 
 
 # elements inside '.' sub-list are not exported ---------------------------
@@ -77,16 +66,16 @@ expect_error(
 dot_gtfs <- gtfs
 dot_gtfs$. <- list(oi = data.frame(a = 1, b = 2))
 
-export_gtfs(gtfs, tmpf)
+tester()
 expect_false("oi" %in% sub(".txt", "", zip::zip_list(tmpf)$filename))
 
 
 # export_gtfs() returns 'gtfs' invisibly ----------------------------------
 
-out <- capture.output(export_gtfs(gtfs, tmpf))
+out <- capture.output(tester())
 expect_identical(out, character(0))
-expect_identical(gtfs, export_gtfs(gtfs, tmpf))
-expect_identical(dot_gtfs, export_gtfs(dot_gtfs, tmpf))
+expect_identical(gtfs, tester())
+expect_identical(dot_gtfs, tester(dot_gtfs))
 
 
 # 'as_dir' behaviour ------------------------------------------------------
@@ -94,7 +83,7 @@ expect_identical(dot_gtfs, export_gtfs(dot_gtfs, tmpf))
 # raise an error if path doesn't have '.zip' extension but 'as_dir' is FALSE
 
 expect_error(
-  export_gtfs(gtfs, tmpd),
+  tester(path = tmpd),
   pattern = paste0(
     "'path' must have '\\.zip' extension\\. ",
     "If you meant to create a directory please set 'as_dir' to TRUE\\."
@@ -104,14 +93,14 @@ expect_error(
 # raise an error if path has a '.zip' extension but 'as_dir' is TRUE
 
 expect_error(
-  export_gtfs(gtfs, tmpf, as_dir = TRUE),
+  tester(as_dir = TRUE),
   pattern = "'path' cannot have '\\.zip' extension\\ when 'as_dir' is TRUE\\."
 )
 
 # raise an error if 'as_dir' is TRUE and 'path' is tempdir()
 
 expect_error(
-  export_gtfs(gtfs, tempdir(), as_dir = TRUE),
+  tester(path = tempdir(), as_dir = TRUE),
   pattern = paste0(
     "Please use 'tempfile\\(\\)' instead of 'tempdir\\(\\)' to designate ",
     "temporary directories."
@@ -120,14 +109,14 @@ expect_error(
 
 # object should be exported as a zip file by default
 
-export_gtfs(gtfs, tmpf)
+tester()
 expect_true(file.exists(tmpf))
 expect_false(dir.exists(tmpf))
 
 # and as a directory if 'as_dir' is TRUE
 
 expect_false(dir.exists(tmpd))
-export_gtfs(gtfs, tmpd, as_dir = TRUE)
+tester(path = tmpd, as_dir = TRUE)
 expect_true(dir.exists(tmpd))
 
 # 'files' behaviour -------------------------------------------------------
@@ -135,7 +124,7 @@ expect_true(dir.exists(tmpd))
 # raise an error if a specified file is not an element of 'gtfs'
 
 expect_error(
-  export_gtfs(gtfs, tmpf, files = "oi"),
+  tester(files = "oi"),
   pattern = paste0(
     "The provided GTFS object does not contain the following elements ",
     "specified in 'files': 'oi'"
@@ -147,18 +136,18 @@ expect_error(
 
 existing_files <- names(gtfs)
 
-export_gtfs(gtfs, tmpf)
+tester()
 expect_identical(existing_files, sub(".txt", "", zip::zip_list(tmpf)$filename))
 
-export_gtfs(gtfs, tmpd, as_dir = TRUE)
+tester(path = tmpd, as_dir = TRUE)
 expect_true(all(existing_files %in% sub(".txt", "", list.files(tmpd))))
 
 # else, only specified files are exported
 
-export_gtfs(gtfs, tmpf, files = "shapes")
+tester(files = "shapes")
 expect_identical("shapes", sub(".txt", "", zip::zip_list(tmpf)$filename))
 
-export_gtfs(gtfs, tmpd, files = "shapes", as_dir = TRUE)
+tester(path = tmpd, files = "shapes", as_dir = TRUE)
 expect_identical("shapes", sub(".txt", "", list.files(tmpd)))
 
 
@@ -168,7 +157,7 @@ expect_identical("shapes", sub(".txt", "", list.files(tmpd)))
 # 'standard_only' is TRUE
 
 expect_error(
-  export_gtfs(gtfs, tmpf, files = "oi", standard_only = TRUE),
+  tester(files = "oi", standard_only = TRUE),
   pattern = paste0(
     "Non-standard file specified in 'files', even though 'standard_only' is ",
     "set to TRUE: 'oi'"
@@ -223,9 +212,9 @@ for (file in list.files(tmpd)) {
 
 # 'compression_level' behaviour -------------------------------------------
 
-export_gtfs(gtfs, tmpf, compression_level = 1)
+tester(compression_level = 1)
 big_file <- file.size(tmpf)
-export_gtfs(gtfs, tmpf, compression_level = 9)
+tester(compression_level = 9)
 small_file <- file.size(tmpf)
 
 expect_true(big_file > small_file)
@@ -240,27 +229,27 @@ exist_pat <- paste0(
 
 expect_true(file.exists(tmpf))
 expect_true(dir.exists(tmpd))
-expect_error(export_gtfs(gtfs, tmpf, overwrite = FALSE), pattern = exist_pat)
-expect_error(export_gtfs(gtfs, tmpd, overwrite = FALSE), pattern = exist_pat)
+expect_error(tester(overwrite = FALSE), pattern = exist_pat)
+expect_error(tester(path = tmpd, overwrite = FALSE), pattern = exist_pat)
 
 # 'quiet' behaviour -------------------------------------------------------
 
-expect_silent(export_gtfs(gtfs, tmpf))
-expect_silent(export_gtfs(gtfs, tmpd, as_dir = TRUE))
+expect_silent(tester())
+expect_silent(tester(path = tmpd, as_dir = TRUE))
 
 # as_dir = FALSE
 
-expect_message(export_gtfs(gtfs, tmpf, quiet = FALSE))
-out <- capture.output(export_gtfs(gtfs, tmpf, quiet = FALSE), type = "message")
+expect_message(tester(quiet = FALSE))
+out <- capture.output(tester(quiet = FALSE), type = "message")
 expect_true(any(grepl("^Writing text files to ", out)))
 expect_true(any(grepl("^  - Writing ", out)))
 expect_true(any(grepl("^GTFS object successfully zipped to ", out)))
 
 # as_dir = TRUE
 
-expect_message(export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE))
+expect_message(tester(path = tmpd, as_dir = TRUE, quiet = FALSE))
 out <- capture.output(
-  export_gtfs(gtfs, tmpd, as_dir = TRUE, quiet = FALSE),
+  tester(path = tmpd, as_dir = TRUE, quiet = FALSE),
   type = "message"
 )
 expect_true(any(grepl("^Writing text files to ", out)))
