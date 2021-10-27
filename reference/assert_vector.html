@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9007</span>
       </span>
     </div>
 
@@ -129,6 +129,7 @@
   len <span class='op'>=</span> <span class='cn'>NULL</span>,
   null_ok <span class='op'>=</span> <span class='cn'>FALSE</span>,
   var_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subset_of <span class='op'>=</span> <span class='cn'>NULL</span>,
   n_call <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1L</span>
 <span class='op'>)</span>
 
@@ -139,7 +140,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector. The input to be analysed.</p></td>
+      <td><p>A vector/list. The input to be analysed.</p></td>
     </tr>
     <tr>
       <th>class</th>
@@ -158,6 +159,11 @@ checked.</p></td>
       <th>var_name</th>
       <td><p>A string. The name of the variable in the informative
 message. If <code>NULL</code>, the name is guessed from the function call.</p></td>
+    </tr>
+    <tr>
+      <th>subset_of</th>
+      <td><p>A character vector. If <code>x</code> is a character vector, specifies
+which values it can take. If <code>NULL</code>, values are not checked.</p></td>
     </tr>
     <tr>
       <th>n_call</th>
