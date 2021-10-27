@@ -10,9 +10,10 @@ fake_fn <- function(x,
                     len = NULL,
                     null_ok = FALSE,
                     var_name = NULL,
+                    subset_of = NULL,
                     n_call = -1L) {
 
-  gtfsio:::assert_vector(x, class, len, null_ok, var_name, n_call)
+  gtfsio:::assert_vector(x, class, len, null_ok, var_name, subset_of, n_call)
 
 }
 
@@ -60,6 +61,14 @@ expect_error(fake_fn(NULL, "character", null_ok = FALSE))
 expect_error(
   fake_fn("a", "integer", var_name = "oie"),
   pattern = "'oie' must be a\\(n\\) integer vector\\."
+)
+
+# check that 'subset_of' works correctly
+
+expect_true(fake_fn("a", "character", subset_of = c("a", "b")))
+expect_error(
+  fake_fn("a", "character", subset_of = c("c", "b")),
+  pattern = "'x' must be a subset of \\['c', 'b'\\]\\."
 )
 
 # check that 'n_call' works correctly

@@ -75,8 +75,15 @@ import_gtfs <- function(path,
   # input checking ('files', 'fields' and 'extra_spec' are more thoroughly
   # validated further down the code)
 
-  if (!is.character(path) | length(path) > 1)
-    stop("'path' must be a character vector of length 1.")
+  val_enc <- c("unknown", "UTF-8", "Latin-1")
+
+  assert_vector(path, "character", len = 1L)
+  assert_vector(quiet, "logical", len = 1L)
+  assert_list(extra_spec, null_ok = TRUE)
+  assert_vector(files, "character", null_ok = TRUE)
+  assert_list(fields, null_ok = TRUE)
+  assert_vector(skip, "character", null_ok = TRUE)
+  assert_vector(encoding, "character", len = 1L, subset_of = val_enc)
 
   if (!grepl("\\.zip$", path)) stop("'path' must have '.zip' extension.")
 
@@ -85,40 +92,14 @@ import_gtfs <- function(path,
   if (!path_is_url & !file.exists(path))
     stop("'path' points to non-existent file: '", path, "'")
 
-  if (!is.logical(quiet) | length(quiet) != 1)
-    stop("'quiet' must be a logical vector of length 1.")
-
-  if (!is.null(extra_spec) & !is.list(extra_spec))
-    stop("'extra_spec' must be either a list or NULL.")
-
   for (input_types in extra_spec)
     if (any(! input_types %chin% c("character", "integer", "numeric")))
       stop("Only character, integer and numeric are supported in 'extra_spec'.")
-
-  if (!is.null(files) & !is.character(files))
-    stop("'files' must be either a character vector or NULL.")
-
-  if (!is.null(fields) & !is.list(fields))
-    stop("'fields' must be either a list or NULL.")
-
-  if (!is.null(skip) & !is.character(skip))
-    stop("'skip' must be either a character vector or NULL.")
 
   if (!is.null(files) & !is.null(skip))
     stop(
       "Both 'files' and 'skip' were provided. ",
       "Please use only one of these parameters at a time."
-    )
-
-  val_enc <- c("unknown", "UTF-8", "Latin-1")
-  if (
-    length(encoding) > 1 |
-    !is.character(encoding) |
-    !all(encoding %in% val_enc)
-  )
-    stop(
-      "'encoding' must be be a character vector of length 1 and one of ",
-      "c('unknown', 'UTF-8', 'Latin-1')."
     )
 
   # if 'path' is an URL, download it and save path to downloaded file to 'path'

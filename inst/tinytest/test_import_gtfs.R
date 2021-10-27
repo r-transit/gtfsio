@@ -1,65 +1,56 @@
 path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 url<-"https://github.com/r-transit/gtfsio/raw/master/inst/extdata/ggl_gtfs.zip"
 
+tester <- function(data_path = path,
+                   files = NULL,
+                   fields = NULL,
+                   extra_spec = NULL,
+                   skip = NULL,
+                   quiet = TRUE,
+                   encoding = "unknown") {
+
+  import_gtfs(data_path, files, fields, extra_spec, skip, quiet, encoding)
+
+}
 
 # basic input checking ----------------------------------------------------
 
-path_type_pat <- "'path' must be a character vector of length 1\\."
-expect_error(import_gtfs(factor(path)), pattern = path_type_pat)
-expect_error(import_gtfs(c(path, path)), pattern = path_type_pat)
+expect_error(tester(factor(path)), class = "bad_path_argument")
+expect_error(tester(c(path, path)), class = "bad_path_argument")
 
 expect_error(
-  import_gtfs(sub(".zip", "", path)),
+  tester(sub(".zip", "", path)),
   pattern = "'path' must have '\\.zip' extension\\."
 )
 
 missing_path <- sub("ggl", "", path)
 expect_error(
-  import_gtfs(missing_path),
+  tester(missing_path),
   pattern = paste0("'path' points to non-existent file: '", missing_path, "'")
 )
 
-quiet_pat <- "'quiet' must be a logical vector of length 1\\."
-expect_error(import_gtfs(path, quiet = "TRUE"), pattern = quiet_pat)
-expect_error(import_gtfs(path, quiet = c(TRUE, TRUE)), pattern = quiet_pat)
+expect_error(tester(quiet = "TRUE"), class = "bad_quiet_argument")
+expect_error(tester(quiet = rep(TRUE, 2)), class = "bad_quiet_argument")
+
+expect_error(tester(extra_spec = NA), class = "bad_extra_spec_argument")
 
 expect_error(
-  import_gtfs(path, extra_spec = NA),
-  pattern = "'extra_spec' must be either a list or NULL\\."
-)
-
-expect_error(
-  import_gtfs(path, extra_spec = list(levels = c(elevation = "factor"))),
+  tester(extra_spec = list(levels = c(elevation = "factor"))),
   pattern = paste0(
     "Only character, integer and numeric ",
     "are supported in 'extra_spec'\\."
   )
 )
 
-expect_error(
-  import_gtfs(path, files = NA),
-  pattern = "'files' must be either a character vector or NULL\\."
-)
+expect_error(tester(files = NA), class = "bad_files_argument")
+expect_error(tester(fields = NA), class = "bad_fields_argument")
+expect_error(tester(skip = NA), class = "bad_skip_argument")
 
+expect_error(tester(encoding = ""), class = "bad_encoding_argument")
+expect_error(tester(encoding = TRUE), class = "bad_encoding_argument")
 expect_error(
-  import_gtfs(path, fields = NA),
-  pattern = "'fields' must be either a list or NULL\\."
-)
-
-expect_error(
-  import_gtfs(path, skip = NA),
-  pattern = "'skip' must be either a character vector or NULL\\."
-)
-
-encoding_pat <- paste0(
-  "'encoding' must be be a character vector of length 1 and one of ",
-  "c\\('unknown', 'UTF-8', 'Latin-1'\\)\\."
-)
-expect_error(import_gtfs(path, encoding = ""), pattern = encoding_pat)
-expect_error(import_gtfs(path, encoding = TRUE), pattern = encoding_pat)
-expect_error(
-  import_gtfs(path, encoding = c("unknown", "UTF-8")),
-  pattern = encoding_pat
+  tester(encoding = c("unknown", "UTF-8")),
+  class = "bad_encoding_argument"
 )
 
 
@@ -68,7 +59,7 @@ expect_error(
 # raise error if file specified in 'files' doesn't exist
 
 expect_error(
-  import_gtfs(path, files = "ola"),
+  tester(files = "ola"),
   pattern = paste0(
     "The provided GTFS feed doesn't contain the following ",
     "text file\\(s\\): 'ola'"
@@ -86,7 +77,7 @@ expect_identical(names(gtfs), existing_files)
 
 # if it's not, read only the specified files
 
-gtfs <- import_gtfs(path, files = c("shapes", "trips"))
+gtfs <- tester(files = c("shapes", "trips"))
 expect_identical(names(gtfs), c("shapes", "trips"))
 
 
@@ -96,7 +87,7 @@ expect_identical(names(gtfs), c("shapes", "trips"))
 # specified in 'files'
 
 expect_error(
-  import_gtfs(path, fields = list(oi = "ola")),
+  tester(fields = list(oi = "ola")),
   pattern = paste0(
     "The following files were specified in 'fields' but either were not ",
     "specified in 'files' or do not exist: 'oi'"
@@ -104,7 +95,7 @@ expect_error(
 )
 
 expect_error(
-  import_gtfs(path, files = "shapes", fields = list(trips = "trip_id")),
+  tester(files = "shapes", fields = list(trips = "trip_id")),
   pattern = paste0(
     "The following files were specified in 'fields' but either were not ",
     "specified in 'files' or do not exist: 'trips'"
@@ -114,7 +105,7 @@ expect_error(
 # raise error if field is specified in 'fields' but doesn't exist
 
 expect_error(
-  import_gtfs(path, fields = list(shapes = "ola")),
+  tester(fields = list(shapes = "ola")),
   pattern = "'shapes' doesn't contain the following field\\(s\\): 'ola'"
 )
 
@@ -204,7 +195,7 @@ expect_identical(standard_types, actual_types)
 # already specified in the standards
 
 expect_error(
-  import_gtfs(path, extra_spec = list(shapes = c(shape_id = "integer"))),
+  tester(extra_spec = list(shapes = c(shape_id = "integer"))),
   pattern = paste0(
     "The following field\\(s\\) from the 'shapes' file were specified in ",
     "'extra_spec' but are already documented in the official GTFS reference: ",
@@ -216,7 +207,7 @@ expect_error(
 # exist or was not specified in 'fields'
 
 expect_error(
-  import_gtfs(path, extra_spec = list(shapes = c(ola = "character"))),
+  tester(extra_spec = list(shapes = c(ola = "character"))),
   pattern = paste0(
     "The following fields were specified in 'extra_spec' but either were not ",
     "specified in 'fields' or do not exist: 'ola'"
@@ -243,7 +234,7 @@ expect_true(class(gtfs$levels$elevation) == "character")
 
 # else, fields should be read as specified
 
-gtfs <- import_gtfs(path, extra_spec = list(levels = c(elevation = "integer")))
+gtfs <- tester(extra_spec = list(levels = c(elevation = "integer")))
 
 expect_true(class(gtfs$levels$elevation) == "integer")
 
@@ -278,8 +269,8 @@ expect_silent(import_gtfs(url))
 
 # loud when quiet = FALSE
 
-expect_message(import_gtfs(path, quiet = FALSE))
-out <- capture.output(g <- import_gtfs(path, quiet = FALSE), type = "message")
+expect_message(tester(quiet = FALSE))
+out <- capture.output(g <- tester(quiet = FALSE), type = "message")
 expect_true(any(grepl("^Unzipped the following files to ", out)))
 expect_true(any(grepl("^  \\*", out)))
 expect_true(any(grepl("^Reading ", out)))
@@ -331,7 +322,7 @@ expect_true(any(grepl("^  - Discarded single-line footer", out)))
 # Skip the specified text files
 
 g_all <- import_gtfs(path)
-g_skipped <- import_gtfs(path, skip = c("transfers", "translations"))
+g_skipped <- tester(skip = c("transfers", "translations"))
 
 expect_equal(
   setdiff(names(g_all), names(g_skipped)),
@@ -341,7 +332,7 @@ expect_equal(
 # Raise error if both 'files' and 'skip' are not NULL
 
 expect_error(
-  import_gtfs(path, files = "dummy1", skip = "dummy2"),
+  tester(files = "dummy1", skip = "dummy2"),
   pattern = paste0(
     "Both 'files' and 'skip' were provided\\. ",
     "Please use only one of these parameters at a time\\."
