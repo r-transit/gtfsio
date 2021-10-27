@@ -56,6 +56,10 @@ expect_error(
 expect_true(fake_fn(NULL, "character", null_ok = TRUE))
 expect_error(fake_fn(NULL, "character", null_ok = FALSE))
 
+# check that function fails when NA is given, even if checking for logical vecs
+
+expect_error(fake_fn(NA, "logical"), class = "bad_x_argument")
+
 # check that 'var_name' is used correctly in the informative messages
 
 expect_error(

@@ -69,10 +69,12 @@ assert_vector <- function(x,
 
   # check against desired properties
   # the complicated logical condition below checks for the possibility of 'x'
-  # being NULL is null_ok is TRUE
+  # being NULL if null_ok is TRUE.
+  # also, it always consider NAs not ok, even when looking at logical vectors
 
   if ((!inherits(x, class) && null_ok && !is.null(x))
-    || (!inherits(x, class) && !null_ok)) {
+    || (!inherits(x, class) && !null_ok)
+    || (inherits(x, class) && is.na(x))) {
 
     gtfsio_error(
       paste0(input_name, " must be ", vector_name),
