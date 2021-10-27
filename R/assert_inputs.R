@@ -74,7 +74,7 @@ assert_vector <- function(x,
 
   if ((!inherits(x, class) && null_ok && !is.null(x))
     || (!inherits(x, class) && !null_ok)
-    || (inherits(x, class) && is.na(x))) {
+    || (is.logical(x) && any(is.na(x)))) {
 
     gtfsio_error(
       paste0(input_name, " must be ", vector_name),
