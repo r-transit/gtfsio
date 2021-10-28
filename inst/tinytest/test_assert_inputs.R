@@ -36,6 +36,10 @@ expect_error(
 expect_error(fake_fn("a", "character", len = c(1, 2)), class = "simpleError")
 expect_error(fake_fn("a", "character", len = "test"), class = "simpleError")
 expect_error(fake_fn("a", "character", null_ok = 1))
+expect_error(fake_fn("a", "character", var_name = 1))
+expect_error(fake_fn("a", "character", subset_of = 1))
+expect_error(fake_fn("a", "character", named = 1))
+expect_error(fake_fn("a", "character", n_call = 1))
 
 # check if the correct function is assigned to the error
 
