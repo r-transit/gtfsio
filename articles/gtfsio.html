@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9011</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
 
     
     
-<p>The General Transit Feed Specification (GTFS) data format defines a common scheme for describing transit systems, and is widely used by transit agencies around the world and consumed by many software applications. Thus, many <strong>R</strong> packages have been developed to read, write, manipulate and analyse such feeds, such as <code>{gtfs2gps}</code>, <code>{gtfsrouter}</code>, <code>{gtfstools}</code> and <code>{tidytransit}</code>.</p>
+<p>The General Transit Feed Specification (GTFS) data format defines a common scheme for describing transit systems, and is widely used by transit agencies around the world and consumed by many software applications. Thus, many <strong>R</strong> packages have been developed to read, write, manipulate and analyse such feeds, such as <a href="https://github.com/ipeaGIT/gtfs2gps">gtfs2gps</a>, <a href="https://github.com/ATFutures/gtfs-router">gtfsrouter</a>, <a href="https://ipeagit.github.io/gtfstools/">gtfstools</a> and <a href="https://github.com/r-transit/tidytransit">tidytransit</a>.</p>
 <p>Each one of these, however, represent GTFS feeds in a slightly different way, making the interoperability between packages harder to accomplish. At the end of the day, this lack of integration results in a more painful experience to the final user who may want to enjoy functions from different packages.</p>
 <p><strong>gtfsio</strong> offers tools for the development of GTFS-related packages that aim to increase such interoperability. It establishes a standard for representing GTFS feeds using R data types based on <a href="https://developers.google.com/transit/gtfs/reference">Google’s Static GTFS Reference</a>. It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic <code>gtfs</code> class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.</p>
 <p>This vignette describes the basic usage of <strong>gtfsio</strong>. Please read <code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code> documentation for more detail on the standards for reading and writing GTFS feeds using R data types.</p>
@@ -241,7 +241,7 @@
 
 <span class="fu"><a href="../reference/export_gtfs.html">export_gtfs</a></span><span class="op">(</span><span class="va">extra_gtfs</span>, <span class="va">tmpd</span>, as_dir <span class="op">=</span> <span class="cn">TRUE</span>, standard_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="st">"extra_file"</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">".txt"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="va">tmpd</span><span class="op">)</span><span class="op">)</span>
+<span class="st">"extra_file"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">".txt"</span>, <span class="st">""</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="va">tmpd</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span>
 
 <span class="va">levels_fields</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">tmpd</span>, <span class="st">"levels.txt"</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>
@@ -301,8 +301,8 @@
 
 <span class="fu"><a href="../reference/check_fields_types.html">assert_fields_types</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span>, fileds <span class="op">=</span> <span class="st">"stop_id"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
 <span class="co">#&gt; Error in assert_fields_types(gtfs, "stop_times", fileds = "stop_id", types = "character"): unused argument (fileds = "stop_id")</span></code></pre></div>
-<p>These functions are great for package interoperability. If two distinct packages represent GTFS text files using the same data structure (both <code>{gtfstools}</code> and <code>{gtfsrouter}</code> use <code>data.table</code>s, for example), they just need to add some basic checks before proceeding with operations on objects created by the other package.</p>
-<p>So, if <code>{gtfsrouter}</code> requires the <code>transfers</code> element to perform some operations, it might as well perform them on an object created by <code>{gtfstools}</code>, as long as it contains a <code>transfers</code> element. Thus, it could greatly benefit of some <code>assert_*</code>/<code>check_*</code> calls before proceeding with such operations.</p>
+<p>These functions are great for package interoperability. If two distinct packages represent GTFS text files using the same data structure (both <a href="https://ipeagit.github.io/gtfstools/">gtfstools</a> and <a href="https://github.com/ATFutures/gtfs-router">gtfsrouter</a> use <code>data.table</code>s, for example), they just need to add some basic checks before proceeding with operations on objects created by the other package.</p>
+<p>So, if <a href="https://github.com/ATFutures/gtfs-router">gtfsrouter</a> requires the <code>transfers</code> element to perform some operations, it might as well perform them on an object created by <a href="https://ipeagit.github.io/gtfstools/">gtfstools</a>, as long as it contains a <code>transfers</code> element. Thus, it could greatly benefit of some <code>assert_*</code>/<code>check_*</code> calls before proceeding with such operations.</p>
 </div>
 </div>
   </div>

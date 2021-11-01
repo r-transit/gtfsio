@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9011</span>
       </span>
     </div>
 
@@ -117,21 +117,42 @@
       <small>Source: <a href='https://github.com/r-transit/gtfsio/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="gtfsio-020" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.0">
-<a href="#gtfsio-020" class="anchor"></a>gtfsio 0.2.0<small> 2021-09-06 </small>
+    <div id="gtfsio-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#gtfsio-development-version" class="anchor"></a>gtfsio (development version)<small> Unreleased </small>
 </h1>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>
-<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> would ocasionally include the full path to a table to their name in a GTFS object (<a href='https://github.com/r-transit/gtfsio/issues/17'>#17</a>). Fixed by Mark Padgham (<a href='https://github.com/mapdge'>@mapdge</a>) in <a href='https://github.com/r-transit/gtfsio/issues/18'>#18</a>.</li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> would raise a <a href="https://github.com/truecluster/bit64">bit64</a>-related warning when the first row of any table included a 64-bit integer. This is now fixed - when reading the first row to figure out which fields are present, all columns are read as character vectors.</li>
 </ul>
 </div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Added (internal) input assertion functions, which declutter the input checking sections quite a bit.</li>
+<li>Added new (internal) <code><a href="../reference/gtfsio_error.html">gtfsio_error()</a></code> function, which raises a custom-classed error condition.</li>
+</ul>
+</div>
+</div>
+    <div id="gtfsio-020" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0">
+<a href="#gtfsio-020" class="anchor"></a>gtfsio 0.2.0<small> 2021-09-06 </small>
+</h1>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> would ocasionally include the full path to a table to their name in a GTFS object (<a href='https://github.com/r-transit/gtfsio/issues/17'>#17</a>). Fixed by Mark Padgham (<a href='https://github.com/mapdge'>@mapdge</a>) in <a href='https://github.com/r-transit/gtfsio/issues/18'>#18</a>.</li>
+</ul>
+</div>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Added new <code>summary.gtfs</code> method. Thanks Mark Padgham (<a href='https://github.com/mapdge'>@mapdge</a>).</li>
 <li>
@@ -143,9 +164,9 @@
 <h1 class="page-header" data-toc-text="0.1.2">
 <a href="#gtfsio-012" class="anchor"></a>gtfsio 0.1.2<small> 2021-06-07 </small>
 </h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed a bug (or perhaps, changed the behaviour) of <code><a href="../reference/check_fields_exist.html">check_fields_exist()</a></code> and <code><a href="../reference/check_fields_types.html">check_fields_types()</a></code> when a lower-level test (i.e. if the file that holds such field exists, for example) failed. Now it returns <code>FALSE</code> instead of raising an error.</li>
 </ul>
@@ -155,16 +176,16 @@
 <h1 class="page-header" data-toc-text="0.1.1">
 <a href="#gtfsio-011" class="anchor"></a>gtfsio 0.1.1<small> 2021-05-26 </small>
 </h1>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed a bug in <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code> when <code>as_dir</code> was set to <code>TRUE</code> and <code>path</code> was set to <code><a href="https://rdrr.io/r/base/tempfile.html">tempdir()</a></code> in <a href='https://github.com/r-transit/gtfsio/issues/15'>#15</a>. The function now returns an (intentional) error if <code><a href="https://rdrr.io/r/base/tempfile.html">tempdir()</a></code> is passed to <code>path</code>. Thanks Flavio Poletti (<a href='https://github.com/polettif'>@polettif</a>).</li>
 </ul>
 </div>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>
 <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> has a new <code>skip</code> parameter. It may be used similarly to <code>files</code>, but you specify the files you <em>don’t want</em> to read, instead of the ones you do. Thanks Flavio Poletti (<a href='https://github.com/polettif'>@polettif</a>).</li>
