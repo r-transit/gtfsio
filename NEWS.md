@@ -1,3 +1,14 @@
+# gtfsio (development version)
+
+## Bug fixes
+
+- `import_gtfs()` would raise a `{bit64}`-related warning when the first row of any table included a 64-bit integer. This is now fixed - when reading the first row to figure out which fields are present, all columns are read as character vectors.
+
+## New features
+
+- Added (internal) input assertion functions, which declutter the input checking sections quite a bit.
+- Added new (internal) `gtfsio_error()` function, which raises a custom-classed error condition.
+
 # gtfsio 0.2.0
 
 ## Bug fixes

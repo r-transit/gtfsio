@@ -277,7 +277,11 @@ read_files <- function(file,
   if (is.null(file_standards) & !quiet)
     message("  - File undocumented. Trying to read it as a csv.")
 
-  sample_dt <- data.table::fread(file.path(tmpdir, file_txt), nrows = 1)
+  sample_dt <- data.table::fread(
+    file.path(tmpdir, file_txt),
+    nrows = 1,
+    colClasses = "character"
+  )
 
   # if 'file' is completely empty (even without a header), return a NULL
   # 'data.table'
