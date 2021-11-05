@@ -62,7 +62,8 @@ expect_error(
   pattern = paste0(
     "The provided GTFS feed doesn't contain the following ",
     "text file\\(s\\): 'ola'"
-  )
+  ),
+  class = "gtfs_missing_files"
 )
 
 # if 'files' is NULL (the default), all existing files are read
@@ -90,7 +91,8 @@ expect_error(
   pattern = paste0(
     "The following files were specified in 'fields' but either were not ",
     "specified in 'files' or do not exist: 'oi'"
-  )
+  ),
+  class = "files_misspecified"
 )
 
 expect_error(
@@ -98,14 +100,16 @@ expect_error(
   pattern = paste0(
     "The following files were specified in 'fields' but either were not ",
     "specified in 'files' or do not exist: 'trips'"
-  )
+  ),
+  class = "files_misspecified"
 )
 
 # raise error if field is specified in 'fields' but doesn't exist
 
 expect_error(
   tester(fields = list(shapes = "ola")),
-  pattern = "'shapes' doesn't contain the following field\\(s\\): 'ola'"
+  pattern = "'shapes' doesn't contain the following field\\(s\\): 'ola'",
+  class = "gtfs_missing_fields"
 )
 
 # if 'fields' is NULL (the default), all fields from all files are read
@@ -199,7 +203,8 @@ expect_error(
     "The following field\\(s\\) from the 'shapes' file were specified in ",
     "'extra_spec' but are already documented in the official GTFS reference: ",
     "'shape_id'"
-  )
+  ),
+  class = "field_is_documented"
 )
 
 # raise an error if a field was specified in 'extra_spec' but either does not
@@ -210,7 +215,8 @@ expect_error(
   pattern = paste0(
     "The following fields were specified in 'extra_spec' but either were not ",
     "specified in 'fields' or do not exist: 'ola'"
-  )
+  ),
+  class = "gtfs_fields_misspec"
 )
 
 expect_error(
@@ -222,7 +228,8 @@ expect_error(
   pattern = paste0(
     "The following fields were specified in 'extra_spec' but either were not ",
     "specified in 'fields' or do not exist: 'elevation'"
-  )
+  ),
+  class = "gtfs_fields_misspec"
 )
 
 # if 'extra_spec' id NULL (default), extra fields should be read as character
@@ -335,7 +342,8 @@ expect_error(
   pattern = paste0(
     "Both 'files' and 'skip' were provided\\. ",
     "Please use only one of these parameters at a time\\."
-  )
+  ),
+  class = "files_and_skip_provided"
 )
 
 
