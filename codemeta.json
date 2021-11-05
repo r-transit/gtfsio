@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.0.9011",
+  "version": "0.2.0.9012",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
+  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
   "author": [
     {
       "@type": "Person",
@@ -129,7 +129,7 @@
       "sameAs": "https://CRAN.R-project.org/package=zip"
     }
   ],
-  "fileSize": "268616.344KB",
+  "fileSize": "268619.523KB",
   "keywords": [
     "r",
     "gtfs"

@@ -1,5 +1,3 @@
-
-
 # assert_vector() ---------------------------------------------------------
 
 # creating a function to emulate how assert_vector()
@@ -31,15 +29,40 @@ fake_fn <- function(x,
 
 expect_error(
   fake_fn(1L, class = c("integer", "numeric")),
-  class = "simpleError"
+  class = "bad_class_argument"
 )
-expect_error(fake_fn("a", "character", len = c(1, 2)), class = "simpleError")
-expect_error(fake_fn("a", "character", len = "test"), class = "simpleError")
-expect_error(fake_fn("a", "character", null_ok = 1))
-expect_error(fake_fn("a", "character", var_name = 1))
-expect_error(fake_fn("a", "character", subset_of = 1))
-expect_error(fake_fn("a", "character", named = 1))
-expect_error(fake_fn("a", "character", n_call = 1))
+expect_error(
+  fake_fn(1L, class = c("integer", "numeric")),
+  class = "assert_vector_error"
+)
+expect_error(
+  fake_fn("a", "character", len = c(1, 2)),
+  class = "bad_len_argument"
+)
+expect_error(
+  fake_fn("a", "character", len = "test"),
+  class = "bad_len_argument"
+)
+expect_error(
+  fake_fn("a", "character", null_ok = 1),
+  class = "bad_null_ok_argument"
+)
+expect_error(
+  fake_fn("a", "character", var_name = 1),
+  class = "bad_var_name_argument"
+)
+expect_error(
+  fake_fn("a", "character", subset_of = 1),
+  class = "bad_subset_of_argument"
+)
+expect_error(
+  fake_fn("a", "character", named = 1),
+  class = "bad_named_argument"
+)
+expect_error(
+  fake_fn("a", "character", n_call = 1),
+  class = "bad_n_call_argument"
+)
 
 # check if the correct function is assigned to the error
 

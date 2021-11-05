@@ -34,26 +34,32 @@ assert_vector <- function(x,
 
   # basic input checking
 
-  if (!(is.character(class) && length(class) == 1))
-    stop("'class' must be a string.")
+  if (!(is.character(class) && length(class) == 1)) {
+    error_bad_class_argument()
+  }
 
-  if (!is.null(len) && !(is.integer(len) && length(len) == 1))
-    stop("'length' must be an integer vector with length 1.")
+  if (!is.null(len) && !(is.integer(len) && length(len) == 1)) {
+    error_bad_len_argument()
+  }
 
-  if (!(is.logical(null_ok) && length(null_ok) == 1))
-    stop("'null_ok' must be a logical vector with length 1.")
+  if (!(is.logical(null_ok) && length(null_ok) == 1)) {
+    error_bad_null_ok_argument()
+  }
 
   if (!is.null(var_name) && !(is.character(var_name) && length(var_name) == 1))
-    stop("'var_name' must be a string.")
+    error_bad_var_name_argument()
 
-  if (!is.null(subset_of) && !is.character(subset_of))
-    stop("'subset_of' must be a character vector.")
+  if (!is.null(subset_of) && !is.character(subset_of)) {
+    error_bad_subset_of_argument()
+  }
 
-  if (!(is.logical(named) && length(named) == 1))
-    stop("'named' must be a logical vector with length 1.")
+  if (!(is.logical(named) && length(named) == 1)) {
+    error_bad_named_argument()
+  }
 
-  if (!(is.integer(n_call) && length(n_call) == 1 && n_call < 0))
-    stop("'n_call' must be a negative integer.")
+  if (!(is.integer(n_call) && length(n_call) == 1 && n_call < 0)) {
+    error_bad_n_call_argument()
+  }
 
   # construct input_name either from 'var_name' or from function call
 
@@ -82,49 +88,26 @@ assert_vector <- function(x,
   if ((!inherits(x, class) && null_ok && !is.null(x))
     || (!inherits(x, class) && !null_ok)
     || (is.logical(x) && any(is.na(x)))) {
-
-    gtfsio_error(
-      paste0(input_name, " must be ", vector_name),
-      input_error_class,
-      error_call
-    )
-
+    error_x_wrong_class(input_name, vector_name, input_error_class, error_call)
   }
 
-  if (!is.null(len) && len != length(x))
-    gtfsio_error(
-      paste0(input_name, " must have length ", len, "."),
-      input_error_class,
-      error_call
-    )
+  if (!is.null(len) && len != length(x)) {
+    error_x_wrong_length(input_name, len, input_error_class, error_call)
+  }
 
-  if (!is.null(subset_of) && (is.character(x) && any(! x %in% subset_of)))
-    gtfsio_error(
-      paste0(
-        input_name,
-        " must be a subset of [",
-        paste(paste0("'", subset_of, "'"), collapse = ", "),
-        "]."
-      ),
-      input_error_class,
-      error_call
-    )
+  if (!is.null(subset_of) && (is.character(x) && any(! x %in% subset_of))) {
+    error_x_wrong_value(input_name, subset_of, input_error_class, error_call)
+  }
 
   vector_name2 <- ifelse(class == "list", "list.", paste0(class, " vector."))
-  if (named && is.null(names(x)) && !is.null(x))
-    gtfsio_error(
-      paste0(input_name, " must be a named ", vector_name2),
-      input_error_class,
-      error_call
-    )
+  if (named && is.null(names(x)) && !is.null(x)) {
+    error_x_not_named(input_name, vector_name2, input_error_class, error_call)
+  }
 
   non_empty_names <- names(x)[! names(x) %chin% ""]
-  if (named && (!is.null(names(x)) && length(non_empty_names) != length(x)))
-    gtfsio_error(
-      paste0("Every element in ", input_name, " must be named."),
-      input_error_class,
-      error_call
-    )
+  if (named && (!is.null(names(x)) && length(non_empty_names) != length(x))) {
+    error_x_not_fully_named(input_name, input_error_class, error_call)
+  }
 
   invisible(TRUE)
 
@@ -176,17 +159,149 @@ assert_class <- function(x, class, n_call = -1) {
 
   # check against desired properties
 
-  if (!(all(inherits(x, class, which = TRUE))))
-    gtfsio_error(
-      paste0(
-        input_name, " must inherit from the ",
-        paste0("'", class, "'", collapse = ", "),
-        " class."
-      ),
-      input_error_class,
-      error_call
-    )
+  if (!(all(inherits(x, class, which = TRUE)))) {
+    error_x_wrong_inheritance(input_name, class, input_error_class, error_call)
+  }
 
   invisible(TRUE)
 
+}
+
+
+# errors ------------------------------------------------------------------
+
+
+error_bad_class_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'class' must be a string.",
+    subclass = "bad_class_argument",
+    call = parent_call
+  )
+}
+
+error_bad_len_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'length' must be an integer vector with length 1.",
+    subclass = "bad_len_argument",
+    call = parent_call
+  )
+}
+
+error_bad_null_ok_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'null_ok' must be a logical vector with length 1.",
+    subclass = "bad_null_ok_argument",
+    call = parent_call
+  )
+}
+
+error_bad_var_name_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'var_name' must be a string.",
+    subclass = "bad_var_name_argument",
+    call = parent_call
+  )
+}
+
+error_bad_subset_of_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'subset_of' must be a character vector.",
+    subclass = "bad_subset_of_argument",
+    call = parent_call
+  )
+}
+
+error_bad_named_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'named' must be a logical vector with length 1.",
+    subclass = "bad_named_argument",
+    call = parent_call
+  )
+}
+
+error_bad_n_call_argument <- function() {
+  parent_call <- sys.call(-1)
+  gtfsio_error(
+    "'n_call' must be a negative integer.",
+    subclass = "bad_n_call_argument",
+    call = parent_call
+  )
+}
+
+error_x_wrong_class <- function(input_name,
+                                vector_name,
+                                input_error_class,
+                                error_call) {
+  gtfsio_error(
+    paste0(input_name, " must be ", vector_name),
+    input_error_class,
+    error_call
+  )
+}
+
+error_x_wrong_length <- function(input_name,
+                                 len,
+                                 input_error_class,
+                                 error_call) {
+  gtfsio_error(
+    paste0(input_name, " must have length ", len, "."),
+    input_error_class,
+    error_call
+  )
+}
+
+error_x_wrong_value <- function(input_name,
+                                subset_of,
+                                input_error_class,
+                                error_call) {
+  gtfsio_error(
+    paste0(
+      input_name,
+      " must be a subset of [",
+      paste(paste0("'", subset_of, "'"), collapse = ", "),
+      "]."
+    ),
+    input_error_class,
+    error_call
+  )
+}
+
+error_x_not_named <- function(input_name,
+                              vector_name2,
+                              input_error_class,
+                              error_call) {
+  gtfsio_error(
+    paste0(input_name, " must be a named ", vector_name2),
+    input_error_class,
+    error_call
+  )
+}
+
+error_x_not_fully_named <- function(input_name, input_error_class, error_call) {
+  gtfsio_error(
+    paste0("Every element in ", input_name, " must be named."),
+    input_error_class,
+    error_call
+  )
+}
+
+error_x_wrong_inheritance <- function(input_name,
+                                      class,
+                                      input_error_class,
+                                      error_call) {
+  gtfsio_error(
+    paste0(
+      input_name, " must inherit from the ",
+      paste0("'", class, "'", collapse = ", "),
+      " class."
+    ),
+    input_error_class,
+    error_call
+  )
 }
