@@ -215,7 +215,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     factor("character", "numeric")
   ),
-  class = "bad_types_argument"
+  class = "bad_classes_argument"
 )
 expect_error(
   check_field_class(
@@ -224,7 +224,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character")
   ),
-  class = "bad_types_argument"
+  class = "bad_classes_argument"
 )
 
 # if 'fields' doesn't exist, expect FALSE
@@ -300,7 +300,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     factor("character", "numeric")
   ),
-  class = "bad_types_argument"
+  class = "bad_classes_argument"
 )
 expect_error(
   assert_field_class(
@@ -309,7 +309,7 @@ expect_error(
     c("shape_id", "shape_pt_lat"),
     c("character")
   ),
-  class = "bad_types_argument"
+  class = "bad_classes_argument"
 )
 
 # 'fields' must exist
@@ -350,7 +350,7 @@ expect_error(
   assert_field_class(gtfs, "shapes", "shape_id", "numeric"),
   pattern = paste0(
     "The following columns in the GTFS object \\'shapes\\' element do not ",
-    "inherit from the required types:\n",
+    "inherit from the required classes:\n",
     "  - \\'shape_id\\': requires numeric, but inherits from character"
   )
 )
@@ -363,7 +363,7 @@ expect_error(
   ),
   pattern = paste0(
     "The following columns in the GTFS object \\'shapes\\' element do not ",
-    "inherit from the required types:\n",
+    "inherit from the required classes:\n",
     "  - \\'shape_id\\': requires integer, but inherits from character\n",
     "  - \\'shape_pt_lat\\': requires integer, but inherits from numeric"
   )

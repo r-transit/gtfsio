@@ -3,22 +3,22 @@
 \name{check_field_class}
 \alias{check_field_class}
 \alias{assert_field_class}
-\title{Check the types of fields in a GTFS object element}
+\title{Check the classes of fields in a GTFS object element}
 \usage{
-check_field_class(x, file, fields, types)
+check_field_class(x, file, fields, classes)
 
-assert_field_class(x, file, fields, types)
+assert_field_class(x, file, fields, classes)
 }
 \arguments{
 \item{x}{A GTFS object.}
 
 \item{file}{A string. The element, that represents a GTFS text file, whose
-fields' types should be checked.}
+fields' classes should be checked.}
 
-\item{fields}{A character vector. The fields to have their types checked.}
+\item{fields}{A character vector. The fields to have their classes checked.}
 
-\item{types}{A character vector, with the same length of \code{fields}. The
-types that each field must inherit from.}
+\item{classes}{A character vector, with the same length of \code{fields}. The
+classes that each field must inherit from.}
 }
 \value{
 \code{check_field_class} returns \code{TRUE} if the check is successful, and
@@ -27,7 +27,7 @@ types that each field must inherit from.}
 successful, and throws an error otherwise.
 }
 \description{
-Checks the types of fields, represented by columns, inside a GTFS object
+Checks the classes of fields, represented by columns, inside a GTFS object
 element.
 }
 \examples{
@@ -38,14 +38,14 @@ check_field_class(
   gtfs,
   "calendar",
   fields = c("monday", "tuesday"),
-  types = rep("integer", 2)
+  classes = rep("integer", 2)
 )
 
 check_field_class(
   gtfs,
   "calendar",
   fields = c("monday", "tuesday"),
-  types = c("integer", "character")
+  classes = c("integer", "character")
 )
 
 }
