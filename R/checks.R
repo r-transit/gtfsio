@@ -7,9 +7,9 @@
 #' @param files A character vector. The files to check the existence of.
 #'
 #' @return
-#' \code{check_files_exist} returns \code{TRUE} if the check is successful, and
+#' \code{check_file_exists} returns \code{TRUE} if the check is successful, and
 #'   \code{FALSE} otherwise. \cr
-#' \code{assert_files_exist} returns \code{x} invisibly if the check is
+#' \code{assert_file_exists} returns \code{x} invisibly if the check is
 #'   successful, and throws an error otherwise.
 #'
 #' @family checking functions
@@ -18,12 +18,12 @@
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 #' gtfs <- import_gtfs(gtfs_path)
 #'
-#' check_files_exist(gtfs, c("calendar", "agency"))
+#' check_file_exists(gtfs, c("calendar", "agency"))
 #'
-#' check_files_exist(gtfs, c("calendar", "oi"))
+#' check_file_exists(gtfs, c("calendar", "oi"))
 #'
 #' @export
-check_files_exist <- function(x, files) {
+check_file_exists <- function(x, files) {
 
   assert_class(x, "gtfs")
   assert_vector(files, "character")
@@ -40,9 +40,9 @@ check_files_exist <- function(x, files) {
 
 
 
-#' @rdname check_files_exist
+#' @rdname check_file_exists
 #' @export
-assert_files_exist <- function(x, files) {
+assert_file_exists <- function(x, files) {
 
   assert_class(x, "gtfs")
   assert_vector(files, "character")
@@ -76,9 +76,9 @@ assert_files_exist <- function(x, files) {
 #' @param fields A character vector. The fields to check the existence of.
 #'
 #' @return
-#' \code{check_fields_exist} returns \code{TRUE} if the check is successful, and
+#' \code{check_field_exists} returns \code{TRUE} if the check is successful, and
 #'   \code{FALSE} otherwise. \cr
-#' \code{assert_fields_exist} returns \code{x} invisibly if the check is
+#' \code{assert_field_exists} returns \code{x} invisibly if the check is
 #'   successful, and throws an error otherwise.
 #'
 #' @family checking functions
@@ -87,12 +87,12 @@ assert_files_exist <- function(x, files) {
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 #' gtfs <- import_gtfs(gtfs_path)
 #'
-#' check_fields_exist(gtfs, "calendar", c("monday", "tuesday"))
+#' check_field_exists(gtfs, "calendar", c("monday", "tuesday"))
 #'
-#' check_fields_exist(gtfs, "calendar", c("monday", "oi"))
+#' check_field_exists(gtfs, "calendar", c("monday", "oi"))
 #'
 #' @export
-check_fields_exist <- function(x, file, fields) {
+check_field_exists <- function(x, file, fields) {
 
   assert_class(x, "gtfs")
   assert_vector(file, "character", len = 1L)
@@ -100,7 +100,7 @@ check_fields_exist <- function(x, file, fields) {
 
   # check if 'file' exists, and return FALSE if it doesn't
 
-  if (!check_files_exist(x, file)) return(FALSE)
+  if (!check_file_exists(x, file)) return(FALSE)
 
   # checking for field existence
 
@@ -114,14 +114,14 @@ check_fields_exist <- function(x, file, fields) {
 
 
 
-#' @rdname check_fields_exist
+#' @rdname check_field_exists
 #' @export
-assert_fields_exist <- function(x, file, fields) {
+assert_field_exists <- function(x, file, fields) {
 
   assert_class(x, "gtfs")
   assert_vector(file, "character", len = 1L)
   assert_vector(fields, "character")
-  assert_files_exist(x, file)
+  assert_file_exists(x, file)
 
   # actual checking
 
@@ -156,9 +156,9 @@ assert_fields_exist <- function(x, file, fields) {
 #'   types that each field must inherit from.
 #'
 #' @return
-#' \code{check_fields_types} returns \code{TRUE} if the check is successful, and
+#' \code{check_field_class} returns \code{TRUE} if the check is successful, and
 #'   \code{FALSE} otherwise. \cr
-#' \code{assert_fields_types} returns \code{x} invisibly if the check is
+#' \code{assert_field_class} returns \code{x} invisibly if the check is
 #'   successful, and throws an error otherwise.
 #'
 #' @family checking functions
@@ -167,14 +167,14 @@ assert_fields_exist <- function(x, file, fields) {
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 #' gtfs <- import_gtfs(gtfs_path)
 #'
-#' check_fields_types(
+#' check_field_class(
 #'   gtfs,
 #'   "calendar",
 #'   fields = c("monday", "tuesday"),
 #'   types = rep("integer", 2)
 #' )
 #'
-#' check_fields_types(
+#' check_field_class(
 #'   gtfs,
 #'   "calendar",
 #'   fields = c("monday", "tuesday"),
@@ -182,7 +182,7 @@ assert_fields_exist <- function(x, file, fields) {
 #' )
 #'
 #' @export
-check_fields_types <- function(x, file, fields, types) {
+check_field_class <- function(x, file, fields, types) {
 
   assert_class(x, "gtfs")
   assert_vector(file, "character", len = 1L)
@@ -196,7 +196,7 @@ check_fields_types <- function(x, file, fields, types) {
 
   # check if 'fields' exists, and return FALSE if it doesn't
 
-  if (!check_fields_exist(x, file, fields)) return(FALSE)
+  if (!check_field_exists(x, file, fields)) return(FALSE)
 
   # checking - compare the desired types to the actual types
 
@@ -210,14 +210,14 @@ check_fields_types <- function(x, file, fields, types) {
 
 
 
-#' @rdname check_fields_types
+#' @rdname check_field_class
 #' @export
-assert_fields_types <- function(x, file, fields, types) {
+assert_field_class <- function(x, file, fields, types) {
 
   assert_class(x, "gtfs")
   assert_vector(file, "character", len = 1L)
   assert_vector(fields, "character")
-  assert_fields_exist(x, file, fields)
+  assert_field_exists(x, file, fields)
 
   if (!is.character(types) | length(types) != length(fields))
     gtfsio_error(

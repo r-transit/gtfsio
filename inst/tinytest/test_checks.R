@@ -2,53 +2,53 @@ gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 gtfs <- import_gtfs(gtfs_path)
 
 
-# check_files_exist() -----------------------------------------------------
+# check_file_exists() -----------------------------------------------------
 
 # input checking
 
 expect_error(
-  check_files_exist(unclass(gtfs), "shapes"),
+  check_file_exists(unclass(gtfs), "shapes"),
   class = "bad_x_argument"
 )
 expect_error(
-  check_files_exist(unclass(gtfs), "shapes"),
-  class = "check_files_exist_error"
+  check_file_exists(unclass(gtfs), "shapes"),
+  class = "check_file_exists_error"
 )
 expect_error(
-  check_files_exist(gtfs, factor("shapes")),
+  check_file_exists(gtfs, factor("shapes")),
   class = "bad_files_argument"
 )
 
 # expected results
 
-expect_true(check_files_exist(gtfs, "shapes"))
-expect_true(check_files_exist(gtfs, c("shapes", "trips")))
-expect_false(check_files_exist(gtfs, "ola"))
-expect_false(check_files_exist(gtfs, c("shapes", "ola")))
+expect_true(check_file_exists(gtfs, "shapes"))
+expect_true(check_file_exists(gtfs, c("shapes", "trips")))
+expect_false(check_file_exists(gtfs, "ola"))
+expect_false(check_file_exists(gtfs, c("shapes", "ola")))
 
 
-# assert_files_exist() ----------------------------------------------------
+# assert_file_exists() ----------------------------------------------------
 
 # input checking
 
 expect_error(
-  assert_files_exist(unclass(gtfs), "shapes"),
+  assert_file_exists(unclass(gtfs), "shapes"),
   class = "bad_x_argument"
 )
 expect_error(
-  assert_files_exist(gtfs, factor("shapes")),
+  assert_file_exists(gtfs, factor("shapes")),
   class = "bad_files_argument"
 )
 
 # expected results
 
-expect_identical(assert_files_exist(gtfs, "shapes"), gtfs)
-expect_identical(assert_files_exist(gtfs, c("shapes", "trips")), gtfs)
-expect_silent(assert_files_exist(gtfs, "shapes"))
-expect_silent(assert_files_exist(gtfs, c("shapes", "trips")))
+expect_identical(assert_file_exists(gtfs, "shapes"), gtfs)
+expect_identical(assert_file_exists(gtfs, c("shapes", "trips")), gtfs)
+expect_silent(assert_file_exists(gtfs, "shapes"))
+expect_silent(assert_file_exists(gtfs, c("shapes", "trips")))
 
 expect_error(
-  assert_files_exist(gtfs, "ola"),
+  assert_file_exists(gtfs, "ola"),
   pattern = paste0(
     "The GTFS object is missing the following ",
     "required element\\(s\\): \\'ola\\'"
@@ -56,14 +56,14 @@ expect_error(
   class = "missing_required_file"
 )
 expect_error(
-  assert_files_exist(gtfs, c("shapes", "ola")),
+  assert_file_exists(gtfs, c("shapes", "ola")),
   pattern = paste0(
     "The GTFS object is missing the following ",
     "required element\\(s\\): \\'ola\\'"
   )
 )
 expect_error(
-  assert_files_exist(gtfs, c("oi", "ola")),
+  assert_file_exists(gtfs, c("oi", "ola")),
   pattern = paste0(
     "The GTFS object is missing the following ",
     "required element\\(s\\): \\'oi\\', \\'ola\\'"
@@ -71,81 +71,81 @@ expect_error(
 )
 
 
-# check_fields_exist() ----------------------------------------------------
+# check_field_exists() ----------------------------------------------------
 
 # input checking
 
 expect_error(
-  check_fields_exist(unclass(gtfs), "shapes", "shape_id"),
+  check_field_exists(unclass(gtfs), "shapes", "shape_id"),
   class = "bad_x_argument"
 )
 expect_error(
-  check_fields_exist(gtfs, factor("shapes"), "shape_id"),
+  check_field_exists(gtfs, factor("shapes"), "shape_id"),
   class = "bad_file_argument"
 )
 expect_error(
-  check_fields_exist(gtfs, c("trips", "shapes"), "shape_id"),
+  check_field_exists(gtfs, c("trips", "shapes"), "shape_id"),
   class = "bad_file_argument"
 )
 expect_error(
-  check_fields_exist(gtfs, "shapes", factor("shape_id")),
+  check_field_exists(gtfs, "shapes", factor("shape_id")),
   class = "bad_fields_argument"
 )
 
 # if 'file' doesn't exist, expect FALSE
 
-expect_false(check_fields_exist(gtfs, "oi", "shape_id"))
+expect_false(check_field_exists(gtfs, "oi", "shape_id"))
 
 # expected results
 
-expect_true(check_fields_exist(gtfs, "shapes", "shape_id"))
-expect_true(check_fields_exist(gtfs, "shapes", c("shape_id", "shape_pt_lat")))
-expect_false(check_fields_exist(gtfs, "shapes", "oi"))
-expect_false(check_fields_exist(gtfs, "shapes", c("shape_id", "oi")))
+expect_true(check_field_exists(gtfs, "shapes", "shape_id"))
+expect_true(check_field_exists(gtfs, "shapes", c("shape_id", "shape_pt_lat")))
+expect_false(check_field_exists(gtfs, "shapes", "oi"))
+expect_false(check_field_exists(gtfs, "shapes", c("shape_id", "oi")))
 
 
-# assert_fields_exist() ---------------------------------------------------
+# assert_field_exists() ---------------------------------------------------
 
 # input checking
 
 expect_error(
-  assert_fields_exist(unclass(gtfs), "shapes", "shape_id"),
+  assert_field_exists(unclass(gtfs), "shapes", "shape_id"),
   class = "bad_x_argument"
 )
 expect_error(
-  assert_fields_exist(gtfs, factor("shapes"), "shape_id"),
+  assert_field_exists(gtfs, factor("shapes"), "shape_id"),
   class = "bad_file_argument"
 )
 expect_error(
-  assert_fields_exist(gtfs, c("trips", "shapes"), "shape_id"),
+  assert_field_exists(gtfs, c("trips", "shapes"), "shape_id"),
   class = "bad_file_argument"
 )
 expect_error(
-  assert_fields_exist(gtfs, "shapes", factor("shape_id")),
+  assert_field_exists(gtfs, "shapes", factor("shape_id")),
   class = "bad_fields_argument"
 )
 
 # 'file' must exist
 
 expect_error(
-  assert_fields_exist(gtfs, "oi", "shape_id"),
+  assert_field_exists(gtfs, "oi", "shape_id"),
   class = "missing_required_file"
 )
 
 # expected results
 
-expect_identical(assert_fields_exist(gtfs, "shapes", "shape_id"), gtfs)
+expect_identical(assert_field_exists(gtfs, "shapes", "shape_id"), gtfs)
 expect_identical(
-  assert_fields_exist(gtfs, "shapes", c("shape_id", "shape_pt_lat")),
+  assert_field_exists(gtfs, "shapes", c("shape_id", "shape_pt_lat")),
   gtfs
 )
-expect_silent(assert_fields_exist(gtfs, "shapes", "shape_id"))
+expect_silent(assert_field_exists(gtfs, "shapes", "shape_id"))
 expect_silent(
-  assert_fields_exist(gtfs, "shapes", c("shape_id", "shape_pt_lat"))
+  assert_field_exists(gtfs, "shapes", c("shape_id", "shape_pt_lat"))
 )
 
 expect_error(
-  assert_fields_exist(gtfs, "shapes", c("oi")),
+  assert_field_exists(gtfs, "shapes", c("oi")),
   pattern = paste0(
     "The GTFS object \\'shapes\\' element is missing the following required ",
     "column\\(s\\): \\'oi\\'"
@@ -153,14 +153,14 @@ expect_error(
   class = "missing_required_field"
 )
 expect_error(
-  assert_fields_exist(gtfs, "shapes", c("shape_id", "oi")),
+  assert_field_exists(gtfs, "shapes", c("shape_id", "oi")),
   pattern = paste0(
     "The GTFS object \\'shapes\\' element is missing the following required ",
     "column\\(s\\): \\'oi\\'"
   )
 )
 expect_error(
-  assert_fields_exist(gtfs, "shapes", c("oi", "ola")),
+  assert_field_exists(gtfs, "shapes", c("oi", "ola")),
   pattern = paste0(
     "The GTFS object \\'shapes\\' element is missing the following required ",
     "column\\(s\\): \\'oi\\', \\'ola\\'"
@@ -168,12 +168,12 @@ expect_error(
 )
 
 
-# check_fields_types() ----------------------------------------------------
+# check_field_class() ----------------------------------------------------
 
 # input checking
 
 expect_error(
-  check_fields_types(
+  check_field_class(
     unclass(gtfs),
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -182,7 +182,7 @@ expect_error(
   class = "bad_x_argument"
 )
 expect_error(
-  check_fields_types(
+  check_field_class(
     gtfs,
     c("shapes", "trips"),
     c("shape_id", "shape_pt_lat"),
@@ -191,7 +191,7 @@ expect_error(
   class = "bad_file_argument"
 )
 expect_error(
-  check_fields_types(
+  check_field_class(
     gtfs,
     factor("shapes"),
     c("shape_id", "shape_pt_lat"),
@@ -200,7 +200,7 @@ expect_error(
   class = "bad_file_argument"
 )
 expect_error(
-  check_fields_types(
+  check_field_class(
     gtfs,
     "shapes",
     factor("shape_id", "shape_pt_lat"),
@@ -209,7 +209,7 @@ expect_error(
   class = "bad_fields_argument"
 )
 expect_error(
-  check_fields_types(
+  check_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -218,7 +218,7 @@ expect_error(
   class = "bad_types_argument"
 )
 expect_error(
-  check_fields_types(
+  check_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -229,22 +229,22 @@ expect_error(
 
 # if 'fields' doesn't exist, expect FALSE
 
-expect_false(check_fields_types(gtfs, "shapes", "oi", "character"))
+expect_false(check_field_class(gtfs, "shapes", "oi", "character"))
 
 # expected results
 
-expect_true(check_fields_types(gtfs, "shapes", "shape_id", "character"))
+expect_true(check_field_class(gtfs, "shapes", "shape_id", "character"))
 expect_true(
-  check_fields_types(
+  check_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
     c("character", "numeric")
   )
 )
-expect_false(check_fields_types(gtfs, "shapes", "shape_id", "numeric"))
+expect_false(check_field_class(gtfs, "shapes", "shape_id", "numeric"))
 expect_false(
-  check_fields_types(
+  check_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -253,12 +253,12 @@ expect_false(
 )
 
 
-# assert_fields_types() ---------------------------------------------------
+# assert_field_class() ---------------------------------------------------
 
 # input checking
 
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     unclass(gtfs),
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -267,7 +267,7 @@ expect_error(
   class = "bad_x_argument"
 )
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     c("shapes", "trips"),
     c("shape_id", "shape_pt_lat"),
@@ -276,7 +276,7 @@ expect_error(
   class = "bad_file_argument"
 )
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     factor("shapes"),
     c("shape_id", "shape_pt_lat"),
@@ -285,7 +285,7 @@ expect_error(
   class = "bad_file_argument"
 )
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     "shapes",
     factor("shape_id", "shape_pt_lat"),
@@ -294,7 +294,7 @@ expect_error(
   class = "bad_fields_argument"
 )
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -303,7 +303,7 @@ expect_error(
   class = "bad_types_argument"
 )
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -315,18 +315,18 @@ expect_error(
 # 'fields' must exist
 
 expect_error(
-  assert_fields_types(gtfs, "shapes", "oi", "character"),
+  assert_field_class(gtfs, "shapes", "oi", "character"),
   class = "missing_required_field"
 )
 
 # expected results
 
 expect_identical(
-  assert_fields_types(gtfs, "shapes", "shape_id", "character"),
+  assert_field_class(gtfs, "shapes", "shape_id", "character"),
   gtfs
 )
 expect_identical(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -335,10 +335,10 @@ expect_identical(
   gtfs
 )
 expect_silent(
-  assert_fields_types(gtfs, "shapes", "shape_id", "character")
+  assert_field_class(gtfs, "shapes", "shape_id", "character")
 )
 expect_silent(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),
@@ -347,16 +347,15 @@ expect_silent(
 )
 
 expect_error(
-  assert_fields_types(gtfs, "shapes", "shape_id", "numeric"),
+  assert_field_class(gtfs, "shapes", "shape_id", "numeric"),
   pattern = paste0(
     "The following columns in the GTFS object \\'shapes\\' element do not ",
     "inherit from the required types:\n",
     "  - \\'shape_id\\': requires numeric, but inherits from character"
-  ),
-  class = "wrong_class_field"
+  )
 )
 expect_error(
-  assert_fields_types(
+  assert_field_class(
     gtfs,
     "shapes",
     c("shape_id", "shape_pt_lat"),

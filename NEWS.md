@@ -7,7 +7,11 @@
 ## New features
 
 - Added (internal) input assertion functions, which declutter the input checking sections quite a bit.
-- Added new (internal) `gtfsio_error()` function, which raises a custom-classed error condition.
+- Added new (internal) `gtfsio_error()` function, which raises a custom-classed error condition. All errors raised in gtfsio's exported functions inherit from `gtfsio_error` and `<function_name>_error`, which allows for easier and more clear error catching.
+
+## Potentially breaking changes
+
+- Files and fields checking functions had their names changed. They now use the singular form, instead of the plural (i.e. `check_fields_exist()` was substituted by `check_field_exists()`). This shouldn't raise reverse dependencies concern, because as of now only `{gtfstools}` dev version uses such functions, which is an easy fix that doesn't concern CRAN release.
 
 # gtfsio 0.2.0
 
