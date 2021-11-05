@@ -55,3 +55,17 @@ last_error <- tryCatch(
 expect_inherits(last_error, "function_to_assign_error")
 
 
+# parent_function_error() -------------------------------------------------
+
+
+# should return a function
+expect_inherits(gtfsio:::parent_function_error("oi", "ola"), "function")
+
+# the function should assign the error to the parent function
+test_error <- gtfsio:::parent_function_error("oi", "ola")
+another_fake_fn <- function() {
+  test_error()
+}
+
+expect_error(another_fake_fn(), "oi", class = "ola")
+expect_error(another_fake_fn(), class = "another_fake_fn_error")
