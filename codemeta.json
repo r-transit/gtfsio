@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.0.9020",
+  "version": "0.2.0.9021",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",

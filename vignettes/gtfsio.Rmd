@@ -148,44 +148,44 @@ grepl("elevation", levels_fields)
 
 ## Checking GTFS objects
 
-**gtfsio** also includes functions to check the structure of GTFS objects. `check_files_exist()` checks the existence of elements representing specific text files inside an object. It returns `TRUE` if the check is successful, and `FALSE` otherwise. `assert_files_exist()` invisibly returns the object if successful, and throws an error otherwise:
+**gtfsio** also includes functions to check the structure of GTFS objects. `check_file_exists()` checks the existence of elements representing specific text files inside an object. It returns `TRUE` if the check is successful, and `FALSE` otherwise. `assert_file_exists()` invisibly returns the object if successful, and throws an error otherwise:
 
 ```{r, error = TRUE}
 gtfs <- import_gtfs(gtfs_path, files = c("shapes", "trips"))
 
-check_files_exist(gtfs, "shapes")
-check_files_exist(gtfs, "stop_times")
+check_file_exists(gtfs, "shapes")
+check_file_exists(gtfs, "stop_times")
 
-assert_files_exist(gtfs, "shapes")
-assert_files_exist(gtfs, "stop_times")
+assert_file_exists(gtfs, "shapes")
+assert_file_exists(gtfs, "stop_times")
 ```
 
-`check_fields_exist()` checks the existence of fields, represented by columns, inside GTFS objects. It returns `TRUE` if the check is successful, and `FALSE` otherwise. `assert_fields_exist()` invisibly returns the object if successful, and throws an error otherwise:
+`check_field_exists()` checks the existence of fields, represented by columns, inside GTFS objects. It returns `TRUE` if the check is successful, and `FALSE` otherwise. `assert_field_exists()` invisibly returns the object if successful, and throws an error otherwise:
 
 ```{r, error = TRUE}
 gtfs <- import_gtfs(
-  gtfs_path, 
-  files = "trips", 
+  gtfs_path,
+  files = "trips",
   fields = list(trips = "trip_id")
 )
 
-check_fields_exist(gtfs, "trips", fields = "trip_id")
-check_fields_exist(gtfs, "trips", fields = "shape_id")
+check_field_exists(gtfs, "trips", fields = "trip_id")
+check_field_exists(gtfs, "trips", fields = "shape_id")
 
-assert_fields_exist(gtfs, "trips", fields = "trip_id")
-assert_fields_exist(gtfs, "trips", fields = "shape_id")
+assert_field_exists(gtfs, "trips", fields = "trip_id")
+assert_field_exists(gtfs, "trips", fields = "shape_id")
 ```
 
-`check_fields_types()` checks the types of fields inside GTFS objects. It returns `TRUE` if the check is successful, and `FALSE` otherwise. `assert_fields_types()` invisibly returns the object if successful, and throws an error otherwise:
+`check_field_class()` checks the classes of fields inside GTFS objects. It returns `TRUE` if the check is successful, and `FALSE` otherwise. `assert_field_class()` invisibly returns the object if successful, and throws an error otherwise:
 
 ```{r, error = TRUE}
 gtfs <- import_gtfs(gtfs_path, files = "levels")
 
-check_fields_types(gtfs, "levels", fields = "elevation", types = "character")
-check_fields_types(gtfs, "levels", fields = "elevation", types = "integer")
+check_field_class(gtfs, "levels", fields = "elevation", classes = "character")
+check_field_class(gtfs, "levels", fields = "elevation", classes = "integer")
 
-assert_fields_types(gtfs, "levels", fields = "elevation", types = "character")
-assert_fields_types(gtfs, "levels", fields = "elevation", types = "integer")
+assert_field_class(gtfs, "levels", fields = "elevation", classes = "character")
+assert_field_class(gtfs, "levels", fields = "elevation", classes = "integer")
 ```
 
 Please notes that "lower-level" checks are conducted inside each function - e.g. before checking the type of a field, first the existence of such field is checked:
@@ -193,9 +193,9 @@ Please notes that "lower-level" checks are conducted inside each function - e.g.
 ```{r, error = TRUE}
 gtfs <- import_gtfs(gtfs_path, files = "shapes")
 
-check_fields_types(gtfs, "stop_times", fields = "stop_id", types = "character")
+check_field_class(gtfs, "stop_times", fields = "stop_id", classes = "character")
 
-assert_fields_types(gtfs, "stop_times", fileds = "stop_id", types = "character")
+assert_field_class(gtfs, "stop_times", fields = "stop_id", classes = "character")
 ```
 
 These functions are great for package interoperability. If two distinct packages represent GTFS text files using the same data structure (both `{gtfstools}` and `{gtfsrouter}` use `data.table`s, for example), they just need to add some basic checks before proceeding with operations on objects created by the other package.
