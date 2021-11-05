@@ -52,7 +52,8 @@ expect_error(
   pattern = paste0(
     "The GTFS object is missing the following ",
     "required element\\(s\\): \\'ola\\'"
-  )
+  ),
+  class = "missing_required_file"
 )
 expect_error(
   assert_files_exist(gtfs, c("shapes", "ola")),
@@ -128,10 +129,7 @@ expect_error(
 
 expect_error(
   assert_fields_exist(gtfs, "oi", "shape_id"),
-  pattern = paste0(
-    "The GTFS object is missing the following ",
-    "required element\\(s\\): \\'oi\\'"
-  )
+  class = "missing_required_file"
 )
 
 # expected results
@@ -151,7 +149,8 @@ expect_error(
   pattern = paste0(
     "The GTFS object \\'shapes\\' element is missing the following required ",
     "column\\(s\\): \\'oi\\'"
-  )
+  ),
+  class = "missing_required_field"
 )
 expect_error(
   assert_fields_exist(gtfs, "shapes", c("shape_id", "oi")),
@@ -231,14 +230,6 @@ expect_error(
 # if 'fields' doesn't exist, expect FALSE
 
 expect_false(check_fields_types(gtfs, "shapes", "oi", "character"))
-
-# expect_error(
-#   check_fields_types(gtfs, "shapes", "oi", "character"),
-#   pattern = paste0(
-#     "The GTFS object \\'shapes\\' element is missing the following ",
-#     "required column\\(s\\): \\'oi\\'"
-#   )
-# )
 
 # expected results
 
@@ -325,10 +316,7 @@ expect_error(
 
 expect_error(
   assert_fields_types(gtfs, "shapes", "oi", "character"),
-  pattern = paste0(
-    "The GTFS object \\'shapes\\' element is missing the following ",
-    "required column\\(s\\): \\'oi\\'"
-  )
+  class = "missing_required_field"
 )
 
 # expected results
@@ -364,7 +352,8 @@ expect_error(
     "The following columns in the GTFS object \\'shapes\\' element do not ",
     "inherit from the required types:\n",
     "  - \\'shape_id\\': requires numeric, but inherits from character"
-  )
+  ),
+  class = "wrong_class_field"
 )
 expect_error(
   assert_fields_types(

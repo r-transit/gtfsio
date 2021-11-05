@@ -53,11 +53,12 @@ assert_files_exist <- function(x, files) {
 
   if (identical(missing_files, character(0))) return(invisible(x))
 
-  stop(
+  gtfsio_error(
     paste0(
       "The GTFS object is missing the following required element(s): ",
       paste0("'", missing_files, "'", collapse = ", ")
-    )
+    ),
+    subclass = "missing_required_file"
   )
 
 }
@@ -128,13 +129,14 @@ assert_fields_exist <- function(x, file, fields) {
 
   if (identical(missing_fields, character(0))) return(invisible(x))
 
-  stop(
+  gtfsio_error(
     paste0(
       "The GTFS object '",
       file,
       "' element is missing the following required column(s): ",
       paste0("'", missing_fields, "'", collapse = ", ")
-    )
+    ),
+    subclass = "missing_required_field"
   )
 
 }
@@ -233,7 +235,7 @@ assert_fields_types <- function(x, file, fields, types) {
   req_types <- types[types != actual_types]
   act_types <- actual_types[types != actual_types]
 
-  stop(
+  gtfsio_error(
     paste0(
       "The following columns in the GTFS object '",
       file,
@@ -247,7 +249,8 @@ assert_fields_types <- function(x, file, fields, types) {
         act_types,
         collapse = "\n"
       )
-    )
+    ),
+    subclass = "wrong_class_field"
   )
 
 }
