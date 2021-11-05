@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9018</span>
       </span>
     </div>
 
@@ -134,7 +134,14 @@
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>Added (internal) input assertion functions, which declutter the input checking sections quite a bit.</li>
-<li>Added new (internal) <code><a href="../reference/gtfsio_error.html">gtfsio_error()</a></code> function, which raises a custom-classed error condition.</li>
+<li>Added new (internal) <code><a href="../reference/gtfsio_error.html">gtfsio_error()</a></code> function, which raises a custom-classed error condition. All errors raised in gtfsio’s exported functions inherit from <code>gtfsio_error</code> and <code>&lt;function_name&gt;_error</code>, which allows for easier and more clear error catching.</li>
+</ul>
+</div>
+<div id="potentially-breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#potentially-breaking-changes" class="anchor"></a>Potentially breaking changes</h2>
+<ul>
+<li>Files and fields checking functions had their names changed. They now use the singular form, instead of the plural (i.e. <code>check_fields_exist()</code> was substituted by <code><a href="../reference/check_field_exists.html">check_field_exists()</a></code>). This shouldn’t raise reverse dependencies concern, because as of now only <a href="https://ipeagit.github.io/gtfstools/">gtfstools</a> dev version uses such functions, which is an easy fix that doesn’t concern CRAN release.</li>
 </ul>
 </div>
 </div>
@@ -168,7 +175,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed a bug (or perhaps, changed the behaviour) of <code><a href="../reference/check_fields_exist.html">check_fields_exist()</a></code> and <code><a href="../reference/check_fields_types.html">check_fields_types()</a></code> when a lower-level test (i.e. if the file that holds such field exists, for example) failed. Now it returns <code>FALSE</code> instead of raising an error.</li>
+<li>Fixed a bug (or perhaps, changed the behaviour) of <code>check_fields_exist()</code> and <code>check_fields_types()</code> when a lower-level test (i.e. if the file that holds such field exists, for example) failed. Now it returns <code>FALSE</code> instead of raising an error.</li>
 </ul>
 </div>
 </div>

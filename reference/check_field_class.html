@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parent error function constructor — parent_function_error • gtfsio</title>
+<title>Check the types of fields in a GTFS object element — check_field_class • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Parent error function constructor — parent_function_error" />
-<meta property="og:description" content="Creates a function that raises an error that is assigned to the function in
-which the error was originally seen. Useful to prevent big repetitive
-gtfsio_error() calls in the &quot;main&quot; functions." />
+<meta property="og:title" content="Check the types of fields in a GTFS object element — check_field_class" />
+<meta property="og:description" content="Checks the types of fields, represented by columns, inside a GTFS object
+element." />
 
 
 
@@ -116,37 +115,76 @@ gtfsio_error() calls in the &quot;main&quot; functions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parent error function constructor</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/gtfsio_error.R'><code>R/gtfsio_error.R</code></a></small>
-    <div class="hidden name"><code>parent_function_error.Rd</code></div>
+    <h1>Check the types of fields in a GTFS object element</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/checks.R'><code>R/checks.R</code></a></small>
+    <div class="hidden name"><code>check_field_class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates a function that raises an error that is assigned to the function in
-which the error was originally seen. Useful to prevent big repetitive
-<code><a href='gtfsio_error.html'>gtfsio_error()</a></code> calls in the "main" functions.</p>
+    <p>Checks the types of fields, represented by columns, inside a GTFS object
+element.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parent_function_error</span><span class='op'>(</span><span class='va'>message</span>, subclass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>check_field_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span>, <span class='va'>types</span><span class='op'>)</span>
+
+<span class='fu'>assert_field_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span>, <span class='va'>types</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>message</th>
-      <td><p>The message to inform about the error.</p></td>
+      <th>x</th>
+      <td><p>A GTFS object.</p></td>
     </tr>
     <tr>
-      <th>subclass</th>
-      <td><p>The subclass of the error.</p></td>
+      <th>file</th>
+      <td><p>A string. The element, that represents a GTFS text file, whose
+fields' types should be checked.</p></td>
+    </tr>
+    <tr>
+      <th>fields</th>
+      <td><p>A character vector. The fields to have their types checked.</p></td>
+    </tr>
+    <tr>
+      <th>types</th>
+      <td><p>A character vector, with the same length of <code>fields</code>. The
+types that each field must inherit from.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>check_field_class</code> returns <code>TRUE</code> if the check is successful, and
+<code>FALSE</code> otherwise. <br />
+<code>assert_field_class</code> returns <code>x</code> invisibly if the check is
+successful, and throws an error otherwise.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other error constructors: 
-<code><a href='gtfsio_error.html'>gtfsio_error</a>()</code></p></div>
+    <div class='dont-index'><p>Other checking functions: 
+<code><a href='check_field_exists.html'>check_field_exists</a>()</code>,
+<code><a href='check_file_exists.html'>check_file_exists</a>()</code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='va'>gtfs_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/ggl_gtfs.zip"</span>, package <span class='op'>=</span> <span class='st'>"gtfsio"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>gtfs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='import_gtfs.html'>import_gtfs</a></span><span class='op'>(</span><span class='va'>gtfs_path</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>check_field_class</span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='va'>gtfs</span>,</span>
+<span class='r-in'>  <span class='st'>"calendar"</span>,</span>
+<span class='r-in'>  fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"monday"</span>, <span class='st'>"tuesday"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"integer"</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>check_field_class</span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='va'>gtfs</span>,</span>
+<span class='r-in'>  <span class='st'>"calendar"</span>,</span>
+<span class='r-in'>  fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"monday"</span>, <span class='st'>"tuesday"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"integer"</span>, <span class='st'>"character"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
