@@ -1,7 +1,7 @@
 Type: Package
 Package: gtfsio
 Title: Read and Write General Transit Feed Specification (GTFS) Files
-Version: 0.2.0.9012
+Version: 0.2.0.9013
 Authors@R: 
     c(person(given = "Daniel",
              family = "Herszenhut",
@@ -51,3 +51,15 @@ VignetteBuilder:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Collate: 
+    'gtfsio_error.R'
+    'assert_gtfs.R'
+    'assert_inputs.R'
+    'checks.R'
+    'export_gtfs.R'
+    'get_gtfs_standards.R'
+    'gtfs_methods.R'
+    'gtfs_subset.R'
+    'gtfsio.R'
+    'import_gtfs.R'
+    'new_gtfs.R'

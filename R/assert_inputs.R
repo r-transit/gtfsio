@@ -171,68 +171,41 @@ assert_class <- function(x, class, n_call = -1) {
 # errors ------------------------------------------------------------------
 
 
-error_bad_class_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'class' must be a string.",
-    subclass = "bad_class_argument",
-    call = parent_call
-  )
-}
+#' @include gtfsio_error.R
+error_bad_class_argument <- parent_function_error(
+  "'class' must be a string.",
+  subclass = "bad_class_argument"
+)
 
-error_bad_len_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'length' must be an integer vector with length 1.",
-    subclass = "bad_len_argument",
-    call = parent_call
-  )
-}
+error_bad_len_argument <- parent_function_error(
+  "'length' must be an integer vector with length 1.",
+  subclass = "bad_len_argument"
+)
 
-error_bad_null_ok_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'null_ok' must be a logical vector with length 1.",
-    subclass = "bad_null_ok_argument",
-    call = parent_call
-  )
-}
+error_bad_null_ok_argument <- parent_function_error(
+  "'null_ok' must be a logical vector with length 1.",
+  subclass = "bad_null_ok_argument"
+)
 
-error_bad_var_name_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'var_name' must be a string.",
-    subclass = "bad_var_name_argument",
-    call = parent_call
-  )
-}
+error_bad_var_name_argument <- parent_function_error(
+  "'var_name' must be a string.",
+  subclass = "bad_var_name_argument"
+)
 
-error_bad_subset_of_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'subset_of' must be a character vector.",
-    subclass = "bad_subset_of_argument",
-    call = parent_call
-  )
-}
+error_bad_subset_of_argument <- parent_function_error(
+  "'subset_of' must be a character vector.",
+  subclass = "bad_subset_of_argument"
+)
 
-error_bad_named_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'named' must be a logical vector with length 1.",
-    subclass = "bad_named_argument",
-    call = parent_call
-  )
-}
+error_bad_named_argument <- parent_function_error(
+  "'named' must be a logical vector with length 1.",
+  subclass = "bad_named_argument"
+)
 
-error_bad_n_call_argument <- function() {
-  parent_call <- sys.call(-1)
-  gtfsio_error(
-    "'n_call' must be a negative integer.",
-    subclass = "bad_n_call_argument",
-    call = parent_call
-  )
-}
+error_bad_n_call_argument <- parent_function_error(
+  "'n_call' must be a negative integer.",
+  subclass = "bad_n_call_argument"
+)
 
 error_x_wrong_class <- function(input_name,
                                 vector_name,

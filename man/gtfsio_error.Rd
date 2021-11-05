@@ -16,4 +16,9 @@ gtfsio_error(message, subclass = character(0), call = sys.call(-1))
 \description{
 gtfsio's custom error condition constructor
 }
+\seealso{
+Other error constructors: 
+\code{\link{parent_function_error}()}
+}
+\concept{error constructors}
 \keyword{internal}

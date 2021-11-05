@@ -4,6 +4,8 @@
 #' @param subclass The subclass of the error.
 #' @param call A call to associate the error with.
 #'
+#' @family error constructors
+#'
 #' @keywords internal
 gtfsio_error <- function(message,
                          subclass = character(0),
@@ -26,4 +28,24 @@ gtfsio_error <- function(message,
 
   stop(error)
 
+}
+
+
+#' Parent error function constructor
+#'
+#' Creates a function that raises an error that is assigned to the function in
+#' which the error was originally seen. Useful to prevent big repetitive
+#' `gtfsio_error()` calls in the "main" functions.
+#'
+#' @param message The message to inform about the error.
+#' @param subclass The subclass of the error.
+#'
+#' @family error constructors
+#'
+#' @keywords internal
+parent_function_error <- function(message, subclass = character(0)) {
+  function() {
+    parent_call <- sys.call(-1)
+    gtfsio_error(message, subclass, parent_call)
+  }
 }
