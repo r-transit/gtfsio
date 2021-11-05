@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • gtfsio</title>
+<title>Parent error function constructor — parent_function_error • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Parent error function constructor — parent_function_error" />
+<meta property="og:description" content="Creates a function that raises an error that is assigned to the function in
+which the error was originally seen. Useful to prevent big repetitive
+gtfsio_error() calls in the &quot;main&quot; functions." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,148 +114,40 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Parent error function constructor</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/gtfsio_error.R'><code>R/gtfsio_error.R</code></a></small>
+    <div class="hidden name"><code>parent_function_error.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Creates a function that raises an error that is assigned to the function in
+which the error was originally seen. Useful to prevent big repetitive
+<code><a href='gtfsio_error.html'>gtfsio_error()</a></code> calls in the "main" functions.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>parent_function_error</span><span class='op'>(</span><span class='va'>message</span>, subclass <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-gtfs-standards" class="hasAnchor"><a href="#section-gtfs-standards" class="anchor"></a>GTFS standards</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="get_gtfs_standards.html">get_gtfs_standards()</a></code> </p>
-        </td>
-        <td><p>Generate GTFS standards</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-input-output" class="hasAnchor"><a href="#section-input-output" class="anchor"></a>Input/output</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="import_gtfs.html">import_gtfs()</a></code> </p>
-        </td>
-        <td><p>Import GTFS transit feeds</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="export_gtfs.html">export_gtfs()</a></code> </p>
-        </td>
-        <td><p>Export GTFS objects</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-checking" class="hasAnchor"><a href="#section-checking" class="anchor"></a>Checking</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="check_files_exist.html">check_files_exist()</a></code> <code><a href="check_files_exist.html">assert_files_exist()</a></code> </p>
-        </td>
-        <td><p>Check the existence of text files in a GTFS object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_fields_exist.html">check_fields_exist()</a></code> <code><a href="check_fields_exist.html">assert_fields_exist()</a></code> </p>
-        </td>
-        <td><p>Check the existence of fields in a GTFS object element</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_fields_types.html">check_fields_types()</a></code> <code><a href="check_fields_types.html">assert_fields_types()</a></code> </p>
-        </td>
-        <td><p>Check the types of fields in a GTFS object element</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-constructor-validator" class="hasAnchor"><a href="#section-constructor-validator" class="anchor"></a>Constructor/validator</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="new_gtfs.html">new_gtfs()</a></code> </p>
-        </td>
-        <td><p>GTFS object constructor</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="assert_gtfs.html">assert_gtfs()</a></code> </p>
-        </td>
-        <td><p>GTFS object validator</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-methods" class="hasAnchor"><a href="#section-methods" class="anchor"></a>Methods</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="print.gtfs.html">print(<i>&lt;gtfs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print a GTFS object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sub-.gtfs.html">`[`(<i>&lt;gtfs&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Subset a GTFS object</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>message</th>
+      <td><p>The message to inform about the error.</p></td>
+    </tr>
+    <tr>
+      <th>subclass</th>
+      <td><p>The subclass of the error.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other error constructors: 
+<code><a href='gtfsio_error.html'>gtfsio_error</a>()</code></p></div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
