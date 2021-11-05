@@ -24,7 +24,7 @@ gtfsio_error <- function(message,
   fn_error_class <- paste0(fn_name, "_error")
 
   subclass <- c(subclass, fn_error_class, "gtfsio_error")
-  error <- errorCondition(message, class = subclass, call = call)
+  error <- errorCondition(message, class = subclass, call = NULL)
 
   stop(error)
 
