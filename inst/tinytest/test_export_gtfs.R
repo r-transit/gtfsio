@@ -84,14 +84,16 @@ expect_error(
   pattern = paste0(
     "'path' must have '\\.zip' extension\\. ",
     "If you meant to create a directory please set 'as_dir' to TRUE\\."
-  )
+  ),
+  class = "ext_must_be_zip"
 )
 
 # raise an error if path has a '.zip' extension but 'as_dir' is TRUE
 
 expect_error(
   tester(as_dir = TRUE),
-  pattern = "'path' cannot have '\\.zip' extension\\ when 'as_dir' is TRUE\\."
+  pattern = "'path' cannot have '\\.zip' extension\\ when 'as_dir' is TRUE\\.",
+  class = "path_must_be_dir"
 )
 
 # raise an error if 'as_dir' is TRUE and 'path' is tempdir()
@@ -101,7 +103,8 @@ expect_error(
   pattern = paste0(
     "Please use 'tempfile\\(\\)' instead of 'tempdir\\(\\)' to designate ",
     "temporary directories."
-  )
+  ),
+  class = "tempfile_misused"
 )
 
 # object should be exported as a zip file by default
@@ -125,7 +128,8 @@ expect_error(
   pattern = paste0(
     "The provided GTFS object does not contain the following elements ",
     "specified in 'files': 'oi'"
-  )
+  ),
+  class = "missing_specified_file"
 )
 
 # if 'files' is NULL (the default), all elements should exported - both when
@@ -158,7 +162,8 @@ expect_error(
   pattern = paste0(
     "Non-standard file specified in 'files', even though 'standard_only' is ",
     "set to TRUE: 'oi'"
-  )
+  ),
+  class = "non_standard_files"
 )
 
 # if 'standard_only' is FALSE (the default), extra files and fields are exported
@@ -226,8 +231,16 @@ exist_pat <- paste0(
 
 expect_true(file.exists(tmpf))
 expect_true(dir.exists(tmpd))
-expect_error(tester(overwrite = FALSE), pattern = exist_pat)
-expect_error(tester(path = tmpd, overwrite = FALSE), pattern = exist_pat)
+expect_error(
+  tester(overwrite = FALSE),
+  pattern = exist_pat,
+  class = "cannot_overwrite_file"
+)
+expect_error(
+  tester(path = tmpd, overwrite = FALSE),
+  pattern = exist_pat,
+  class = "cannot_overwrite_file"
+)
 
 # 'quiet' behaviour -------------------------------------------------------
 
