@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check the types of fields in a GTFS object element — check_field_class • gtfsio</title>
+<title>Check the classes of fields in a GTFS object element — check_field_class • gtfsio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Check the types of fields in a GTFS object element — check_field_class" />
-<meta property="og:description" content="Checks the types of fields, represented by columns, inside a GTFS object
+<meta property="og:title" content="Check the classes of fields in a GTFS object element — check_field_class" />
+<meta property="og:description" content="Checks the classes of fields, represented by columns, inside a GTFS object
 element." />
 
 
@@ -73,7 +73,7 @@ element." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -115,19 +115,19 @@ element." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check the types of fields in a GTFS object element</h1>
+    <h1>Check the classes of fields in a GTFS object element</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-transit/gtfsio/blob/master/R/checks.R'><code>R/checks.R</code></a></small>
     <div class="hidden name"><code>check_field_class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Checks the types of fields, represented by columns, inside a GTFS object
+    <p>Checks the classes of fields, represented by columns, inside a GTFS object
 element.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>check_field_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span>, <span class='va'>types</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>check_field_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span>, <span class='va'>classes</span><span class='op'>)</span>
 
-<span class='fu'>assert_field_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span>, <span class='va'>types</span><span class='op'>)</span></pre>
+<span class='fu'>assert_field_class</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>file</span>, <span class='va'>fields</span>, <span class='va'>classes</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,16 +139,16 @@ element.</p>
     <tr>
       <th>file</th>
       <td><p>A string. The element, that represents a GTFS text file, whose
-fields' types should be checked.</p></td>
+fields' classes should be checked.</p></td>
     </tr>
     <tr>
       <th>fields</th>
-      <td><p>A character vector. The fields to have their types checked.</p></td>
+      <td><p>A character vector. The fields to have their classes checked.</p></td>
     </tr>
     <tr>
-      <th>types</th>
+      <th>classes</th>
       <td><p>A character vector, with the same length of <code>fields</code>. The
-types that each field must inherit from.</p></td>
+classes that each field must inherit from.</p></td>
     </tr>
     </table>
 
@@ -172,7 +172,7 @@ successful, and throws an error otherwise.</p>
 <span class='r-in'>  <span class='va'>gtfs</span>,</span>
 <span class='r-in'>  <span class='st'>"calendar"</span>,</span>
 <span class='r-in'>  fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"monday"</span>, <span class='st'>"tuesday"</span><span class='op'>)</span>,</span>
-<span class='r-in'>  types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"integer"</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'>  classes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"integer"</span>, <span class='fl'>2</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
 <span class='r-in'></span>
@@ -180,7 +180,7 @@ successful, and throws an error otherwise.</p>
 <span class='r-in'>  <span class='va'>gtfs</span>,</span>
 <span class='r-in'>  <span class='st'>"calendar"</span>,</span>
 <span class='r-in'>  fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"monday"</span>, <span class='st'>"tuesday"</span><span class='op'>)</span>,</span>
-<span class='r-in'>  types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"integer"</span>, <span class='st'>"character"</span><span class='op'>)</span></span>
+<span class='r-in'>  classes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"integer"</span>, <span class='st'>"character"</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
 <span class='r-in'></span>

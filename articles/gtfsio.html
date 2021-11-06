@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -251,58 +251,56 @@
 <div id="checking-gtfs-objects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#checking-gtfs-objects" class="anchor"></a>Checking GTFS objects</h2>
-<p><strong>gtfsio</strong> also includes functions to check the structure of GTFS objects. <code>check_files_exist()</code> checks the existence of elements representing specific text files inside an object. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code>assert_files_exist()</code> invisibly returns the object if successful, and throws an error otherwise:</p>
+<p><strong>gtfsio</strong> also includes functions to check the structure of GTFS objects. <code><a href="../reference/check_file_exists.html">check_file_exists()</a></code> checks the existence of elements representing specific text files inside an object. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_file_exists.html">assert_file_exists()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"shapes"</span>, <span class="st">"trips"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu">check_files_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"shapes"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_files_exist(gtfs, "shapes"): could not find function "check_files_exist"</span>
-<span class="fu">check_files_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_files_exist(gtfs, "stop_times"): could not find function "check_files_exist"</span>
+<span class="fu"><a href="../reference/check_file_exists.html">check_file_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"shapes"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="../reference/check_file_exists.html">check_file_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
 
-<span class="fu">assert_files_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"shapes"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_files_exist(gtfs, "shapes"): could not find function "assert_files_exist"</span>
-<span class="fu">assert_files_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_files_exist(gtfs, "stop_times"): could not find function "assert_files_exist"</span></code></pre></div>
-<p><code>check_fields_exist()</code> checks the existence of fields, represented by columns, inside GTFS objects. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code>assert_fields_exist()</code> invisibly returns the object if successful, and throws an error otherwise:</p>
+<span class="fu"><a href="../reference/check_file_exists.html">assert_file_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"shapes"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_file_exists.html">assert_file_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span><span class="op">)</span>
+<span class="co">#&gt; Error: The GTFS object is missing the following required element(s): 'stop_times'</span></code></pre></div>
+<p><code><a href="../reference/check_field_exists.html">check_field_exists()</a></code> checks the existence of fields, represented by columns, inside GTFS objects. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_field_exists.html">assert_field_exists()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span>
-  <span class="va">gtfs_path</span>, 
-  files <span class="op">=</span> <span class="st">"trips"</span>, 
+  <span class="va">gtfs_path</span>,
+  files <span class="op">=</span> <span class="st">"trips"</span>,
   fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>trips <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="fu">check_fields_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_fields_exist(gtfs, "trips", fields = "trip_id"): could not find function "check_fields_exist"</span>
-<span class="fu">check_fields_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_fields_exist(gtfs, "trips", fields = "shape_id"): could not find function "check_fields_exist"</span>
+<span class="fu"><a href="../reference/check_field_exists.html">check_field_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="../reference/check_field_exists.html">check_field_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
 
-<span class="fu">assert_fields_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_fields_exist(gtfs, "trips", fields = "trip_id"): could not find function "assert_fields_exist"</span>
-<span class="fu">assert_fields_exist</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_fields_exist(gtfs, "trips", fields = "shape_id"): could not find function "assert_fields_exist"</span></code></pre></div>
-<p><code>check_fields_types()</code> checks the types of fields inside GTFS objects. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code>assert_fields_types()</code> invisibly returns the object if successful, and throws an error otherwise:</p>
+<span class="fu"><a href="../reference/check_field_exists.html">assert_field_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"trip_id"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_field_exists.html">assert_field_exists</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"trips"</span>, fields <span class="op">=</span> <span class="st">"shape_id"</span><span class="op">)</span>
+<span class="co">#&gt; Error: The GTFS object 'trips' element is missing the following required column(s): 'shape_id'</span></code></pre></div>
+<p><code><a href="../reference/check_field_class.html">check_field_class()</a></code> checks the classes of fields inside GTFS objects. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_field_class.html">assert_field_class()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="st">"levels"</span><span class="op">)</span>
 
-<span class="fu">check_fields_types</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_fields_types(gtfs, "levels", fields = "elevation", types = "character"): could not find function "check_fields_types"</span>
-<span class="fu">check_fields_types</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_fields_types(gtfs, "levels", fields = "elevation", types = "integer"): could not find function "check_fields_types"</span>
+<span class="fu"><a href="../reference/check_field_class.html">check_field_class</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, classes <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu"><a href="../reference/check_field_class.html">check_field_class</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, classes <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
 
-<span class="fu">assert_fields_types</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_fields_types(gtfs, "levels", fields = "elevation", types = "character"): could not find function "assert_fields_types"</span>
-<span class="fu">assert_fields_types</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, types <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_fields_types(gtfs, "levels", fields = "elevation", types = "integer"): could not find function "assert_fields_types"</span></code></pre></div>
+<span class="fu"><a href="../reference/check_field_class.html">assert_field_class</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, classes <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/check_field_class.html">assert_field_class</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"levels"</span>, fields <span class="op">=</span> <span class="st">"elevation"</span>, classes <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span>
+<span class="co">#&gt; Error: The following columns in the GTFS object 'levels' element do not inherit from the required classes:</span>
+<span class="co">#&gt;   - 'elevation': requires integer, but inherits from character</span></code></pre></div>
 <p>Please notes that “lower-level” checks are conducted inside each function - e.g. before checking the type of a field, first the existence of such field is checked:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="st">"shapes"</span><span class="op">)</span>
 
-<span class="fu">check_fields_types</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span>, fields <span class="op">=</span> <span class="st">"stop_id"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
-<span class="co">#&gt; Error in check_fields_types(gtfs, "stop_times", fields = "stop_id", types = "character"): could not find function "check_fields_types"</span>
+<span class="fu"><a href="../reference/check_field_class.html">check_field_class</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span>, fields <span class="op">=</span> <span class="st">"stop_id"</span>, classes <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
 
-<span class="fu">assert_fields_types</span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span>, fileds <span class="op">=</span> <span class="st">"stop_id"</span>, types <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
-<span class="co">#&gt; Error in assert_fields_types(gtfs, "stop_times", fileds = "stop_id", types = "character"): could not find function "assert_fields_types"</span></code></pre></div>
+<span class="fu"><a href="../reference/check_field_class.html">assert_field_class</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="st">"stop_times"</span>, fields <span class="op">=</span> <span class="st">"stop_id"</span>, classes <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span>
+<span class="co">#&gt; Error: The GTFS object is missing the following required element(s): 'stop_times'</span></code></pre></div>
 <p>These functions are great for package interoperability. If two distinct packages represent GTFS text files using the same data structure (both <a href="https://ipeagit.github.io/gtfstools/">gtfstools</a> and <a href="https://github.com/ATFutures/gtfs-router">gtfsrouter</a> use <code>data.table</code>s, for example), they just need to add some basic checks before proceeding with operations on objects created by the other package.</p>
 <p>So, if <a href="https://github.com/ATFutures/gtfs-router">gtfsrouter</a> requires the <code>transfers</code> element to perform some operations, it might as well perform them on an object created by <a href="https://ipeagit.github.io/gtfstools/">gtfstools</a>, as long as it contains a <code>transfers</code> element. Thus, it could greatly benefit of some <code>assert_*</code>/<code>check_*</code> calls before proceeding with such operations.</p>
 </div>
