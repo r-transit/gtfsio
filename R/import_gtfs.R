@@ -258,25 +258,28 @@ read_files <- function(file,
   }
 
   # read 'file' first row to figure out which fields are present
-  # if 'file_standards' is NULL then file is undocumented
+  # - if 'file_standards' is NULL then file is undocumented
+  # - print warning message if warning is raised and 'quiet' is FALSE
 
   if (is.null(file_standards) & !quiet) {
     message("  - File undocumented. Trying to read it as a csv.")
   }
 
-  sample_dt <- data.table::fread(
-    file.path(tmpdir, file_txt),
-    nrows = 1,
-    colClasses = "character"
+  withCallingHandlers(
+    {
+      sample_dt <- data.table::fread(
+        file.path(tmpdir, file_txt),
+        nrows = 1,
+        colClasses = "character"
+      )
+    },
+    warning = function(cnd) if (!quiet) message("  - ", conditionMessage(cnd))
   )
 
   # if 'file' is completely empty (even without a header), return a NULL
   # 'data.table'
 
-  if (ncol(sample_dt) == 0) {
-    if (!quiet) message("  - File is empty. Returning a NULL data.table")
-    return(data.table::data.table(NULL))
-  }
+  if (ncol(sample_dt) == 0) return(data.table::data.table(NULL))
 
   # retrieve which fields are inside the file
 
@@ -332,7 +335,7 @@ read_files <- function(file,
   fields_classes <- c(doc_classes, undoc_classes)
 
   # read the file specifying the column classes
-  # if a warning is thrown (e.g. due to a parsing failure) and 'quiet' != FALSE,
+  # if a warning is thrown (e.g. due to a parsing failure) and 'quiet' is FALSE,
   # print warning message to console to help debugging (otherwise all warnings
   # messages are thrown simultaneously at the end, which doesn't help as much)
 

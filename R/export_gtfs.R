@@ -140,7 +140,13 @@ export_gtfs <- function(gtfs,
 
     }
 
-    data.table::fwrite(dt, filepath)
+    # print warning message if warning is raised and 'quiet' is FALSE
+    withCallingHandlers(
+      data.table::fwrite(dt, filepath),
+      warning = function(cnd) {
+        if (!quiet) message("    - ", conditionMessage(cnd))
+      }
+    )
 
   }
 

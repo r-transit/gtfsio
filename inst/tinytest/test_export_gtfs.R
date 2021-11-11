@@ -264,3 +264,12 @@ out <- capture.output(
 )
 expect_true(any(grepl("^Writing text files to ", out)))
 expect_true(any(grepl("^  - Writing ", out)))
+
+# making sure fwrite warnings are converted to messages
+
+bad_path <- system.file("extdata/bad_gtfs.zip", package = "gtfsio")
+expect_warning(bad_gtfs <- import_gtfs(bad_path, quiet = FALSE))
+suppressWarnings(
+  out <- capture.output(tester(bad_gtfs, quiet = FALSE), type = "message")
+)
+expect_true(any(grepl("^    - Input has no columns", out)))

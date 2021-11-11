@@ -302,7 +302,7 @@ suppressWarnings(
     type = "message"
   )
 )
-expect_true(any(grepl("^  - File is empty\\.", out)))
+expect_true(any(grepl("^  - File .* has size 0\\.", out)))
 
 # warnings converted to messages upon parsing failures
 

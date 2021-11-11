@@ -1,3 +1,13 @@
+# gtfsio (development version)
+
+## Bug fixes
+
+## New features
+
+## Notes
+
+- Started converting more warnings to messages when `quiet = FALSE` in `import_gtfs()` and `export_gtfs()`.
+
 # gtfsio 1.0.0
 
 ## Bug fixes
