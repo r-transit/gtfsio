@@ -19,8 +19,10 @@ gtfsio_error <- function(message,
   if (! is.character(subclass)) stop("'subclass' must be a character vector.")
 
   # retrieve the function that called 'gtfsio_error' and include it as a class
+  # the tail() call ensures that we pick the name of the function in case of a
+  # namespaced call (e.g. gtfsio::assert_file_exists())
 
-  fn_name <- as.character(call[[1]])
+  fn_name <- utils::tail(as.character(call[[1]]), 1)
   fn_error_class <- paste0(fn_name, "_error")
 
   subclass <- c(subclass, fn_error_class, "gtfsio_error")

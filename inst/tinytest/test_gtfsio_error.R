@@ -54,6 +54,21 @@ last_error <- tryCatch(
 )
 expect_inherits(last_error, "function_to_assign_error")
 
+# error resulting from a gtfsio function called via the namespace operator (::)
+# (e.g. gtfsio::assert_file_exists()) should assign the error to the function,
+# but not to :: and gtfsio (:: is a function that takes the package and the
+# function as arguments - if we don't pay attention to this, gtfsio_error() will
+# assign the error to the wrong function in such cases)
+
+path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
+gtfs <- import_gtfs(path)
+namespaced_error <- tryCatch(
+  gtfsio::assert_file_exists(gtfs, "oi"),
+  error = function(cnd) cnd
+)
+expect_inherits(namespaced_error, "assert_file_exists_error")
+expect_true(sum(grepl("gtfsio_error", class(namespaced_error))) == 1)
+expect_false(inherits(namespaced_error, "::_error"))
 
 # parent_function_error() -------------------------------------------------
 
