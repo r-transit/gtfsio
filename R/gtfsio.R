@@ -8,8 +8,7 @@
 #' structure of GTFS objects.
 #'
 #' @docType package
-#' @name gtfsio
-#' @aliases gtfsio-package
+#' @keywords internal
 #'
 #' @importFrom data.table %chin% :=
 "_PACKAGE"
