@@ -8,9 +8,9 @@ reference:
     - export_gtfs
   - title: Checking
   - contents:
-    - check_files_exist
-    - check_fields_exist
-    - check_fields_types
+    - check_file_exists
+    - check_field_exists
+    - check_field_class
   - title: Constructor/validator
   - contents:
     - new_gtfs
@@ -19,3 +19,4 @@ reference:
   - contents:
     - print.gtfs
     - "[.gtfs"
+    - summary.gtfs
