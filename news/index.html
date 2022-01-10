@@ -54,7 +54,8 @@
 <h2 class="page-header" data-toc-text="development version" id="gtfsio-development-version">gtfsio (development version)<a class="anchor" aria-label="anchor" href="#gtfsio-development-version"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-</div>
+<ul><li>Fixed a bug in which <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> would append a <code>.txt</code> extension to non text files found inside the GTFS feed, which would lead to an error when attempting to unzip the feed. The function now ignores non text files when reading feeds, and raises an informative warning message if any of such files is found (<a href="https://github.com/r-transit/gtfsio/issues/23" class="external-link">#23</a>).</li>
+</ul></div>
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 </div>
