@@ -111,9 +111,23 @@ import_gtfs <- function(path,
 
   }
 
-  # retrieve which files are inside the GTFS and remove '.txt' from their names
+  # check which files are inside the GTFS. if any non text file is found, raise
+  # a warning and do not try to read it as a csv. remove the '.txt' extension
+  # from the text files to reference them without it in messages and errors
 
   files_in_gtfs <- zip::zip_list(path)$filename
+
+  non_text_files <- files_in_gtfs[!grepl("\\.txt$", files_in_gtfs)]
+
+  if (!identical(non_text_files, character(0))) {
+    warning(
+      "Found non .txt files when attempting to read the GTFS feed: ",
+      paste(non_text_files, collapse = ", "), "\n",
+      "These files have been ignored and were not imported to the GTFS object.",
+      call. = FALSE
+    )
+  }
+  files_in_gtfs <- setdiff(files_in_gtfs, non_text_files)
   files_in_gtfs <- gsub("\\.txt", "", files_in_gtfs)
 
   # read only the text files specified either in 'files' or in 'skip'.

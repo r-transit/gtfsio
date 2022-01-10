@@ -8,9 +8,7 @@ tester <- function(data_path = path,
                    skip = NULL,
                    quiet = TRUE,
                    encoding = "unknown") {
-
   import_gtfs(data_path, files, fields, extra_spec, skip, quiet, encoding)
-
 }
 
 # basic input checking ----------------------------------------------------
@@ -369,3 +367,42 @@ gtfs_utf8 <- import_gtfs(tmpf, files = "agency", encoding = "UTF-8")
 gtfs_latin1 <- import_gtfs(tmpf, files = "agency", encoding = "Latin-1")
 
 expect_false(identical(gtfs_utf8$agency, gtfs_latin1$agency))
+
+
+# issue #23 - non text files present inside GTFS feed ---------------------
+# expect warning when attempting to read these feeds and that the non text file
+# will be ignored
+
+gtfs <- import_gtfs(path)
+
+tmpdir <- tempfile("gtfsio_non_text_test")
+dir.create(tmpdir)
+data.table::fwrite(gtfs$agency, file.path(tmpdir, "agency.txt"))
+invisible(file.create(file.path(tmpdir, "non_text.html")))
+
+tmpfile <- tempfile("gtfsio_non_text_test", fileext = ".zip")
+tmpfile <- zip::zip(
+  tmpfile,
+  list.files(tmpdir, full.names = TRUE),
+  mode = "cherry-pick"
+)
+
+expect_warning(
+  non_text_gtfs <- tester(tmpfile),
+  pattern = "non_text\\.html"
+)
+expect_identical(names(non_text_gtfs), "agency")
+
+# testing when it contains more than one non .txt file
+invisible(file.create(file.path(tmpdir, "another_non_text.html")))
+tmpfile <- zip::zip(
+  tmpfile,
+  list.files(tmpdir, full.names = TRUE),
+  mode = "cherry-pick"
+)
+
+expect_warning(
+  non_text_gtfs <- tester(tmpfile),
+  pattern = "another_non_text\\.html, non_text\\.html"
+)
+expect_identical(names(non_text_gtfs), "agency")

@@ -2,7 +2,10 @@
 
 ## Bug fixes
 
+- Fixed a bug in which `import_gtfs()` would append a `.txt` extension to non text files found inside the GTFS feed, which would lead to an error when attempting to unzip the feed. The function now ignores non text files when reading feeds, and raises an informative warning message if any of such files is found ([#23](https://github.com/r-transit/gtfsio/issues/23)).
+
 ## New features
+
 
 ## Notes
 
