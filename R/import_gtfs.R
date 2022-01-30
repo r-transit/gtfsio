@@ -116,6 +116,7 @@ import_gtfs <- function(path,
   # from the text files to reference them without it in messages and errors
 
   files_in_gtfs <- zip::zip_list(path)$filename
+  files_in_gtfs <- rm_dirs_from_zip_paths (files_in_gtfs)
 
   non_text_files <- files_in_gtfs[!grepl("\\.txt$", files_in_gtfs)]
 
@@ -211,6 +212,22 @@ import_gtfs <- function(path,
 
   return(gtfs)
 
+}
+
+# GTFS zip archives may embed files in an internal directory, in which case
+# `zip::file_list()` returns the directory name as one "file". This function
+# remotes such instances, but leaves intact any non-".txt" files for appropriate
+# issuing of messages.
+rm_dirs_from_zip_paths <- function (files_in_gtfs) {
+
+  # https://github.com/r-lib/fs/blob/4cc4b56c26b9d7f177a676fbb331133bb2584b86/R/path.R # nolint
+  f <- strsplit(files_in_gtfs, "^(?=/)(?!//)|(?<!^)(?<!^/)/", perl = TRUE)
+  lens <- vapply(f, length, integer(1))
+  if (length(unique(lens)) > 1L) {
+      files_in_gtfs <- files_in_gtfs[which(lens == median(lens))]
+  }
+
+  return(files_in_gtfs)
 }
 
 
