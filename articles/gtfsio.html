@@ -83,9 +83,9 @@
 <p>Each one of these, however, represent GTFS feeds in a slightly different way, making the interoperability between packages harder to accomplish. At the end of the day, this lack of integration results in a more painful experience to the final user who may want to enjoy functions from different packages.</p>
 <p><strong>gtfsio</strong> offers tools for the development of GTFS-related packages that aim to increase such interoperability. It establishes a standard for representing GTFS feeds using R data types based on <a href="https://developers.google.com/transit/gtfs/reference" class="external-link">Google’s Static GTFS Reference</a>. It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic <code>gtfs</code> class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.</p>
 <p>This vignette describes the basic usage of <strong>gtfsio</strong>. Please read <code><a href="../reference/get_gtfs_standards.html">get_gtfs_standards()</a></code> documentation for more detail on the standards for reading and writing GTFS feeds using R data types.</p>
-<div class="section level1">
-<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h1>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>Before using <strong>gtfsio</strong> please make sure that you have it installed in your computer. You can download either the most stable version from CRAN or the development version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># stable version</span>
@@ -108,12 +108,12 @@
 <code>bad_gtfs.zip</code> is a modified version of <code>ggl_gtfs.zip</code> that includes some issues frequently found in GTFS data.</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
-</h1>
 <div class="section level2">
-<h2 id="reading-feeds">Reading feeds<a class="anchor" aria-label="anchor" href="#reading-feeds"></a>
+<h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h2>
+<div class="section level3">
+<h3 id="reading-feeds">Reading feeds<a class="anchor" aria-label="anchor" href="#reading-feeds"></a>
+</h3>
 <p>To read a feed use the <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> function. It takes either a local path or an URL to a GTFS <code>.zip</code> file and returns a GTFS object (which is, basically, a <code>list</code> of data frames):</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"ggl_gtfs.zip"</span><span class="op">)</span>
@@ -198,9 +198,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">levels</span><span class="op">$</span><span class="va">elevation</span><span class="op">)</span>
 <span class="co">#&gt; [1] "integer"</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="writing-feeds">Writing feeds<a class="anchor" aria-label="anchor" href="#writing-feeds"></a>
-</h2>
+<div class="section level3">
+<h3 id="writing-feeds">Writing feeds<a class="anchor" aria-label="anchor" href="#writing-feeds"></a>
+</h3>
 <p>Use <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code> to write a GTFS object to disk. Please note that the function assumes that the object is formatted according to the standards for reading and writing GTFS feeds in <strong>R</strong> - i.e. if it’s not, any conversions should be done before using <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code>.</p>
 <p>Objects are written as <code>.zip</code> feeds by default, but you can also write them as directories using the <code>as_dir</code> argument:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -244,9 +244,9 @@
 <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"elevation"</span>, <span class="va">levels_fields</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="checking-gtfs-objects">Checking GTFS objects<a class="anchor" aria-label="anchor" href="#checking-gtfs-objects"></a>
-</h2>
+<div class="section level3">
+<h3 id="checking-gtfs-objects">Checking GTFS objects<a class="anchor" aria-label="anchor" href="#checking-gtfs-objects"></a>
+</h3>
 <p><strong>gtfsio</strong> also includes functions to check the structure of GTFS objects. <code><a href="../reference/check_file_exists.html">check_file_exists()</a></code> checks the existence of elements representing specific text files inside an object. It returns <code>TRUE</code> if the check is successful, and <code>FALSE</code> otherwise. <code><a href="../reference/check_file_exists.html">assert_file_exists()</a></code> invisibly returns the object if successful, and throws an error otherwise:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"shapes"</span>, <span class="st">"trips"</span><span class="op">)</span><span class="op">)</span>
@@ -320,7 +320,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
