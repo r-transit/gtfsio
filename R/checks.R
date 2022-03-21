@@ -200,7 +200,8 @@ check_field_class <- function(x, file, fields, classes) {
 
   # checking - compare the desired classes to the actual classes
 
-  actual_classes <- vapply(x[[file]][, ..fields], class, character(1))
+  col_classes <- vapply(x[[file]], class, character(1))
+  actual_classes <- col_classes[fields]
 
   if (all(classes == actual_classes)) return(TRUE)
 
@@ -227,7 +228,8 @@ assert_field_class <- function(x, file, fields, classes) {
 
   # actual checking - compare the desired classes to the actual classes
 
-  actual_classes <- vapply(x[[file]][, ..fields], class, character(1))
+  col_classes <- vapply(x[[file]], class, character(1))
+  actual_classes <- col_classes[fields]
 
   if (all(classes == actual_classes)) return(invisible(x))
 
