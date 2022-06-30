@@ -18,10 +18,6 @@ a_list <- list(1)
 expect_error(tester(factor(path)), class = "bad_path_argument")
 expect_error(tester(c(path, path)), class = "bad_path_argument")
 expect_error(tester(c(path, path)), class = "import_gtfs_error")
-expect_error(
-  tester(sub(".zip", "", path)),
-  pattern = "'path' must have '\\.zip' extension\\."
-)
 expect_error(tester(quiet = "TRUE"), class = "bad_quiet_argument")
 expect_error(tester(quiet = rep(TRUE, 2)), class = "bad_quiet_argument")
 expect_error(tester(extra_spec = NA), class = "bad_extra_spec_argument")
@@ -406,3 +402,25 @@ expect_warning(
   pattern = "another_non_text\\.html, non_text\\.html"
 )
 expect_identical(names(non_text_gtfs), "agency")
+
+
+# issue #28 ---------------------------------------------------------------
+# import_gtfs() should accept zip files without zip extension and should error
+# if the provided path doesn't point to a zip file
+
+no_ext_file <- tempfile()
+file.copy(path, no_ext_file)
+no_ext_gtfs <- tester(no_ext_file)
+expect_inherits(no_ext_gtfs, "gtfs")
+
+aspx_ext_file <- tempfile(fileext = ".aspx")
+file.copy(path, aspx_ext_file)
+aspx_ext_gtfs <- tester(aspx_ext_file)
+expect_inherits(aspx_ext_gtfs, "gtfs")
+
+not_gtfs_file <- tempfile()
+file.create(not_gtfs_file)
+expect_error(tester(not_gtfs_file), class = "path_must_be_zip")
+
+not_gtfs_url <- "https://www.google.com"
+expect_error(tester(not_gtfs_url), class = "path_must_be_zip")

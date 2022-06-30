@@ -6,6 +6,7 @@
 
 ## New features
 
+- `import_gtfs()` now accepts paths and URLs without `.zip` extension, as long as they still point to zip files (in other words, it accepts zip files that for some reason or another do not have `.zip` extension).
 
 ## Notes
 

@@ -85,12 +85,10 @@ import_gtfs <- function(path,
   assert_vector(skip, "character", null_ok = TRUE)
   assert_vector(encoding, "character", len = 1L, subset_of = val_enc)
 
-  if (!grepl("\\.zip$", path)) error_path_must_be_zip()
-
   path_is_url <- grepl("^http[s]?\\:\\/\\/\\.*", path)
 
-  if (!path_is_url & !file.exists(path)) error_non_existent_file(path)
-  if (!is.null(files) & !is.null(skip)) error_files_and_skip_provided()
+  if (!path_is_url && !file.exists(path)) error_non_existent_file(path)
+  if (!is.null(files) && !is.null(skip)) error_files_and_skip_provided()
 
   for (input_types in extra_spec) {
     if (any(! input_types %chin% c("character", "integer", "numeric"))) {
@@ -101,21 +99,23 @@ import_gtfs <- function(path,
   # if 'path' is an URL, download it and save path to downloaded file to 'path'
 
   if (path_is_url) {
-
     tmp <- tempfile(pattern = "gtfs", fileext = ".zip")
     utils::download.file(path, tmp, method = "auto", quiet = quiet)
 
     if (!quiet) message("File downloaded to ", tmp, ".")
 
     path <- tmp
-
   }
 
   # check which files are inside the GTFS. if any non text file is found, raise
   # a warning and do not try to read it as a csv. remove the '.txt' extension
   # from the text files to reference them without it in messages and errors
 
-  files_in_gtfs <- zip::zip_list(path)$filename
+  files_in_gtfs <- tryCatch(
+    zip::zip_list(path)$filename,
+    error = function(cnd) cnd
+  )
+  if (inherits(files_in_gtfs, "error")) error_path_must_be_zip()
 
   non_text_files <- files_in_gtfs[!grepl("\\.txt$", files_in_gtfs)]
 
@@ -373,7 +373,7 @@ read_files <- function(file,
 
 
 error_path_must_be_zip <- parent_function_error(
-  "'path' must have '.zip' extension.",
+  "Could not unzip file. Please make sure 'path' points to a zip file/url.",
   subclass = "path_must_be_zip"
 )
 
