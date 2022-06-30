@@ -1,12 +1,10 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "gtfsio",
-  "description": "Tools for the development of packages related to General\n    Transit Feed Specification (GTFS) files. Establishes a standard for\n    representing GTFS feeds using R data types. Provides fast and flexible\n    functions to read and write GTFS feeds while sticking to this\n    standard. Defines a basic 'gtfs' class which is meant to be extended\n    by packages that depend on it. And offers utility functions that\n    support checking the structure of GTFS objects.",
+  "description": "Tools for the development of packages related to General Transit Feed Specification (GTFS) files. Establishes a standard for representing GTFS feeds using R data types. Provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. Defines a basic 'gtfs' class which is meant to be extended by packages that depend on it. And offers utility functions that support checking the structure of GTFS objects.",
   "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS) Files",
+  "relatedLink": ["https://r-transit.github.io/gtfsio/", "https://CRAN.R-project.org/package=gtfsio"],
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
@@ -16,7 +14,13 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -38,7 +42,6 @@
       "email": "mark.padgham@email.com"
     }
   ],
-  "contributor": {},
   "copyrightHolder": [
     {
       "@type": "Organization",
@@ -98,8 +101,8 @@
       "sameAs": "https://CRAN.R-project.org/package=tinytest"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
@@ -111,12 +114,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=data.table"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "zip",
       "name": "zip",
@@ -127,26 +130,10 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=zip"
-    }
-  ],
-  "fileSize": "104492.521KB",
-  "keywords": [
-    "r",
-    "gtfs"
-  ],
-  "releaseNotes": "https://github.com/r-transit/gtfsio/blob/master/NEWS.md",
-  "contIntegration": "https://app.codecov.io/gh/r-transit/gtfsio?branch=master",
-  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
-  "relatedLink": [
-    "https://r-transit.github.io/gtfsio/",
-    "https://CRAN.R-project.org/package=gtfsio"
-  ],
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
+    },
+    "SystemRequirements": null
   },
+  "fileSize": "155.34KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -175,5 +162,9 @@
       "sameAs": "https://doi.org/10.5281/zenodo.5650829"
     }
   ],
-  "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md"
+  "releaseNotes": "https://github.com/r-transit/gtfsio/blob/master/NEWS.md",
+  "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md",
+  "contIntegration": ["https://github.com/r-transit/gtfsio/actions?query=workflow%3AR-CMD-check", "https://app.codecov.io/gh/r-transit/gtfsio?branch=master"],
+  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
+  "keywords": ["r", "gtfs"]
 }
