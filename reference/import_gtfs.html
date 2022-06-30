@@ -60,25 +60,29 @@ feeds specified in <code><a href="get_gtfs_standards.html">get_gtfs_standards</a
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">import_gtfs</span><span class="op">(</span>
-  <span class="va">path</span>,
-  files <span class="op">=</span> <span class="cn">NULL</span>,
-  fields <span class="op">=</span> <span class="cn">NULL</span>,
-  extra_spec <span class="op">=</span> <span class="cn">NULL</span>,
-  skip <span class="op">=</span> <span class="cn">NULL</span>,
-  quiet <span class="op">=</span> <span class="cn">TRUE</span>,
-  encoding <span class="op">=</span> <span class="st">"unknown"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">import_gtfs</span><span class="op">(</span></span>
+<span>  <span class="va">path</span>,</span>
+<span>  files <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fields <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  extra_spec <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  skip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="st">"unknown"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>path</dt>
 <dd><p>A string. The path to a GTFS <code>.zip</code> file.</p></dd>
+
+
 <dt>files</dt>
 <dd><p>A character vector. The text files to be read from the GTFS,
 without the <code>.txt</code> extension. If <code>NULL</code> (the default), all
 existing text files are read.</p></dd>
+
+
 <dt>fields</dt>
 <dd><p>A named list. The fields to be read from each text file, in the
 format <code>list(file1 = c("field1", "field2"))</code>. If <code>NULL</code> (the
@@ -86,6 +90,8 @@ default), all fields from the files specified in <code>files</code> are read. If
 a file is specified in <code>files</code> but not in <code>fields</code>, all fields
 from that file will be read (i.e. you may specify in <code>fields</code> only
 files whose fields you want to subset).</p></dd>
+
+
 <dt>extra_spec</dt>
 <dd><p>A named list. Custom specification used when reading
 undocumented fields, in the format
@@ -96,22 +102,31 @@ as character (i.e. you may specify in <code>extra_spec</code> only the fields
 that you want to read as a different type). Only supports the
 <code>character</code>, <code>integer</code> and <code>numeric</code> types, also used in
 <code><a href="get_gtfs_standards.html">get_gtfs_standards</a></code>.</p></dd>
+
+
 <dt>skip</dt>
 <dd><p>A character vector. Text files that should not be read from the
 GTFS, without the <code>.txt</code> extension. If <code>NULL</code> (the default), no
 files are skipped. Cannot be used if <code>files</code> is set.</p></dd>
+
+
 <dt>quiet</dt>
 <dd><p>A logical. Whether to hide log messages and progress bars
 (defaults to <code>TRUE</code>).</p></dd>
+
+
 <dt>encoding</dt>
 <dd><p>A string. Passed to <code><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></code>, defaults
 to <code>"unknown"</code>. Other possible options are <code>"UTF-8"</code> and
 <code>"Latin-1"</code>. Please note that this is not used to re-encode the input,
 but to enable handling encoded strings in their native encoding.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A GTFS object: a named list of data frames, each one corresponding to
+    
+
+<p>A GTFS object: a named list of data frames, each one corresponding to
 a distinct text file from the given GTFS feed.</p>
     </div>
     <div id="see-also">
@@ -123,38 +138,38 @@ a distinct text file from the given GTFS feed.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read all files and columns</span></span>
-<span class="r-in"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">import_gtfs</span><span class="op">(</span><span class="va">gtfs_path</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read all files and columns</span></span></span>
+<span class="r-in"><span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">import_gtfs</span><span class="op">(</span><span class="va">gtfs_path</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "frequencies"     "levels"          "pathways"        "routes"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "shapes"          "stop_times"      "stops"           "transfers"      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] "translations"    "trips"           "agency"          "attributions"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [17] "calendar"       </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">trips</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">trips</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "route_id"      "service_id"    "trip_id"       "trip_headsign"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "block_id"     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read all columns from selected files</span></span>
-<span class="r-in"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">import_gtfs</span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trips"</span>, <span class="st">"stops"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read all columns from selected files</span></span></span>
+<span class="r-in"><span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">import_gtfs</span><span class="op">(</span><span class="va">gtfs_path</span>, files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trips"</span>, <span class="st">"stops"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "trips" "stops"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">trips</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">$</span><span class="va">trips</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "route_id"      "service_id"    "trip_id"       "trip_headsign"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "block_id"     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read specific columns from selected files</span></span>
-<span class="r-in"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">import_gtfs</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">gtfs_path</span>,</span>
-<span class="r-in">  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trips"</span>, <span class="st">"stops"</span><span class="op">)</span>,</span>
-<span class="r-in">  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">    trips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"route_id"</span>, <span class="st">"trip_id"</span><span class="op">)</span>,</span>
-<span class="r-in">    stops <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stop_id"</span>, <span class="st">"stop_lat"</span>, <span class="st">"stop_lon"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read specific columns from selected files</span></span></span>
+<span class="r-in"><span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">import_gtfs</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">gtfs_path</span>,</span></span>
+<span class="r-in"><span>  files <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trips"</span>, <span class="st">"stops"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    trips <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"route_id"</span>, <span class="st">"trip_id"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    stops <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stop_id"</span>, <span class="st">"stop_lat"</span>, <span class="st">"stop_lon"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -169,7 +184,7 @@ a distinct text file from the given GTFS feed.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

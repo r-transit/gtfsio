@@ -84,49 +84,49 @@
 </h2>
 <p>Stable version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gtfsio"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gtfsio"</span><span class="op">)</span></span></code></pre></div>
 <p>Development version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gtfsio"</span>, repos <span class="op">=</span> <span class="st">"https://dhersz.r-universe.dev"</span><span class="op">)</span>
-
-<span class="co"># or</span>
-<span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-transit/gtfsio"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gtfsio"</span>, repos <span class="op">=</span> <span class="st">"https://dhersz.r-universe.dev"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># or</span></span>
+<span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-transit/gtfsio"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>GTFS feeds are read using the <code><a href="reference/import_gtfs.html">import_gtfs()</a></code> function:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-transit.github.io/gtfsio/" class="external-link">gtfsio</a></span><span class="op">)</span>
-
-<span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span>
-
-<span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      </span>
-<span class="co">#&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         </span>
-<span class="co">#&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      </span>
-<span class="co">#&gt; [13] "translations"    "trips"           "agency"          "attributions"   </span>
-<span class="co">#&gt; [17] "calendar"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-transit.github.io/gtfsio/" class="external-link">gtfsio</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      </span></span>
+<span><span class="co">#&gt;  [5] "frequencies"     "levels"          "pathways"        "routes"         </span></span>
+<span><span class="co">#&gt;  [9] "shapes"          "stop_times"      "stops"           "transfers"      </span></span>
+<span><span class="co">#&gt; [13] "translations"    "trips"           "agency"          "attributions"   </span></span>
+<span><span class="co">#&gt; [17] "calendar"</span></span></code></pre></div>
 <p><code><a href="reference/import_gtfs.html">import_gtfs()</a></code> returns a <code>gtfs</code> object. The <code>gtfs</code> class might be extended by other packages using the constructor, validator and methods provided by <strong>gtfsio</strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span>
-<span class="co">#&gt; [1] "gtfs" "list"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "gtfs" "list"</span></span></code></pre></div>
 <p>Use the <code><a href="reference/export_gtfs.html">export_gtfs()</a></code> function to write GTFS objects to disk:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tmpf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".zip"</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/export_gtfs.html">export_gtfs</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="va">tmpf</span><span class="op">)</span>
-
-<span class="fu">zip</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zip/man/zip_list.html" class="external-link">zip_list</a></span><span class="op">(</span><span class="va">tmpf</span><span class="op">)</span><span class="op">$</span><span class="va">filename</span>
-<span class="co">#&gt;  [1] "calendar_dates.txt"  "fare_attributes.txt" "fare_rules.txt"     </span>
-<span class="co">#&gt;  [4] "feed_info.txt"       "frequencies.txt"     "levels.txt"         </span>
-<span class="co">#&gt;  [7] "pathways.txt"        "routes.txt"          "shapes.txt"         </span>
-<span class="co">#&gt; [10] "stop_times.txt"      "stops.txt"           "transfers.txt"      </span>
-<span class="co">#&gt; [13] "translations.txt"    "trips.txt"           "agency.txt"         </span>
-<span class="co">#&gt; [16] "attributions.txt"    "calendar.txt"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tmpf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".zip"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/export_gtfs.html">export_gtfs</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="va">tmpf</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">zip</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zip/man/zip_list.html" class="external-link">zip_list</a></span><span class="op">(</span><span class="va">tmpf</span><span class="op">)</span><span class="op">$</span><span class="va">filename</span></span>
+<span><span class="co">#&gt;  [1] "calendar_dates.txt"  "fare_attributes.txt" "fare_rules.txt"     </span></span>
+<span><span class="co">#&gt;  [4] "feed_info.txt"       "frequencies.txt"     "levels.txt"         </span></span>
+<span><span class="co">#&gt;  [7] "pathways.txt"        "routes.txt"          "shapes.txt"         </span></span>
+<span><span class="co">#&gt; [10] "stop_times.txt"      "stops.txt"           "transfers.txt"      </span></span>
+<span><span class="co">#&gt; [13] "translations.txt"    "trips.txt"           "agency.txt"         </span></span>
+<span><span class="co">#&gt; [16] "attributions.txt"    "calendar.txt"</span></span></code></pre></div>
 <p>For a more complete demonstration please read the <a href="https://r-transit.github.io/gtfsio/articles/gtfsio.html" class="external-link">introductory vignette</a>.</p>
 </div>
 <div class="section level2">
@@ -143,26 +143,26 @@
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"gtfsio"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite gtfsio in publications use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Daniel Herszenhut, Flavio Poletti &amp; Mark Padgham. (2021, November).</span>
-<span class="co">#&gt;   gtfsio: Read and Write General Transit Feed Specification (GTFS)</span>
-<span class="co">#&gt;   Files (Version v1.0.0). Zenodo. http://doi.org/10.5281/zenodo.5650829</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Manual{,</span>
-<span class="co">#&gt;     title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},</span>
-<span class="co">#&gt;     author = {Daniel Herszenhut and Flavio Poletti and Mark Padgham},</span>
-<span class="co">#&gt;     month = {nov},</span>
-<span class="co">#&gt;     year = {2021},</span>
-<span class="co">#&gt;     publisher = {Zenodo},</span>
-<span class="co">#&gt;     version = {v1.0.0},</span>
-<span class="co">#&gt;     doi = {10.5281/zenodo.5650829},</span>
-<span class="co">#&gt;     url = {https://doi.org/10.5281/zenodo.5650829},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"gtfsio"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite gtfsio in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Daniel Herszenhut, Flavio Poletti &amp; Mark Padgham. (2021, November).</span></span>
+<span><span class="co">#&gt;   gtfsio: Read and Write General Transit Feed Specification (GTFS)</span></span>
+<span><span class="co">#&gt;   Files (Version v1.0.0). Zenodo. http://doi.org/10.5281/zenodo.5650829</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Manual{,</span></span>
+<span><span class="co">#&gt;     title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},</span></span>
+<span><span class="co">#&gt;     author = {Daniel Herszenhut and Flavio Poletti and Mark Padgham},</span></span>
+<span><span class="co">#&gt;     month = {nov},</span></span>
+<span><span class="co">#&gt;     year = {2021},</span></span>
+<span><span class="co">#&gt;     publisher = {Zenodo},</span></span>
+<span><span class="co">#&gt;     version = {v1.0.0},</span></span>
+<span><span class="co">#&gt;     doi = {10.5281/zenodo.5650829},</span></span>
+<span><span class="co">#&gt;     url = {https://doi.org/10.5281/zenodo.5650829},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -229,7 +229,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

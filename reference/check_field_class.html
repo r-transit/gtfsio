@@ -58,28 +58,40 @@ element.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">check_field_class</span><span class="op">(</span><span class="va">x</span>, <span class="va">file</span>, <span class="va">fields</span>, <span class="va">classes</span><span class="op">)</span>
-
-<span class="fu">assert_field_class</span><span class="op">(</span><span class="va">x</span>, <span class="va">file</span>, <span class="va">fields</span>, <span class="va">classes</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_field_class</span><span class="op">(</span><span class="va">x</span>, <span class="va">file</span>, <span class="va">fields</span>, <span class="va">classes</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">assert_field_class</span><span class="op">(</span><span class="va">x</span>, <span class="va">file</span>, <span class="va">fields</span>, <span class="va">classes</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A GTFS object.</p></dd>
+
+
 <dt>file</dt>
 <dd><p>A string. The element, that represents a GTFS text file, whose
 fields' classes should be checked.</p></dd>
+
+
 <dt>fields</dt>
 <dd><p>A character vector. The fields to have their classes checked.</p></dd>
+
+
 <dt>classes</dt>
 <dd><p>A character vector, with the same length of <code>fields</code>. The
 classes that each field must inherit from.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>check_field_class</code> returns <code>TRUE</code> if the check is successful, and
-<code>FALSE</code> otherwise. <br><code>assert_field_class</code> returns <code>x</code> invisibly if the check is
+    
+
+<p><code>check_field_class</code> returns <code>TRUE</code> if the check is successful, and
+<code>FALSE</code> otherwise. <br></p>
+
+
+<p><code>assert_field_class</code> returns <code>x</code> invisibly if the check is
 successful, and throws an error otherwise.</p>
     </div>
     <div id="see-also">
@@ -91,25 +103,25 @@ successful, and throws an error otherwise.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">check_field_class</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">gtfs</span>,</span>
-<span class="r-in">  <span class="st">"calendar"</span>,</span>
-<span class="r-in">  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monday"</span>, <span class="st">"tuesday"</span><span class="op">)</span>,</span>
-<span class="r-in">  classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">gtfs_path</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">check_field_class</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">gtfs</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"calendar"</span>,</span></span>
+<span class="r-in"><span>  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monday"</span>, <span class="st">"tuesday"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">check_field_class</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">gtfs</span>,</span>
-<span class="r-in">  <span class="st">"calendar"</span>,</span>
-<span class="r-in">  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monday"</span>, <span class="st">"tuesday"</span><span class="op">)</span>,</span>
-<span class="r-in">  classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="st">"character"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">check_field_class</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">gtfs</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"calendar"</span>,</span></span>
+<span class="r-in"><span>  fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"monday"</span>, <span class="st">"tuesday"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  classes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"integer"</span>, <span class="st">"character"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -124,7 +136,7 @@ successful, and throws an error otherwise.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -64,7 +64,7 @@ on <code>gtfs</code> objects, thus inputs are not extensively checked. See
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">new_gtfs</span><span class="op">(</span><span class="va">x</span>, subclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">new_gtfs</span><span class="op">(</span><span class="va">x</span>, subclass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -72,15 +72,22 @@ on <code>gtfs</code> objects, thus inputs are not extensively checked. See
     <dl><dt>x</dt>
 <dd><p>A GTFS-like object (either a GTFS object or a named list). Each
 element must represent a distinct GTFS text file.</p></dd>
+
+
 <dt>subclass</dt>
 <dd><p>A character vector. Subclasses to be assigned to the
 <code>gtfs</code> object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Name-value pairs. Additional attributes.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A GTFS object: a named list of data frames, each one corresponding to
+    
+
+<p>A GTFS object: a named list of data frames, each one corresponding to
 a distinct GTFS text file, with <code>gtfs</code> and <code>list</code> classes.</p>
     </div>
     <div id="see-also">
@@ -91,35 +98,35 @@ a distinct GTFS text file, with <code>gtfs</code> and <code>list</code> classes.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">tmpdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"new_gtfs_example"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">zip</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zip/man/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">gtfs_path</span>, exdir <span class="op">=</span> <span class="va">tmpdir</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">agency</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"agency.txt"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">stops</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"stops.txt"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">routes</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"routes.txt"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">trips</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"trips.txt"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">stop_times</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"stop_times.txt"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">calendar</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"calendar.txt"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">txt_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  agency <span class="op">=</span> <span class="va">agency</span>,</span>
-<span class="r-in">  stops <span class="op">=</span> <span class="va">stops</span>,</span>
-<span class="r-in">  routes <span class="op">=</span> <span class="va">routes</span>,</span>
-<span class="r-in">  trips <span class="op">=</span> <span class="va">trips</span>,</span>
-<span class="r-in">  stop_times <span class="op">=</span> <span class="va">stop_times</span>,</span>
-<span class="r-in">  calendar <span class="op">=</span> <span class="va">calendar</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">new_gtfs</span><span class="op">(</span><span class="va">txt_files</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">gtfs_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ggl_gtfs.zip"</span>, package <span class="op">=</span> <span class="st">"gtfsio"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tmpdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"new_gtfs_example"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">zip</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zip/man/unzip.html" class="external-link">unzip</a></span><span class="op">(</span><span class="va">gtfs_path</span>, exdir <span class="op">=</span> <span class="va">tmpdir</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">agency</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"agency.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stops</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"stops.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">routes</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"routes.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">trips</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"trips.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stop_times</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"stop_times.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">calendar</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmpdir</span>, <span class="st">"calendar.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">txt_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  agency <span class="op">=</span> <span class="va">agency</span>,</span></span>
+<span class="r-in"><span>  stops <span class="op">=</span> <span class="va">stops</span>,</span></span>
+<span class="r-in"><span>  routes <span class="op">=</span> <span class="va">routes</span>,</span></span>
+<span class="r-in"><span>  trips <span class="op">=</span> <span class="va">trips</span>,</span></span>
+<span class="r-in"><span>  stop_times <span class="op">=</span> <span class="va">stop_times</span>,</span></span>
+<span class="r-in"><span>  calendar <span class="op">=</span> <span class="va">calendar</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu">new_gtfs</span><span class="op">(</span><span class="va">txt_files</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gtfs" "list"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "agency"     "stops"      "routes"     "trips"      "stop_times"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6] "calendar"  </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -134,7 +141,7 @@ a distinct GTFS text file, with <code>gtfs</code> and <code>list</code> classes.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
