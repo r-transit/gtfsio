@@ -1,5 +1,5 @@
 
-# gtfsio
+# gtfsio <img align="right" src="man/figures/logo.png" width="180">
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/gtfsio)](https://CRAN.R-project.org/package=gtfsio)
@@ -54,11 +54,12 @@ path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 gtfs <- import_gtfs(path)
 
 names(gtfs)
-#>  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      
-#>  [5] "frequencies"     "levels"          "pathways"        "routes"         
-#>  [9] "shapes"          "stop_times"      "stops"           "transfers"      
-#> [13] "translations"    "trips"           "agency"          "attributions"   
-#> [17] "calendar"
+#>  [1] "calendar_dates"  "fare_attributes" "fare_rules"     
+#>  [4] "feed_info"       "frequencies"     "levels"         
+#>  [7] "pathways"        "routes"          "shapes"         
+#> [10] "stop_times"      "stops"           "transfers"      
+#> [13] "translations"    "trips"           "agency"         
+#> [16] "attributions"    "calendar"
 ```
 
 `import_gtfs()` returns a `gtfs` object. The `gtfs` class might be
@@ -78,12 +79,15 @@ tmpf <- tempfile(fileext = ".zip")
 export_gtfs(gtfs, tmpf)
 
 zip::zip_list(tmpf)$filename
-#>  [1] "calendar_dates.txt"  "fare_attributes.txt" "fare_rules.txt"     
-#>  [4] "feed_info.txt"       "frequencies.txt"     "levels.txt"         
-#>  [7] "pathways.txt"        "routes.txt"          "shapes.txt"         
-#> [10] "stop_times.txt"      "stops.txt"           "transfers.txt"      
-#> [13] "translations.txt"    "trips.txt"           "agency.txt"         
-#> [16] "attributions.txt"    "calendar.txt"
+#>  [1] "calendar_dates.txt"  "fare_attributes.txt"
+#>  [3] "fare_rules.txt"      "feed_info.txt"      
+#>  [5] "frequencies.txt"     "levels.txt"         
+#>  [7] "pathways.txt"        "routes.txt"         
+#>  [9] "shapes.txt"          "stop_times.txt"     
+#> [11] "stops.txt"           "transfers.txt"      
+#> [13] "translations.txt"    "trips.txt"          
+#> [15] "agency.txt"          "attributions.txt"   
+#> [17] "calendar.txt"
 ```
 
 For a more complete demonstration please read the [introductory
@@ -91,10 +95,10 @@ vignette](https://r-transit.github.io/gtfsio/articles/gtfsio.html).
 
 ## GTFS-related packages
 
--   [`{tidytransit}`](https://github.com/r-transit/tidytransit)
--   [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
--   [`{gtfsrouter}`](https://github.com/ATFutures/gtfs-router)
--   [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
+  - [`{tidytransit}`](https://github.com/r-transit/tidytransit)
+  - [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
+  - [`{gtfsrouter}`](https://github.com/ATFutures/gtfs-router)
+  - [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
 
 ## Citation
 
@@ -103,9 +107,11 @@ citation("gtfsio")
 #> 
 #> To cite gtfsio in publications use:
 #> 
-#>   Daniel Herszenhut, Flavio Poletti & Mark Padgham. (2021, November).
-#>   gtfsio: Read and Write General Transit Feed Specification (GTFS)
-#>   Files (Version v1.0.0). Zenodo. http://doi.org/10.5281/zenodo.5650829
+#>   Daniel Herszenhut, Flavio Poletti & Mark Padgham.
+#>   (2021, November). gtfsio: Read and Write General
+#>   Transit Feed Specification (GTFS) Files (Version
+#>   v1.0.0). Zenodo.
+#>   http://doi.org/10.5281/zenodo.5650829
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 

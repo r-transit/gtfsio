@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# gtfsio
+# gtfsio <img align="right" src="man/figures/logo.png" width="180"> 
 
 [![CRAN status](https://www.r-pkg.org/badges/version/gtfsio)](https://CRAN.R-project.org/package=gtfsio)
 [![gtfsio status badge](https://dhersz.r-universe.dev/badges/gtfsio)](https://dhersz.r-universe.dev)
