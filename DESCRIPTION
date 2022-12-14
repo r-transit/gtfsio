@@ -50,7 +50,7 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Collate: 
     'gtfsio_error.R'
     'assert_gtfs.R'
