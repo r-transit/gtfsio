@@ -8,28 +8,30 @@ get_gtfs_standards()
 }
 \value{
 A named list, in which each element represents the R equivalent of
-each GTFS text file standard.
+each GTFS table standard.
 }
 \description{
 Generates a list specifying the standards to be used when reading and writing
-GTFS feeds with R. Each element (also a list) represents a distinct GTFS text
-file, and describes:
+GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
+table, and describes:
 \itemize{
-\item whether this file is required, optional or conditionally required;
-\item the fields that compose each file, including which R data type is
-best suited to represent it, whether the field is required, optional or
-conditionally required, and which values it can assume (most relevant to
-GTFS \code{ENUM}s.
+\item whether the table is required, optional or conditionally required;
+\item the fields that compose the table, including which R data type is best
+suited to represent it, whether the field is required, optional or
+conditionally required, and which values it can assume (most relevant to GTFS
+\code{ENUM}s.
 }
+
+Note: the standards list is based on the specification as revised in May 9th,
+2022.
 }
 \section{Details}{
 
-GTFS standards were derived from
-\href{https://developers.google.com/transit/gtfs/reference}{
-Google's Static GTFS Reference}. The R data types chosen to represent each
-GTFS data type are described below:
+GTFS standards were derived from \href{https://gtfs.org/schedule/reference/}{GTFS Schedule Reference}. The R data types chosen to
+represent each GTFS data type are described below:
 \itemize{
 \item Color = \code{character}
+\item Currency amount = \code{numeric}
 \item Currency code = \code{character}
 \item Date = \code{integer}
 \item Email = \code{character}

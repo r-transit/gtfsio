@@ -174,7 +174,7 @@ actual_types <- actual_types[order(names(actual_types))]
 
 actual_types$levels <- actual_types$levels[2:4]
 
-# remove fields not present in 'actual_types' from 'standard_types'
+# remove files and fields not present in 'actual_types' from 'standard_types'
 
 prev_names <- names(standard_types)
 standard_types <- lapply(
@@ -182,6 +182,13 @@ standard_types <- lapply(
   function(file) standard_types[[file]][names(actual_types[[file]])]
 )
 names(standard_types) <- prev_names
+
+missing_files <- vapply(
+  standard_types,
+  FUN.VALUE = logical(1),
+  FUN = function(field_list) length(field_list) == 0
+)
+standard_types <- standard_types[!missing_files]
 
 expect_identical(standard_types, actual_types)
 

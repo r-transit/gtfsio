@@ -7,12 +7,11 @@
 translate_types(text_file, r_equivalents)
 }
 \arguments{
-\item{text_file}{A named \code{list} containing a GTFS text file
-specification, as described in the body of
-\code{\link{get_gtfs_standards}}.}
+\item{text_file}{A named \code{list} containing a GTFS text file specification, as
+described in the body of \link{get_gtfs_standards}.}
 
-\item{r_equivalents}{A named \code{character vector}, in which each name is
-the GTFS specification type and the content its R equivalent.}
+\item{r_equivalents}{A named \verb{character vector}, in which each name is the
+GTFS specification type and the content its R equivalent.}
 }
 \value{
 A named \code{list} holding a GTFS text file specification, but with

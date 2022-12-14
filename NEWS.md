@@ -11,6 +11,7 @@
 ## Notes
 
 - Started converting more warnings to messages when `quiet = FALSE` in `import_gtfs()` and `export_gtfs()`.
+- Updated standards to read and write GTFS tables and fields in R due to changes in the specification.
 
 # gtfsio 1.0.0
 
