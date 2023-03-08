@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0.9000</span>
       </span>
     </div>
 
@@ -52,15 +52,21 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="gtfsio-development-version">gtfsio (development version)<a class="anchor" aria-label="anchor" href="#gtfsio-development-version"></a></h2>
+<div class="section level3"><h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3></div>
+<div class="section level3"><h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3></div>
+<div class="section level3"><h3 id="notes-development-version">Notes<a class="anchor" aria-label="anchor" href="#notes-development-version"></a></h3></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.0" id="gtfsio-110">gtfsio 1.1.0<a class="anchor" aria-label="anchor" href="#gtfsio-110"></a></h2>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-1-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-0"></a></h3>
 <ul><li>Fixed a bug in which <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> would append a <code>.txt</code> extension to non text files found inside the GTFS feed, which would lead to an error when attempting to unzip the feed. The function now ignores non text files when reading feeds, and raises an informative warning message if any of such files is found (<a href="https://github.com/r-transit/gtfsio/issues/23" class="external-link">#23</a>).</li></ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-1-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h3>
 <ul><li>
 <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> now accepts paths and URLs without <code>.zip</code> extension, as long as they still point to zip files (in other words, it accepts zip files that for some reason or another do not have <code>.zip</code> extension).</li></ul></div>
 <div class="section level3">
-<h3 id="notes-development-version">Notes<a class="anchor" aria-label="anchor" href="#notes-development-version"></a></h3>
+<h3 id="notes-1-1-0">Notes<a class="anchor" aria-label="anchor" href="#notes-1-1-0"></a></h3>
 <ul><li>Started converting more warnings to messages when <code>quiet = FALSE</code> in <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> and <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code>.</li>
 <li>Updated standards to read and write GTFS tables and fields in R due to changes in the specification.</li>
 </ul></div>
