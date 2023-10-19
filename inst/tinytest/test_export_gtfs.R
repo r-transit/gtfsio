@@ -12,7 +12,6 @@ tester <- function(gtfs_obj = gtfs,
                    as_dir = FALSE,
                    overwrite = TRUE,
                    quiet = TRUE) {
-
   export_gtfs(
     gtfs_obj,
     path,
@@ -23,7 +22,6 @@ tester <- function(gtfs_obj = gtfs,
     overwrite,
     quiet
   )
-
 }
 
 
@@ -273,3 +271,26 @@ suppressWarnings(
   out <- capture.output(tester(bad_gtfs, quiet = FALSE), type = "message")
 )
 expect_true(any(grepl("^    - Input has no columns", out)))
+
+# issue #34 ---------------------------------------------------------------
+
+# export_gtfs() should not save large round numbers in scientific notation
+
+mock_shapes <- data.frame(
+  shape_id = c("a", "b", "c"),
+  shape_pt_sequence = 1:3,
+  shape_pt_lat = 40:42,
+  shape_pt_lon = 40:42,
+  shape_dist_traveled = c(1, 10000000, 10000001)
+)
+
+mock_gtfs <- list(shapes = mock_shapes)
+mock_gtfs <- new_gtfs(mock_gtfs)
+
+target_dir <- tempfile()
+export_gtfs(mock_gtfs, target_dir, as_dir = TRUE)
+
+resulting_shapes_content <- readLines(file.path(target_dir, "shapes.txt"))
+
+expect_false(identical(resulting_shapes_content[3], "b,2,41,41,1e+07"))
+expect_identical(resulting_shapes_content[3], "b,2,41,41,10000000")
