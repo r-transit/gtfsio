@@ -20,3 +20,6 @@ reference:
     - print.gtfs
     - "[.gtfs"
     - summary.gtfs
+
+development:
+  mode: auto
