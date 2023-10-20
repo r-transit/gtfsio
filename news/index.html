@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gtfsio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -51,13 +51,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="gtfsio-development-version">gtfsio (development version)<a class="anchor" aria-label="anchor" href="#gtfsio-development-version"></a></h2>
-<div class="section level3"><h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3></div>
-<div class="section level3"><h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3></div>
-<div class="section level3"><h3 id="notes-development-version">Notes<a class="anchor" aria-label="anchor" href="#notes-development-version"></a></h3></div>
+<h2 class="page-header" data-toc-text="1.1.1" id="gtfsio-111">gtfsio 1.1.1<small>2023-10-20</small><a class="anchor" aria-label="anchor" href="#gtfsio-111"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-1-1-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-1"></a></h3>
+<ul><li>Now prevents <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code> to save large round numbers in scientific notation. This was not exactly a bug, as the specification does not forbid it, but the behavior could interfere with the workflow of people using other applications (as shown in <a href="https://github.com/ipeaGIT/gtfstools/issues/73" class="external-link">{gtfstools} </a><a href="https://github.com/r-transit/gtfsio/issues/73" class="external-link">#73</a>). Also, improves the readability of the tables.</li></ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1.0" id="gtfsio-110">gtfsio 1.1.0<a class="anchor" aria-label="anchor" href="#gtfsio-110"></a></h2>
+<h2 class="page-header" data-toc-text="1.1.0" id="gtfsio-110">gtfsio 1.1.0<small>2023-03-08</small><a class="anchor" aria-label="anchor" href="#gtfsio-110"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-1-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-0"></a></h3>
 <ul><li>Fixed a bug in which <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> would append a <code>.txt</code> extension to non text files found inside the GTFS feed, which would lead to an error when attempting to unzip the feed. The function now ignores non text files when reading feeds, and raises an informative warning message if any of such files is found (<a href="https://github.com/r-transit/gtfsio/issues/23" class="external-link">#23</a>).</li></ul></div>
