@@ -1,6 +1,6 @@
 ## Test environments
 
-- Local Ubuntu 20.04 installation (R 4.2.2)
+- Local Ubuntu 20.04 installation (R 4.3.1)
 - GitHub Actions:
   - Windows (release, oldrel)
   - MacOS (release, oldrel)
@@ -25,9 +25,9 @@ Check status summary:
 Check results summary:
 gtfsio ... OK
 rdepends_gtfstools ... WARNING
-* checking CRAN incoming feasibility ... WARNING
+* checking CRAN incoming feasibility ... [7s/46s] WARNING
 rdepends_tidytransit ... WARNING
-* checking CRAN incoming feasibility ... WARNING
+* checking CRAN incoming feasibility ... [6s/33s] WARNING
 * checking installed package size ... NOTE
 
 None of the notes and warnings in {gtfstools} and {tidytransit} checks are related to {gtfsio}. The revdep checks were run with tools::check_packages_in_dir(check_args = "--as-cran"), thus raising an "insufficient package version" warning in the dependencies check.

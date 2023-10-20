@@ -1,10 +1,8 @@
-# gtfsio (development version)
+# gtfsio 1.1.1
 
 ## Bug fixes
 
-## New features
-
-## Notes
+- Now prevents `export_gtfs()` to save large round numbers in scientific notation. This was not exactly a bug, as the specification does not forbid it, but the behavior could interfere with the workflow of people using other applications (as shown in [{gtfstools} #73](https://github.com/ipeaGIT/gtfstools/issues/73)). Also, improves the readability of the tables.
 
 # gtfsio 1.1.0
 

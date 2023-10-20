@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.1.0.9000",
+  "version": "1.1.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.2 Patched (2022-11-10 r83330)",
+  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -133,7 +133,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "387.286KB",
+  "fileSize": "387.998KB",
   "releaseNotes": "https://github.com/r-transit/gtfsio/blob/master/NEWS.md",
   "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md",
   "contIntegration": ["https://github.com/r-transit/gtfsio/actions?query=workflow%3AR-CMD-check", "https://app.codecov.io/gh/r-transit/gtfsio?branch=master"],

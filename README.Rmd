@@ -76,5 +76,5 @@ For a more complete demonstration please read the [introductory vignette](https:
 
 - [`{tidytransit}`](https://github.com/r-transit/tidytransit)
 - [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
-- [`{gtfsrouter}`](https://github.com/ATFutures/gtfs-router)
+- [`{gtfsrouter}`](https://github.com/UrbanAnalyst/gtfsrouter)
 - [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
