@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gtfsio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.1.9000</span>
       </span>
     </div>
 
@@ -113,12 +113,12 @@
 <span><span class="va">gtfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_gtfs.html">import_gtfs</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "agency"          "attributions"    "calendar"       </span></span>
-<span><span class="co">#&gt;  [4] "calendar_dates"  "fare_attributes" "fare_rules"     </span></span>
-<span><span class="co">#&gt;  [7] "feed_info"       "frequencies"     "levels"         </span></span>
-<span><span class="co">#&gt; [10] "pathways"        "routes"          "shapes"         </span></span>
-<span><span class="co">#&gt; [13] "stop_times"      "stops"           "transfers"      </span></span>
-<span><span class="co">#&gt; [16] "translations"    "trips"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "calendar_dates"  "fare_attributes" "fare_rules"     </span></span>
+<span><span class="co">#&gt;  [4] "feed_info"       "frequencies"     "levels"         </span></span>
+<span><span class="co">#&gt;  [7] "pathways"        "routes"          "shapes"         </span></span>
+<span><span class="co">#&gt; [10] "stop_times"      "stops"           "transfers"      </span></span>
+<span><span class="co">#&gt; [13] "translations"    "trips"           "agency"         </span></span>
+<span><span class="co">#&gt; [16] "attributions"    "calendar"</span></span></code></pre></div>
 <p><code><a href="reference/import_gtfs.html">import_gtfs()</a></code> returns a <code>gtfs</code> object. The <code>gtfs</code> class might be extended by other packages using the constructor, validator and methods provided by <strong>gtfsio</strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">gtfs</span><span class="op">)</span></span>
@@ -130,15 +130,15 @@
 <span><span class="fu"><a href="reference/export_gtfs.html">export_gtfs</a></span><span class="op">(</span><span class="va">gtfs</span>, <span class="va">tmpf</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">zip</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/zip/man/zip_list.html" class="external-link">zip_list</a></span><span class="op">(</span><span class="va">tmpf</span><span class="op">)</span><span class="op">$</span><span class="va">filename</span></span>
-<span><span class="co">#&gt;  [1] "agency.txt"          "attributions.txt"   </span></span>
-<span><span class="co">#&gt;  [3] "calendar.txt"        "calendar_dates.txt" </span></span>
-<span><span class="co">#&gt;  [5] "fare_attributes.txt" "fare_rules.txt"     </span></span>
-<span><span class="co">#&gt;  [7] "feed_info.txt"       "frequencies.txt"    </span></span>
-<span><span class="co">#&gt;  [9] "levels.txt"          "pathways.txt"       </span></span>
-<span><span class="co">#&gt; [11] "routes.txt"          "shapes.txt"         </span></span>
-<span><span class="co">#&gt; [13] "stop_times.txt"      "stops.txt"          </span></span>
-<span><span class="co">#&gt; [15] "transfers.txt"       "translations.txt"   </span></span>
-<span><span class="co">#&gt; [17] "trips.txt"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "calendar_dates.txt"  "fare_attributes.txt"</span></span>
+<span><span class="co">#&gt;  [3] "fare_rules.txt"      "feed_info.txt"      </span></span>
+<span><span class="co">#&gt;  [5] "frequencies.txt"     "levels.txt"         </span></span>
+<span><span class="co">#&gt;  [7] "pathways.txt"        "routes.txt"         </span></span>
+<span><span class="co">#&gt;  [9] "shapes.txt"          "stop_times.txt"     </span></span>
+<span><span class="co">#&gt; [11] "stops.txt"           "transfers.txt"      </span></span>
+<span><span class="co">#&gt; [13] "translations.txt"    "trips.txt"          </span></span>
+<span><span class="co">#&gt; [15] "agency.txt"          "attributions.txt"   </span></span>
+<span><span class="co">#&gt; [17] "calendar.txt"</span></span></code></pre></div>
 <p>For a more complete demonstration please read the <a href="https://r-transit.github.io/gtfsio/articles/gtfsio.html" class="external-link">introductory vignette</a>.</p>
 </div>
 <div class="section level2">
@@ -147,7 +147,7 @@
 <ul>
 <li><a href="https://github.com/r-transit/tidytransit" class="external-link"><code>{tidytransit}</code></a></li>
 <li><a href="https://github.com/ipeaGIT/gtfs2gps" class="external-link"><code>{gtfs2gps}</code></a></li>
-<li><a href="https://github.com/ATFutures/gtfs-router" class="external-link"><code>{gtfsrouter}</code></a></li>
+<li><a href="https://github.com/UrbanAnalyst/gtfsrouter" class="external-link"><code>{gtfsrouter}</code></a></li>
 <li><a href="https://github.com/ipeaGIT/gtfstools" class="external-link"><code>{gtfstools}</code></a></li>
 </ul>
 </div>
