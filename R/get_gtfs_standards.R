@@ -46,6 +46,7 @@
 #' @export
 get_gtfs_standards <- function() {
   agency <- list(
+    file_ext        = "txt",
     file_spec       = "req",
     agency_id       = list("id",            "cond"),
     agency_name     = list("text",          "req"),
@@ -58,6 +59,7 @@ get_gtfs_standards <- function() {
   )
 
   stops <- list(
+    file_ext            = "txt",
     file_spec           = "req",
     stop_id             = list("id",        "req"),
     stop_code           = list("text",      "opt"),
@@ -77,6 +79,7 @@ get_gtfs_standards <- function() {
   )
 
   routes <- list(
+    file_ext           = "txt",
     file_spec          = "req",
     route_id           = list("id",       "req"),
     agency_id          = list("id",       "cond"),
@@ -95,6 +98,7 @@ get_gtfs_standards <- function() {
   )
 
   trips <- list(
+    file_ext              = "txt",
     file_spec             = "req",
     route_id              = list("id",  "req"),
     service_id            = list("id",  "req"),
@@ -109,6 +113,7 @@ get_gtfs_standards <- function() {
   )
 
   stop_times <- list(
+    file_ext            = "txt",
     file_spec           = "req",
     trip_id             = list("id",      "req"),
     arrival_time        = list("time",    "cond"),
@@ -125,6 +130,7 @@ get_gtfs_standards <- function() {
   )
 
   calendar <- list(
+    file_ext    = "txt",
     file_spec   = "cond",
     service_id  = list("id",   "req"),
     monday      = list("enum", "req", c(0, 1)),
@@ -139,6 +145,7 @@ get_gtfs_standards <- function() {
   )
 
   calendar_dates <- list(
+    file_ext       = "txt",
     file_spec      = "cond",
     service_id     = list("id",   "req"),
     date           = list("date", "req"),
@@ -146,6 +153,7 @@ get_gtfs_standards <- function() {
   )
 
   fare_attributes <- list(
+    file_ext          = "txt",
     file_spec         = "opt",
     fare_id           = list("id",            "req"),
     price             = list("float",         "req"),
@@ -157,6 +165,7 @@ get_gtfs_standards <- function() {
   )
 
   fare_rules <- list(
+    file_ext       = "txt",
     file_spec      = "opt",
     fare_id        = list("id", "req"),
     route_id       = list("id", "opt"),
@@ -166,6 +175,7 @@ get_gtfs_standards <- function() {
   )
 
   fare_products <- list(
+    file_ext          = "txt",
     file_spec         = "opt",
     fare_product_id   = list("id",              "req"),
     fare_product_name = list("text",            "opt"),
@@ -174,6 +184,7 @@ get_gtfs_standards <- function() {
   )
 
   fare_leg_rules <- list(
+    file_ext        = "txt",
     file_spec       = "opt",
     leg_group_id    = list("id", "opt"),
     network_id      = list("id", "opt"),
@@ -183,6 +194,7 @@ get_gtfs_standards <- function() {
   )
 
   fare_transfer_rules <- list(
+    file_ext            = "txt",
     file_spec           = "opt",
     from_leg_group_id   = list("id",      "opt"),
     to_leg_group_id     = list("id",      "opt"),
@@ -194,18 +206,21 @@ get_gtfs_standards <- function() {
   )
 
   areas <- list(
+    file_ext  = "txt",
     file_spec = "opt",
     area_id   = list("id",   "req"),
     area_name = list("text", "opt")
   )
 
   stop_areas <- list(
+    file_ext  = "txt",
     file_spec = "opt",
     area_id   = list("id", "req"),
     stop_id   = list("id", "opt")
   )
 
   shapes <- list(
+    file_ext            = "txt",
     file_spec           = "opt",
     shape_id            = list("id",        "req"),
     shape_pt_lat        = list("latitude",  "req"),
@@ -215,6 +230,7 @@ get_gtfs_standards <- function() {
   )
 
   frequencies <- list(
+    file_ext     = "txt",
     file_spec    = "opt",
     trip_id      = list("id",      "req"),
     start_time   = list("time",    "req"),
@@ -224,6 +240,7 @@ get_gtfs_standards <- function() {
   )
 
   transfers <- list(
+    file_ext          = "txt",
     file_spec         = "opt",
     from_stop_id      = list("id",      "cond"),
     to_stop_id        = list("id",      "cond"),
@@ -236,6 +253,7 @@ get_gtfs_standards <- function() {
   )
 
   pathways <- list(
+    file_ext               = "txt",
     file_spec              = "opt",
     pathway_id             = list("id",      "req"),
     from_stop_id           = list("id",      "req"),
@@ -252,6 +270,7 @@ get_gtfs_standards <- function() {
   )
 
   levels <- list(
+    file_ext    = "txt",
     file_spec   = "cond",
     level_id    = list("id",    "req"),
     level_index = list("float", "req"),
@@ -259,6 +278,7 @@ get_gtfs_standards <- function() {
   )
 
   translations <- list(
+    file_ext      = "txt",
     file_spec     = "opt",
     table_name    = list("enum",          "req", c("agency", "stops", "routes",
                                                    "trips", "stop_times",
@@ -273,6 +293,7 @@ get_gtfs_standards <- function() {
   )
 
   feed_info <- list(
+    file_ext            = "txt",
     file_spec           = "cond",
     feed_publisher_name = list("text",          "req"),
     feed_publisher_url  = list("url",           "req"),
@@ -286,6 +307,7 @@ get_gtfs_standards <- function() {
   )
 
   attributions <- list(
+    file_ext          = "txt",
     file_spec         = "opt",
     attribution_id    = list("id",           "opt"),
     agency_id         = list("id",           "opt"),
@@ -298,6 +320,11 @@ get_gtfs_standards <- function() {
     attribution_url   = list("url",          "opt"),
     attribution_email = list("email",        "opt"),
     attribution_phone = list("phone_number", "opt")
+  )
+
+  locations <- list(
+    file_ext = "geojson",
+    file_spec = "opt"
   )
 
   # create gtfs_standards object
@@ -324,7 +351,8 @@ get_gtfs_standards <- function() {
     levels = levels,
     translations = translations,
     feed_info = feed_info,
-    attributions = attributions
+    attributions = attributions,
+    locations = locations
   )
 
   # define R types most similar to GTFS reference types

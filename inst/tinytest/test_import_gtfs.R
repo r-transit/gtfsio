@@ -55,7 +55,7 @@ expect_error(
   tester(files = "ola"),
   pattern = paste0(
     "The provided GTFS feed doesn't contain the following ",
-    "text file\\(s\\): 'ola'"
+    "text file\\(s\\): 'ola.txt'"
   ),
   class = "gtfs_missing_files"
 )
