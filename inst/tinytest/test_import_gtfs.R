@@ -431,3 +431,10 @@ expect_error(tester(not_gtfs_file), class = "path_must_be_zip")
 
 not_gtfs_url <- "https://www.google.com"
 expect_error(tester(not_gtfs_url), class = "path_must_be_zip")
+
+# issue #36 ---------------------------------------------------------------
+# locations.geojson files should be read without warning
+
+expect_silent(
+  import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
+)
