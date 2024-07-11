@@ -438,3 +438,8 @@ expect_error(tester(not_gtfs_url), class = "path_must_be_zip")
 expect_silent(
   import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
 )
+
+locations_feed <- import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
+
+expect_inherits(locations_feed[["locations"]], "list")
+expect_equal(names(locations_feed[["locations"]]), c("type", "name", "crs", "features"))

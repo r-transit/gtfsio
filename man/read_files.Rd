@@ -7,7 +7,7 @@
 read_files(file, gtfs_standards, fields, extra_spec, tmpdir, quiet, encoding)
 }
 \arguments{
-\item{file}{A string. The name of the file (without \code{.txt} extension) to
+\item{file}{A string. The name of the file (with \code{.txt} or \code{.geojson} extension) to
 be read.}
 
 \item{gtfs_standards}{A named list. Created by
