@@ -144,7 +144,7 @@ expect_identical(gtfs_fields, list(shapes = "shape_id", trips = "trip_id"))
 
 # get the standard type in R used to read each field
 
-gtfs_standards <- get_gtfs_standards(FALSE)
+gtfs_standards <- get_gtfs_standards()
 
 standard_types <- lapply(
   gtfs_standards,
@@ -154,6 +154,7 @@ standard_types <- lapply(
     types  <- types[order(names(types))]
   }
 )
+names(standard_types) <- gtfsio:::remove_file_ext(names(standard_types))
 standard_types <- standard_types[order(names(standard_types))]
 
 # get the type actually used to read each field

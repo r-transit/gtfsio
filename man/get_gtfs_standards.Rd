@@ -4,7 +4,7 @@
 \alias{get_gtfs_standards}
 \title{Generate GTFS standards}
 \usage{
-get_gtfs_standards(.new = TRUE)
+get_gtfs_standards()
 }
 \value{
 A named list, in which each element represents the R equivalent of

@@ -70,10 +70,11 @@ fields$Field_Name[fields$file == "locations.geojson"] <- gsub("-", "", fields$Fi
 
 stopifnot(all(!is.na(fields$gtfsio_type)))
 
-# Save table data ####
-write.csv(fields, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
+# save copy of table data ####
+gtfsio_field_types_table = fields
+write.csv(gtfsio_field_types_table, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
 
-# Save gtfsio_standard_data ####
+# save gtfs_standards as list ####
 gtfs_standards_parsed = fields |>
   split(fields$file) |>
   lapply(\(feed_file) {
@@ -81,4 +82,5 @@ gtfs_standards_parsed = fields |>
   })
 
 # save(gtfs_standards_parsed, file = "../../data/gtfs_standards_parsed.rda")
-usethis::use_data(gtfs_standards_parsed, internal = T, overwrite = T)
+usethis::use_data(gtfs_standards_parsed, gtfsio_field_types_table,
+                  internal = T, overwrite = T)
