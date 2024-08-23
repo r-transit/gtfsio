@@ -7,10 +7,13 @@ load("../../data/gtfsio_field_conversion_types.rda")
 str(standards_expected, 1)
 str(standards_expected$agency, 1)
 
+
+
+# Save Data ####
 standards_parsed = fields |>
   split(fields$file) |>
   lapply(\(feed_file) {
     setNames(feed_file$gtfsio_type, feed_file$Field_Name)
-    })
+  })
 
 saveRDS(standards_parsed, "../../data/gtfs_standards_parsed.rds")

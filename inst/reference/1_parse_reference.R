@@ -6,7 +6,7 @@ library(dplyr)
 #' - Currency code = `character` (ok)
 #' - Date = `integer` (ok)
 #' - Email = `character` (ok)
-#' - ENUM = `integer` (integer_character, not all enums are integers)
+#' - ENUM = `integer` (except manual fix)
 #' - ID = `character` (ok)
 #' - Integer = `integer` (ok)
 #' - Language code = `character` (ok)
@@ -35,7 +35,9 @@ fields = bind_rows(ref, .id = "file") |>
 fields$gtfsio_type <- NA
 
 # Enum
-fields$gtfsio_type[fields$Type == "Enum"] <- "integer" # TODO "integer_character"
+fields$gtfsio_type[fields$Type == "Enum"] <- "integer"
+# Correct non-integer enums (manual fix)
+fields[fields$file == "translations.txt" & fields$Field_Name == "table_name","gtfsio_type"] <- "character"
 
 # ID: character
 fields$gtfsio_type[startsWith(fields$Type, "Foreign ID")] <- "character"
@@ -69,6 +71,7 @@ fields$Field_Name[fields$file == "locations.geojson"] <- gsub("-", "", fields$Fi
 stopifnot(all(!is.na(fields$gtfsio_type)))
 
 # Presence ####
+# TODO check
 fields$gtfsio_presence <- NA
 fields$gtfsio_presence[fields$Presence %in% c("Required")] <- "required"
 fields$gtfsio_presence[fields$Presence %in% c("Conditionally Required", "Conditionally Forbidden")] <- "conditional"
