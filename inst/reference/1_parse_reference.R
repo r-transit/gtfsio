@@ -70,17 +70,8 @@ fields$Field_Name[fields$file == "locations.geojson"] <- gsub("-", "", fields$Fi
 
 stopifnot(all(!is.na(fields$gtfsio_type)))
 
-# Presence ####
-# TODO check
-fields$gtfsio_presence <- NA
-fields$gtfsio_presence[fields$Presence %in% c("Required")] <- "required"
-fields$gtfsio_presence[fields$Presence %in% c("Conditionally Required", "Conditionally Forbidden")] <- "conditional"
-fields$gtfsio_presence[fields$Presence %in% c("Optional", "Recommended")] <- "optional"
-
-stopifnot(all(!is.na(fields$gtfsio_presence)))
-
 # Save table data ####
-write.csv(fields, "../../data/gtfsio_field_conversion_types.csv", row.names = FALSE)
+write.csv(fields, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
 
 # Save gtfsio_standard_data ####
 gtfs_standards_parsed = fields |>
