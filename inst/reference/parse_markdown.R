@@ -1,0 +1,61 @@
+# https://stackoverflow.com/questions/48087762/markdown-table-to-data-frame-in-r
+read_markdown_table = function(lines) {
+	lines <- lines[!grepl('^[[:blank:]+-=:_|]*$', lines)]
+	lines <- gsub('(^\\s*?\\|)|(\\|\\s*?$)', '', lines)
+	readr::read_delim(paste(lines, collapse = '\n'), delim = '|',
+					  trim_ws = TRUE, show_col_types = FALSE)
+}
+
+# parse all field definitions
+parse_fields = function(reference.md) {
+	field_reference = list()
+
+	ref_lines = readr::read_lines(reference.md)
+	ref_lines[length(ref_lines)+1] <- "" # ensure empty last row
+
+	table_index = stringr::str_starts(ref_lines, "\\| ") # lines with table markdown
+
+	i = which(ref_lines == "## Field Definitions")
+	while(i <= length(ref_lines)) {
+		.line = ref_lines[i]
+		if(stringr::str_starts(.line, "### ")) {
+			.current_file <- stringr::str_replace_all(.line, "### ", "")
+		}
+		if(stringr::str_starts(.line, "File: ")) {
+			.file_presence <- stringr::str_replace_all(.line, "File: ", "")
+		}
+		if(stringr::str_starts(.line, "Primary key ")) {
+			.primary_key <- stringr::str_replace_all(.line, "Primary key \\(", "")
+			.primary_key <- stringr::str_replace_all(.primary_key, "\\)", "")
+		}
+
+		# parse fields table
+		if(stringr::str_starts(.line, "\\|[ ]+Field Name \\| Type")) {
+			j = min(which(!table_index & seq_along(ref_lines) > i))-1
+			ref_table = read_markdown_table(ref_lines[i:j])
+
+			stopifnot(!is.null(.current_file), !is.null(.file_presence))
+			if(is.null(.primary_key)) stopifnot(stringr::str_ends(.current_file, "geojson"))
+
+			# print problems if available
+			if(nrow(readr::problems(ref_table)) > 0) {
+				cat(.current_file, "\n")
+				print(readr::problems(ref_table)[,1:4])
+			}
+
+			# cleanup attributes
+			attributes(ref_table)$presence <- .file_presence
+			attributes(ref_table)$primary_key <- .primary_key
+			attributes(ref_table)$spec <- NULL # remove col_type info
+			attributes(ref_table)$problems <- NULL # remove col_type info
+
+			# assign to return list
+			field_reference[[.current_file]] <- ref_table
+
+			# clear values
+			.current_file <- .file_presence <- .primary_key <- NULL
+		}
+		i <- i+1
+	}
+	return(field_reference)
+}
