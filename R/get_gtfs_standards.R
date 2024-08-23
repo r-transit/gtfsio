@@ -22,6 +22,8 @@
 #' Reference](https://gtfs.org/schedule/reference/). The R data types chosen to
 #' represent each GTFS data type are described below:
 #'
+# TODO automatically create
+#'
 #' - Color = `character`
 #' - Currency amount = `numeric`
 #' - Currency code = `character`
@@ -45,5 +47,10 @@
 #'
 #' @export
 get_gtfs_standards <- function() {
-  return(gtfs_standards_parsed)
+  files_list = split(gtfsio_field_types, gtfsio_field_types$file)
+  lapply(files_list, function(feed_file) {
+    type = feed_file$gtfsio_type
+    names(type) <- feed_file$Field_Name
+    type
+  })
 }
