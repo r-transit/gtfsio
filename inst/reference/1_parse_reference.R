@@ -35,7 +35,7 @@ fields = bind_rows(ref, .id = "file") |>
 fields$gtfsio_type <- NA
 
 # Enum
-fields$gtfsio_type[fields$Type == "Enum"] <- "integer_character"
+fields$gtfsio_type[fields$Type == "Enum"] <- "integer" # TODO "integer_character"
 
 # ID: character
 fields$gtfsio_type[startsWith(fields$Type, "Foreign ID")] <- "character"

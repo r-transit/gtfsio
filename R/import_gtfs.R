@@ -267,7 +267,7 @@ read_files <- function(file,
 
   # get standards for reading and fields to be read from the given 'file'
 
-  file_standards <- gtfs_standards[[file]]
+  file_standards <- gtfs_standards[[filename]]
   fields         <- fields[[file]]
   extra_spec     <- extra_spec[[file]]
 

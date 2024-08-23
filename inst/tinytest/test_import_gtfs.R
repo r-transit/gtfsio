@@ -144,7 +144,7 @@ expect_identical(gtfs_fields, list(shapes = "shape_id", trips = "trip_id"))
 
 # get the standard type in R used to read each field
 
-gtfs_standards <- get_gtfs_standards()
+gtfs_standards <- get_gtfs_standards(FALSE)
 
 standard_types <- lapply(
   gtfs_standards,
