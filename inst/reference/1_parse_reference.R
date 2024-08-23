@@ -89,4 +89,5 @@ gtfs_standards_parsed = fields |>
     setNames(feed_file$gtfsio_type, feed_file$Field_Name)
   })
 
-save(gtfs_standards_parsed, file = "../../data/gtfs_standards_parsed.rda")
+# save(gtfs_standards_parsed, file = "../../data/gtfs_standards_parsed.rda")
+usethis::use_data(gtfs_standards_parsed, internal = T, overwrite = T)

@@ -191,7 +191,7 @@ for (file in list.files(tmpd)) {
   # all existing fields should be standard
 
   no_txt_file     <- sub(".txt", "", file)
-  std_fields      <- setdiff(names(gtfs_standards[[no_txt_file]]), "file_spec")
+  std_fields      <- setdiff(names(gtfs_standards[[file]]), "file_spec")
   existing_fields <- readLines(file.path(tmpd, file), n = 1L)
   existing_fields <- strsplit(existing_fields, ",")[[1]]
 

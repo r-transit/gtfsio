@@ -64,3 +64,6 @@ Collate:
     'gtfsio.R'
     'import_gtfs.R'
     'new_gtfs.R'
+LazyData: true
+Depends: 
+    R (>= 3.1.0)

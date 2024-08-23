@@ -91,7 +91,7 @@ export_gtfs <- function(gtfs,
   # 'extra_files' is re-evaluated because 'files' might have changed in the
   # lines above
 
-  extra_files <- setdiff(files, names(gtfs_standards))
+  extra_files <- setdiff(files, remove_file_ext(names(gtfs_standards)))
 
   if (standard_only) files <- setdiff(files, extra_files)
 
@@ -121,7 +121,7 @@ export_gtfs <- function(gtfs,
 
   for (file in files) {
 
-    filename <- paste0(file, ".txt")
+    filename <- paste0(file, ".txt") # TODO handle geojson?
     filepath <- file.path(tmpd, filename)
 
     if (!quiet) message("  - Writing ", filename)
@@ -134,7 +134,7 @@ export_gtfs <- function(gtfs,
     if (standard_only) {
 
       file_cols  <- names(dt)
-      extra_cols <- setdiff(file_cols, names(gtfs_standards[[file]]))
+      extra_cols <- setdiff(file_cols, names(gtfs_standards[[filename]]))
 
       if (!identical(extra_cols, character(0))) dt <- dt[, !..extra_cols]
 
