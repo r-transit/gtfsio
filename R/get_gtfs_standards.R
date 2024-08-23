@@ -45,7 +45,7 @@
 #'
 #' @export
 get_gtfs_standards <- function(.new = TRUE) {
-  if(.new) return(readRDS("~/Github/gtfsio/data/gtfs_standards_parsed.rds"))
+  if(.new) return(gtfs_standards_parsed)
   agency <- list(
     file_ext        = "txt",
     file_spec       = "req",

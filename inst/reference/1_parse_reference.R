@@ -79,5 +79,14 @@ fields$gtfsio_presence[fields$Presence %in% c("Optional", "Recommended")] <- "op
 
 stopifnot(all(!is.na(fields$gtfsio_presence)))
 
-write.csv(fields, "gtfsio_field_conversion_types.csv", row.names = FALSE)
-save(fields, file = "../../data/gtfsio_field_conversion_types.rda")
+# Save table data ####
+write.csv(fields, "../../data/gtfsio_field_conversion_types.csv", row.names = FALSE)
+
+# Save gtfsio_standard_data ####
+gtfs_standards_parsed = fields |>
+  split(fields$file) |>
+  lapply(\(feed_file) {
+    setNames(feed_file$gtfsio_type, feed_file$Field_Name)
+  })
+
+save(gtfs_standards_parsed, file = "../../data/gtfs_standards_parsed.rda")

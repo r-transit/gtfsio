@@ -185,7 +185,7 @@
 "booking_rules.txt","phone_number","Phone number","Optional","character","optional"
 "booking_rules.txt","info_url","URL","Optional","character","optional"
 "booking_rules.txt","booking_url","URL","Optional","character","optional"
-"translations.txt","table_name","Enum","Required","integer","required"
+"translations.txt","table_name","Enum","Required","character","required"
 "translations.txt","field_name","Text","Required","character","required"
 "translations.txt","language","Language code","Required","character","required"
 "translations.txt","translation","Text or URL or Email or Phone number","Required","character","required"
