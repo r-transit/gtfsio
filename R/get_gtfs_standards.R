@@ -5,7 +5,7 @@
 #' GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
 #' table, and describes:
 #'
-#' - whether the table is required, optional or conditionally required;
+#' - whether the table is required, optional or conditionally required (as an attribute);
 #' - the fields that compose the table, including which R data type is best
 #' suited to represent it, whether the field is required, optional or
 #' conditionally required, and which values it can assume (most relevant to GTFS
@@ -21,36 +21,30 @@
 #' GTFS standards were derived from [GTFS Schedule
 #' Reference](https://gtfs.org/schedule/reference/). The R data types chosen to
 #' represent each GTFS data type are described below:
-#'
-# TODO automatically create
-#'
-#' - Color = `character`
-#' - Currency amount = `numeric`
-#' - Currency code = `character`
-#' - Date = `integer`
-#' - Email = `character`
-#' - ENUM = `integer`
-#' - ID = `character`
-#' - Integer = `integer`
-#' - Language code = `character`
-#' - Latitude = `numeric`
-#' - Longitude = `numeric`
-#' - Float = `numeric`
-#' - Phone number = `character`
-#' - Text = `character`
-#' - Time = `character`
-#' - Timezone = `character`
-#' - URL = `character`
+#' `r .doc_field_types()`
 #'
 #' @examples
 #' gtfs_standards <- get_gtfs_standards()
 #'
 #' @export
 get_gtfs_standards <- function() {
-  files_list = split(gtfsio_field_types, gtfsio_field_types$file)
+  files_list = split(gtfsio_field_types, gtfsio_field_types$File_Name)
   lapply(files_list, function(feed_file) {
     type = feed_file$gtfsio_type
     names(type) <- feed_file$Field_Name
     type
   })
 }
+
+.doc_field_types = function() { # nocov start
+  type_assignment <- unique(gtfsio_field_types[,c("Type", "gtfsio_type")])
+  type_assignment <- type_assignment[!startsWith(type_assignment$Type, "Foreign ID"),]
+  type_assignment <- type_assignment[order(type_assignment$gtfsio_type),]
+
+  doc <- c("\\itemize{",
+           paste0("\\item{", type_assignment$Type, " = \`",
+                  type_assignment$gtfsio_type, "\`}"),
+           "}\n")
+
+  return(paste(doc, collapse = "\n"))
+} # nocov end

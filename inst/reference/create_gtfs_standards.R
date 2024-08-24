@@ -5,7 +5,9 @@ library(dplyr)
 source("parse_markdown.R")
 
 # Parse current reference markdown to list of tables ####
-fields_ref_list <- parse_fields("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md")
+reference.md = curl::curl_download("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md", tempfile())
+
+fields_ref_list <- parse_fields(reference.md)
 
 # Bind list to table table containing all fields ####
 f <- bind_fields_reference_list(fields_ref_list)
@@ -16,7 +18,7 @@ f$gtfsio_type <- NA
 # Enum
 f$gtfsio_type[f$Type == "Enum"] <- "integer"
 # Correct non-integer enums (manual fix)
-f[f$file == "translations.txt" & f$Field_Name == "table_name","gtfsio_type"] <- "character"
+f[f$File_Name == "translations.txt" & f$Field_Name == "table_name","gtfsio_type"] <- "character"
 
 # ID: character
 f$gtfsio_type[startsWith(f$Type, "Foreign ID")] <- "character"
@@ -43,9 +45,9 @@ f$gtfsio_type[f$Type %in% c("Non-negative integer", "Non-zero integer",
 f$gtfsio_type[f$Type == "Array"] <- "geojson_array"
 f$gtfsio_type[f$Type == "Object"] <- "geojson_object"
 
-f$Field_Name[f$file == "locations.geojson"] <- gsub("&nbsp;", "", f$Field_Name[f$file == "locations.geojson"])
-f$Field_Name[f$file == "locations.geojson"] <- gsub("\\\\", "", f$Field_Name[f$file == "locations.geojson"])
-f$Field_Name[f$file == "locations.geojson"] <- gsub("-", "", f$Field_Name[f$file == "locations.geojson"])
+f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("&nbsp;", "", f$Field_Name[f$File_Name == "locations.geojson"])
+f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("\\\\", "", f$Field_Name[f$File_Name == "locations.geojson"])
+f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("-", "", f$Field_Name[f$File_Name == "locations.geojson"])
 
 if(any(is.na(f$gtfsio_type))) {
   stop("GTFS types without R equivalent found:\n", paste0(unique(f$Type[is.na(f$gtfsio_type)]), collapse = ", "))
@@ -53,6 +55,6 @@ if(any(is.na(f$gtfsio_type))) {
 stopifnot(all(!is.na(f$gtfsio_type)))
 
 # save copy of table data ####
-gtfsio_field_types = as.data.frame(fields)
+gtfsio_field_types = as.data.frame(f)
 write.csv(gtfsio_field_types, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
 usethis::use_data(gtfsio_field_types, internal = T, overwrite = T)
