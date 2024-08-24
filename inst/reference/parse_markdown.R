@@ -6,9 +6,9 @@ read_markdown_table = function(lines) {
 					  trim_ws = TRUE, show_col_types = FALSE)
 }
 
-# parse all field definitions
+# parse all field definitions and return a list of tables
 parse_fields = function(reference.md) {
-	field_reference = list()
+	field_reference_list = list()
 
 	ref_lines = readr::read_lines(reference.md)
 	ref_lines[length(ref_lines)+1] <- "" # ensure empty last row
@@ -50,12 +50,21 @@ parse_fields = function(reference.md) {
 			attributes(ref_table)$problems <- NULL # remove col_type info
 
 			# assign to return list
-			field_reference[[.current_file]] <- ref_table
+			field_reference_list[[.current_file]] <- ref_table
 
 			# clear values
 			.current_file <- .file_presence <- .primary_key <- NULL
 		}
 		i <- i+1
 	}
-	return(field_reference)
+	return(field_reference_list)
+}
+
+bind_fields_reference_list = function(field_reference_list) {
+  field_reference_list |>
+    bind_rows(.id = "file") |>
+    rename(Field_Name = `Field Name`) |>
+    mutate(Field_Name = gsub("`", "", Field_Name)) |>
+    mutate(Presence = gsub("**", "", Presence, fixed = TRUE)) |>
+    select(-Description)
 }
