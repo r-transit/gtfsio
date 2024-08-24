@@ -3,14 +3,10 @@
 
 library(dplyr)
 source("parse_markdown.R")
-
-# Parse current reference markdown to list of tables ####
 reference.md = curl::curl_download("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md", tempfile())
 
-fields_ref_list <- parse_fields(reference.md)
-
-# Bind list to table table containing all fields ####
-f <- bind_fields_reference_list(fields_ref_list)
+# Parse current reference markdown to list of tables and bind it ####
+f <- bind_fields_reference_list(parse_fields(reference.md))
 
 # Link gtfs types to R types ####
 f$gtfsio_type <- NA
@@ -52,9 +48,15 @@ f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("-", "", f$Field_Name[f
 if(any(is.na(f$gtfsio_type))) {
   stop("GTFS types without R equivalent found:\n", paste0(unique(f$Type[is.na(f$gtfsio_type)]), collapse = ", "))
 }
-stopifnot(all(!is.na(f$gtfsio_type)))
 
-# save copy of table data ####
+# add file presence as attribute
 gtfsio_field_types = as.data.frame(f)
+files_ref = cleanup_files_reference(parse_files(reference.md))
+
+gtfsio_field_types <- left_join(gtfsio_field_types, files_ref, by = "File_Name")
+
+# save for possible external use
 write.csv(gtfsio_field_types, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
+
+# save as internal data
 usethis::use_data(gtfsio_field_types, internal = T, overwrite = T)

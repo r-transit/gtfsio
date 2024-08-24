@@ -5,14 +5,11 @@
 #' GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
 #' table, and describes:
 #'
-#' - whether the table is required, optional or conditionally required (as an attribute);
 #' - the fields that compose the table, including which R data type is best
 #' suited to represent it, whether the field is required, optional or
-#' conditionally required, and which values it can assume (most relevant to GTFS
-#' `ENUM`s.
-#'
-#' Note: the standards list is based on the specification as revised in May 9th,
-#' 2022.
+#' conditionally required.
+#' - whether the table is required, optional or conditionally required (as an
+#' attribute)
 #'
 #' @return A named list, in which each element represents the R equivalent of
 #'   each GTFS table standard.
@@ -28,10 +25,11 @@
 #'
 #' @export
 get_gtfs_standards <- function() {
-  files_list = split(gtfsio_field_types, gtfsio_field_types$File_Name)
-  lapply(files_list, function(feed_file) {
+  files_list <- split(gtfsio_field_types, gtfsio_field_types$File_Name)
+  files_list <- lapply(files_list, function(feed_file) {
     type = feed_file$gtfsio_type
     names(type) <- feed_file$Field_Name
+    attributes(type)$file_presence <- unique(feed_file$File_Presence)
     type
   })
 }

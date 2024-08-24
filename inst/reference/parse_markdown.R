@@ -68,3 +68,33 @@ bind_fields_reference_list = function(field_reference_list) {
     mutate(Presence = gsub("**", "", Presence, fixed = TRUE)) |>
     select(-Description)
 }
+
+parse_files = function(reference.md) {
+  ref_lines = readr::read_lines(reference.md)
+
+  i = which(ref_lines == "## Dataset Files")
+  j = which(ref_lines == "## File Requirements")
+  stopifnot(i < j)
+  ref_lines <- ref_lines[i:j]
+
+  index = stringr::str_starts(ref_lines, "\\| ")
+  stopifnot(sum(diff(index)) == 0)
+
+  files_table = read_markdown_table(ref_lines[index])
+
+  files_table$`File Name` <- files_table$`File Name` |>
+    strsplit(, split = "](", fixed = T) |>
+    lapply(\(x) {
+      gsub("[", "", x[1], fixed = T)
+    }) |> unlist()
+
+  return(files_table)
+}
+
+# cleanup
+cleanup_files_reference = function(files_table) {
+  files_table |>
+    rename(File_Name = `File Name`) |>
+    mutate(Presence = gsub("**", "", Presence, fixed = TRUE)) |>
+    select(File_Name, File_Presence = Presence)
+}

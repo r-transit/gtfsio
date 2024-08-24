@@ -15,15 +15,12 @@ Generates a list specifying the standards to be used when reading and writing
 GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
 table, and describes:
 \itemize{
-\item whether the table is required, optional or conditionally required;
 \item the fields that compose the table, including which R data type is best
 suited to represent it, whether the field is required, optional or
-conditionally required, and which values it can assume (most relevant to GTFS
-\code{ENUM}s.
+conditionally required.
+\item whether the table is required, optional or conditionally required (as an
+attribute)
 }
-
-Note: the standards list is based on the specification as revised in May 9th,
-2022.
 }
 \section{Details}{
 
