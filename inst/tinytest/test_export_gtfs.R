@@ -294,3 +294,13 @@ resulting_shapes_content <- readLines(file.path(target_dir, "shapes.txt"))
 
 expect_false(identical(resulting_shapes_content[3], "b,2,41,41,1e+07"))
 expect_identical(resulting_shapes_content[3], "b,2,41,41,10000000")
+
+# issue #36 ---------------------------------------------------------------
+# re-reading written json files are the same
+
+locations_feed <- import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
+tmpfile <- tempfile(fileext = ".zip")
+export_gtfs(locations_feed, tmpfile)
+reimported <- import_gtfs(tmpfile)
+
+expect_equal(reimported, locations_feed)

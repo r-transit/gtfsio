@@ -119,35 +119,41 @@ export_gtfs <- function(gtfs,
 
   if (!quiet) message("Writing text files to ", tmpd)
 
-  for (file in files) {
+  filenames = append_file_ext(files)
 
-    filename <- paste0(file, ".txt")
+  for (filename in filenames) {
+
+    file <- remove_file_ext(filename)
     filepath <- file.path(tmpd, filename)
 
     if (!quiet) message("  - Writing ", filename)
 
-    dt <- gtfs[[file]]
+    dt <- gtfs[[remove_file_ext(filename)]]
 
-    # if 'standard_only' is set to TRUE, remove non-standard fields from 'dt'
-    # before writing it to disk
+    if(endsWith(filename, ".geojson")) {
+      jsonlite::write_json(dt, filepath, pretty = FALSE, auto_unbox = TRUE, digits = 8)
+    } else {
 
-    if (standard_only) {
+      # if 'standard_only' is set to TRUE, remove non-standard fields from 'dt'
+      # before writing it to disk
 
-      file_cols  <- names(dt)
-      extra_cols <- setdiff(file_cols, names(gtfs_standards[[file]]))
+      if (standard_only) {
 
-      if (!identical(extra_cols, character(0))) dt <- dt[, !..extra_cols]
+        file_cols  <- names(dt)
+        extra_cols <- setdiff(file_cols, names(gtfs_standards[[file]]))
 
-    }
+        if (!identical(extra_cols, character(0))) dt <- dt[, !..extra_cols]
 
-    # print warning message if warning is raised and 'quiet' is FALSE
-    withCallingHandlers(
-      data.table::fwrite(dt, filepath, scipen = 999),
-      warning = function(cnd) {
-        if (!quiet) message("    - ", conditionMessage(cnd))
       }
-    )
 
+      # print warning message if warning is raised and 'quiet' is FALSE
+      withCallingHandlers(
+        data.table::fwrite(dt, filepath, scipen = 999),
+        warning = function(cnd) {
+          if (!quiet) message("    - ", conditionMessage(cnd))
+        }
+      )
+    }
   }
 
   # zip the contents of 'tmpd' to 'path', if as_dir = FALSE
@@ -161,7 +167,7 @@ export_gtfs <- function(gtfs,
 
     unlink(path, recursive = TRUE)
 
-    filepaths <- file.path(tmpd, paste0(files, ".txt"))
+    filepaths <- file.path(tmpd, filenames)
 
     zip::zip(
       path,
