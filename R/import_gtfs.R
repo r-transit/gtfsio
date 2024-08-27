@@ -2,7 +2,7 @@
 #'
 #' Imports GTFS transit feeds from either a local \code{.zip} file or an URL.
 #' Columns are parsed according to the standards for reading and writing GTFS
-#' feeds specified in \code{\link{get_gtfs_standards}}.
+#' feeds specified in \code{\link{gtfs_reference}}.
 #'
 #' @param path A string. The path to a GTFS \code{.zip} file.
 #' @param files A character vector. The text files to be read from the GTFS,
@@ -21,8 +21,7 @@
 #'   if an undocumented field is not specified in \code{extra_spec}, it is read
 #'   as character (i.e. you may specify in \code{extra_spec} only the fields
 #'   that you want to read as a different type). Only supports the
-#'   \code{character}, \code{integer} and \code{numeric} types, also used in
-#'   \code{\link{get_gtfs_standards}}.
+#'   \code{character}, \code{integer} and \code{numeric} types.
 #' @param skip A character vector. Text files that should not be read from the
 #'   GTFS, without the \code{.txt} extension. If \code{NULL} (the default), no
 #'   files are skipped. Cannot be used if \code{files} is set.
@@ -36,7 +35,7 @@
 #' @return A GTFS object: a named list of data frames, each one corresponding to
 #'   a distinct text file from the given GTFS feed.
 #'
-#' @seealso \code{\link{get_gtfs_standards}}
+#' @seealso \code{\link{gtfs_reference}}
 #'
 #' @family io functions
 #'
@@ -231,7 +230,7 @@ import_gtfs <- function(path,
 #' @return A \code{data.table} representing the desired text file according to
 #'   the standards for reading and writing GTFS feeds with R.
 #'
-#' @seealso \code{\link{get_gtfs_standards}}
+#' @seealso \code{\link{gtfs_reference}}
 #'
 #' @keywords internal
 read_files <- function(file,

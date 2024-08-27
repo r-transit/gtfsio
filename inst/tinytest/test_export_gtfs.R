@@ -2,7 +2,6 @@ path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 gtfs <- import_gtfs(path)
 tmpf <- tempfile(fileext = ".zip")
 tmpd <- tempfile()
-gtfs_standards <- get_gtfs_standards()
 
 tester <- function(gtfs_obj = gtfs,
                    path = tmpf,

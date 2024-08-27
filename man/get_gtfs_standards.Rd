@@ -11,55 +11,49 @@ A named list, in which each element represents the R equivalent of
 each GTFS table standard.
 }
 \description{
+\emph{This function is deprecated and no longer used in \code{\link[=import_gtfs]{import_gtfs()}} or \code{\link[=export_gtfs]{export_gtfs()}}.}
+
 Generates a list specifying the standards to be used when reading and writing
 GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
 table, and describes:
 \itemize{
+\item whether the table is required, optional or conditionally required;
 \item the fields that compose the table, including which R data type is best
 suited to represent it, whether the field is required, optional or
-conditionally required.
-\item whether the table is required, optional or conditionally required (as an
-attribute)
+conditionally required, and which values it can assume (most relevant to GTFS
+\code{ENUM}s.
 }
+
+Note: the standards list is based on the specification as revised in May 9th,
+2022.
 }
 \section{Details}{
 
 GTFS standards were derived from \href{https://gtfs.org/schedule/reference/}{GTFS Schedule Reference}. The R data types chosen to
 represent each GTFS data type are described below:
 \itemize{
-\item{Unique ID = \code{character}}
-\item{Text = \code{character}}
-\item{URL = \code{character}}
-\item{Timezone = \code{character}}
-\item{Language code = \code{character}}
-\item{Phone number = \code{character}}
-\item{Email = \code{character}}
-\item{Time = \code{character}}
-\item{Currency code = \code{character}}
-\item{ID = \code{character}}
-\item{String = \code{character}}
-\item{Color = \code{character}}
-\item{Enum = \code{character}}
-\item{Text or URL or Email or Phone number = \code{character}}
-\item{Array = \code{geojson_array}}
-\item{Object = \code{geojson_object}}
-\item{Enum = \code{integer}}
-\item{Integer = \code{integer}}
-\item{Date = \code{integer}}
-\item{Non-negative integer = \code{integer}}
-\item{Non-zero integer = \code{integer}}
-\item{Positive integer = \code{integer}}
-\item{Non-null integer = \code{integer}}
-\item{Non-negative float = \code{numeric}}
-\item{Currency amount = \code{numeric}}
-\item{Float = \code{numeric}}
-\item{Positive float = \code{numeric}}
-\item{Latitude = \code{numeric}}
-\item{Longitude = \code{numeric}}
+\item Color = \code{character}
+\item Currency amount = \code{numeric}
+\item Currency code = \code{character}
+\item Date = \code{integer}
+\item Email = \code{character}
+\item ENUM = \code{integer}
+\item ID = \code{character}
+\item Integer = \code{integer}
+\item Language code = \code{character}
+\item Latitude = \code{numeric}
+\item Longitude = \code{numeric}
+\item Float = \code{numeric}
+\item Phone number = \code{character}
+\item Text = \code{character}
+\item Time = \code{character}
+\item Timezone = \code{character}
+\item URL = \code{character}
 }
 }
 
 \examples{
-gtfs_standards <- get_gtfs_standards()
-
+\dontrun{
+  gtfs_standards <- get_gtfs_standards()
+}
 }

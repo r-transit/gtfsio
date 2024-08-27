@@ -34,6 +34,6 @@ the standards for reading and writing GTFS feeds with R.
 Reads a GTFS text file from the main \code{.zip} file.
 }
 \seealso{
-\code{\link{get_gtfs_standards}}
+\code{\link{gtfs_reference}}
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 #'
 #' Writes GTFS objects to disk as GTFS transit feeds. The object must be
 #' formatted according to the standards for reading and writing GTFS transit
-#' feeds, as specified in \code{\link{get_gtfs_standards}} (i.e. data types are
+#' feeds, as specified in \code{\link{gtfs_reference}} (i.e. data types are
 #' not checked). If present, does not write auxiliary tables held in a sub-list
 #' named \code{"."}.
 #'
@@ -25,7 +25,7 @@
 #'
 #' @return Invisibly returns the same GTFS object passed to \code{gtfs}.
 #'
-#' @seealso \code{\link{get_gtfs_standards}}
+#' @seealso \code{\link{gtfs_reference}}
 #'
 #' @family io functions
 #'
