@@ -154,6 +154,7 @@ standard_types <- lapply(
     types  <- types[order(names(types))]
   }
 )
+names(standard_types) <- gtfsio:::remove_file_ext(names(standard_types))
 standard_types <- standard_types[order(names(standard_types))]
 
 # get the type actually used to read each field

@@ -393,10 +393,9 @@ remove_file_ext = function(file) {
 }
 
 append_file_ext = function(file) {
-  gtfs_standards <- get_gtfs_standards()
   vapply(file, function(f) {
-    file_ext <- gtfs_standards[[f]][["file_ext"]]
-    if (is.null(file_ext)) {
+    file_ext <- gtfs_file_data$file_ext[gtfs_file_data$file == f]
+    if (length(file_ext) == 0) {
       # use default for argument-specified non-standard files, behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"
     }

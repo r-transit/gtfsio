@@ -120,11 +120,13 @@ export_gtfs <- function(gtfs,
   if (!quiet) message("Writing text files to ", tmpd)
 
   filenames = append_file_ext(files)
+  filepaths <- file.path(tmpd, filename)
 
-  for (filename in filenames) {
+  for (i in seq_along(files)) {
 
-    file <- remove_file_ext(filename)
-    filepath <- file.path(tmpd, filename)
+    filename <- filenames[i]
+    file <- files[i]
+    filepath <- filepaths[i]
 
     if (!quiet) message("  - Writing ", filename)
 
@@ -166,8 +168,6 @@ export_gtfs <- function(gtfs,
   if (!as_dir) {
 
     unlink(path, recursive = TRUE)
-
-    filepaths <- file.path(tmpd, filenames)
 
     zip::zip(
       path,

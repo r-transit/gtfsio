@@ -186,25 +186,25 @@ expect_true(
   )
 )
 
-for (file in list.files(tmpd)) {
+for (filenames in list.files(tmpd)) {
 
   # all existing fields should be standard
 
-  no_txt_file     <- sub(".txt", "", file)
-  std_fields      <- setdiff(names(gtfs_standards[[no_txt_file]]), "file_spec")
-  existing_fields <- readLines(file.path(tmpd, file), n = 1L)
+  file            <- gtfsio:::remove_file_ext(filenames)
+  std_fields      <- setdiff(names(gtfs_standards[[file]]), "file_spec")
+  existing_fields <- readLines(file.path(tmpd, filenames), n = 1L)
   existing_fields <- strsplit(existing_fields, ",")[[1]]
 
-  expect_true(all(existing_fields %in% std_fields), info = no_txt_file)
+  expect_true(all(existing_fields %in% std_fields), info = file)
 
   # all standard fields in the object should be written
 
-  std_fields_in_obj <- names(gtfs[[no_txt_file]])
+  std_fields_in_obj <- names(gtfs[[file]])
   std_fields_in_obj <- std_fields_in_obj[std_fields_in_obj %in% std_fields]
 
   expect_true(
     all(std_fields_in_obj %in% existing_fields),
-    info = no_txt_file
+    info = file
   )
 
 }
@@ -301,6 +301,7 @@ expect_identical(resulting_shapes_content[3], "b,2,41,41,10000000")
 locations_feed <- import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
 tmpfile <- tempfile(fileext = ".zip")
 export_gtfs(locations_feed, tmpfile)
+
 reimported <- import_gtfs(tmpfile)
 
 expect_equal(reimported, locations_feed)

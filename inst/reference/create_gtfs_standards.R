@@ -1,0 +1,69 @@
+#' Parse the official GTFS reference markdown file and create a table
+#' that assigns every GTFS field with an R-equivalent gtfsio datatype
+
+library(dplyr)
+source("parse_markdown.R")
+reference.md = curl::curl_download("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md", tempfile())
+
+# Parse current reference markdown to list of tables and bind it ####
+f <- bind_fields_reference_list(parse_fields(reference.md))
+
+# Link gtfs types to R types ####
+f$gtfsio_type <- NA
+
+# Enum
+f$gtfsio_type[f$Type == "Enum"] <- "integer"
+# Correct non-integer enums (manual fix)
+f[f$File_Name == "translations.txt" & f$Field_Name == "table_name","gtfsio_type"] <- "character"
+
+# ID: character
+f$gtfsio_type[startsWith(f$Type, "Foreign ID")] <- "character"
+f$gtfsio_type[startsWith(f$Type, "ID referencing")] <- "character"
+f$gtfsio_type[f$Type %in% c("ID", "Foreign ID", "Unique ID")] <- "character"
+
+# Text/Strings
+f$gtfsio_type[f$Type %in% c("Text", "String")] <- "character"
+f$gtfsio_type[f$Type %in% c("URL", "Language code", "Currency code", "Email",
+                            "Phone number", "Timezone", "Color",
+                            "Text or URL or Email or Phone number")] <- "character"
+
+# Date and Time
+f$gtfsio_type[f$Type == "Date"] <- "integer"
+f$gtfsio_type[f$Type == "Time"] <- "character"
+
+# Numerics
+f$gtfsio_type[f$Type %in% c("Latitude", "Longitude", "Non-negative float",
+                            "Positive float", "Float", "Currency amount")] <- "numeric"
+f$gtfsio_type[f$Type %in% c("Non-negative integer", "Non-zero integer",
+                            "Positive integer", "Non-null integer", "Integer")] <- "integer"
+
+# Geojson
+f$gtfsio_type[f$Type == "Array"] <- "geojson_array"
+f$gtfsio_type[f$Type == "Object"] <- "geojson_object"
+
+f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("&nbsp;", "", f$Field_Name[f$File_Name == "locations.geojson"])
+f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("\\\\", "", f$Field_Name[f$File_Name == "locations.geojson"])
+f$Field_Name[f$File_Name == "locations.geojson"] <- gsub("-", "", f$Field_Name[f$File_Name == "locations.geojson"])
+
+if(any(is.na(f$gtfsio_type))) {
+  stop("GTFS types without R equivalent found:\n", paste0(unique(f$Type[is.na(f$gtfsio_type)]), collapse = ", "))
+}
+
+# Rename columns, add file column without location ####
+gtfsio_field_types = f |>
+  rename(file = File_Name, field_name = Field_Name) |>
+  mutate(file = gsub("\\.txt$", "", gsub("\\.geojson$", "", file))) |>
+  as.data.frame()
+
+gtfs_file_data = cleanup_files_reference(parse_files(reference.md))
+gtfs_file_data <- gtfs_file_data |>
+  tidyr::separate(File_Name, c("file", "file_ext"), sep = "\\.", remove = F) |>
+  select(File_Name, File_Presence, file, file_ext) |>
+  as.data.frame()
+
+# save for possible external use
+write.csv(gtfsio_field_types, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
+
+# save as internal data
+usethis::use_data(gtfsio_field_types, gtfs_file_data, internal = T, overwrite = T)
+
