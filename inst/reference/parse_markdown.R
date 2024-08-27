@@ -65,8 +65,7 @@ bind_fields_reference_list = function(field_reference_list) {
     bind_rows(.id = "File_Name") |>
     rename(Field_Name = `Field Name`) |>
     mutate(Field_Name = gsub("`", "", Field_Name)) |>
-    mutate(Presence = gsub("**", "", Presence, fixed = TRUE)) |>
-    select(-Description)
+    mutate(Presence = gsub("**", "", Presence, fixed = TRUE))
 }
 
 parse_files = function(reference.md) {

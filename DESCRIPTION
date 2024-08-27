@@ -57,6 +57,7 @@ Collate:
     'assert_gtfs.R'
     'assert_inputs.R'
     'checks.R'
+    'data.R'
     'export_gtfs.R'
     'get_gtfs_standards.R'
     'gtfs_methods.R'

@@ -409,7 +409,7 @@ translate_types <- function(text_file, r_equivalents) {
 }
 
 .doc_field_types = function() { # nocov start
-  fields <- lapply(gtfs_reference, `[[`, "fields")
+  fields <- lapply(gtfsio::gtfs_reference, `[[`, "fields")
   fields <- do.call("rbind", fields)
 
   type_assignment <- unique(fields[,c("Type", "gtfsio_type")])

@@ -258,7 +258,7 @@ read_files <- function(file,
 
   # get standards for reading and fields to be read from the given 'file'
 
-  ref_fields <- gtfs_reference[[file]][["field_types"]]
+  ref_fields     <- gtfsio::gtfs_reference[[file]][["field_types"]]
   fields         <- fields[[file]]
   extra_spec     <- extra_spec[[file]]
 
@@ -385,7 +385,7 @@ remove_file_ext = function(file) {
 
 append_file_ext = function(file) {
   vapply(file, function(f) {
-    file_ext <- gtfs_reference[[f]]["file_ext"]
+    file_ext <- gtfsio::gtfs_reference[[f]]["file_ext"]
     if (length(file_ext) == 0) {
       # use default for argument-specified non-standard files, behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"

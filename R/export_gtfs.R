@@ -71,7 +71,7 @@ export_gtfs <- function(gtfs,
   if (!as_dir & !grepl("\\.zip$", path)) error_ext_must_be_zip()
   if (as_dir & grepl("\\.zip$", path)) error_path_must_be_dir()
 
-  extra_files <- setdiff(files, names(gtfs_reference))
+  extra_files <- setdiff(files, names(gtfsio::gtfs_reference))
   if (standard_only & !is.null(files) & !identical(extra_files, character(0))) {
     error_non_standard_files(extra_files)
   }
@@ -89,7 +89,7 @@ export_gtfs <- function(gtfs,
   # 'extra_files' is re-evaluated because 'files' might have changed in the
   # lines above
 
-  extra_files <- setdiff(files, names(gtfs_reference))
+  extra_files <- setdiff(files, names(gtfsio::gtfs_reference))
 
   if (standard_only) files <- setdiff(files, extra_files)
 
@@ -140,7 +140,7 @@ export_gtfs <- function(gtfs,
       if (standard_only) {
 
         file_cols  <- names(dt)
-        extra_cols <- setdiff(file_cols, names(gtfs_reference[[file]][["field_types"]]))
+        extra_cols <- setdiff(file_cols, names(gtfsio::gtfs_reference[[file]][["field_types"]]))
 
         if (!identical(extra_cols, character(0))) dt <- dt[, !..extra_cols]
 

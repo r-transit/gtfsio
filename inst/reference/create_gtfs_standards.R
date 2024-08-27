@@ -6,7 +6,8 @@ source("parse_markdown.R")
 reference.md = curl::curl_download("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md", tempfile())
 
 # Parse current reference markdown to list of tables and bind it ####
-f <- bind_fields_reference_list(parse_fields(reference.md))
+reference_fields = parse_fields(reference.md)
+f <- bind_fields_reference_list(reference_fields)
 
 # Link gtfs types to R types ####
 f$gtfsio_type <- NA
@@ -49,29 +50,51 @@ if(any(is.na(f$gtfsio_type))) {
   stop("GTFS types without R equivalent found:\n", paste0(unique(f$Type[is.na(f$gtfsio_type)]), collapse = ", "))
 }
 
-# Rename columns, add file column without location ####
-gtfs_reference_fields = f |>
+# Rename columns, add file column without file extension ####
+f <- f |>
   mutate(file = gsub("\\.txt$", "", gsub("\\.geojson$", "", File_Name))) |>
   as.data.frame()
 
+# Parse reference file data ####
 gtfs_reference_files = cleanup_files_reference(parse_files(reference.md))
 gtfs_reference_files <- gtfs_reference_files |>
   tidyr::separate(File_Name, c("file", "file_ext"), sep = "\\.", remove = F) |>
   select(File_Name, File_Presence, file, file_ext) |>
   as.data.frame()
 
-# save as internal data
+# Check file presence ####
+file_presence1 = lapply(reference_fields, \(file) {
+  trimws(gsub("\\*", "", attributes(file)$presence))
+})
+file_presence2 = as.list(gtfs_reference_files$File_Presence)
+names(file_presence2) <- gtfs_reference_files$File_Name
+stopifnot(identical(file_presence2, file_presence1))
+rm(file_presence1); rm(file_presence2)
+
+# Extract primary keys ####
+primary_keys = lapply(reference_fields, \(file) {
+  pk = attributes(file)$primary_key
+  if(is.null(pk)) return(NULL)
+  pk <- gsub("`", "", pk)
+  pk <- gsub('\\"', "", pk)
+  pk <- stringr::str_split_1(pk, ",")
+  trimws(pk)
+})
+
+# Create gtfs_reference data object ####
 gtfs_reference = gtfs_reference_files |>
   split(gtfs_reference_files$file) |>
   lapply(as.list)
 
 for(file in names(gtfs_reference)) {
-  fields = gtfs_reference_fields[gtfs_reference_fields$file == file,]
-  fields <- fields |> select(-file, -File_Name)
+  fields = f[f$file == file,]
+  fields <- select(fields, -file, -File_Name)
   gtfs_reference[[file]]$fields <- fields
+  gtfs_reference[[file]][["primary_key"]] <- primary_keys[[file]]
+
   field_types = fields$gtfsio_type
   names(field_types) <- fields$Field_Name
-  gtfs_reference[[file]]$field_types <- field_types
+  gtfs_reference[[file]][["field_types"]] <- field_types
 }
 
-usethis::use_data(gtfs_reference, internal = T, overwrite = T)
+usethis::use_data(gtfs_reference, internal = F, overwrite = T)

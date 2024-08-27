@@ -190,7 +190,7 @@ for (filenames in list.files(tmpd)) {
   # all existing fields should be standard
 
   file            <- gtfsio:::remove_file_ext(filenames)
-  std_fields      <- names(gtfsio:::gtfs_reference[[file]][["field_types"]])
+  std_fields      <- names(gtfsio::gtfs_reference[[file]][["field_types"]])
   existing_fields <- readLines(file.path(tmpd, filenames), n = 1L)
   existing_fields <- strsplit(existing_fields, ",")[[1]]
 
