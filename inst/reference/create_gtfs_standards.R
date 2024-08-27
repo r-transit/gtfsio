@@ -50,20 +50,28 @@ if(any(is.na(f$gtfsio_type))) {
 }
 
 # Rename columns, add file column without location ####
-gtfsio_field_types = f |>
-  rename(file = File_Name, field_name = Field_Name) |>
-  mutate(file = gsub("\\.txt$", "", gsub("\\.geojson$", "", file))) |>
+gtfs_reference_fields = f |>
+  mutate(file = gsub("\\.txt$", "", gsub("\\.geojson$", "", File_Name))) |>
   as.data.frame()
 
-gtfs_file_data = cleanup_files_reference(parse_files(reference.md))
-gtfs_file_data <- gtfs_file_data |>
+gtfs_reference_files = cleanup_files_reference(parse_files(reference.md))
+gtfs_reference_files <- gtfs_reference_files |>
   tidyr::separate(File_Name, c("file", "file_ext"), sep = "\\.", remove = F) |>
   select(File_Name, File_Presence, file, file_ext) |>
   as.data.frame()
 
-# save for possible external use
-write.csv(gtfsio_field_types, "gtfsio_field_conversion_types.csv", row.names = FALSE, eol = "\r", fileEncoding = "UTF-8")
-
 # save as internal data
-usethis::use_data(gtfsio_field_types, gtfs_file_data, internal = T, overwrite = T)
+gtfs_reference = gtfs_reference_files |>
+  split(gtfs_reference_files$file) |>
+  lapply(as.list)
 
+for(file in names(gtfs_reference)) {
+  fields = gtfs_reference_fields[gtfs_reference_fields$file == file,]
+  fields <- fields |> select(-file, -File_Name)
+  gtfs_reference[[file]]$fields <- fields
+  field_types = fields$gtfsio_type
+  names(field_types) <- fields$Field_Name
+  gtfs_reference[[file]]$field_types <- field_types
+}
+
+usethis::use_data(gtfs_reference, internal = T, overwrite = T)

@@ -52,8 +52,6 @@ export_gtfs <- function(gtfs,
                         overwrite = TRUE,
                         quiet = TRUE) {
 
-  gtfs_standards <- get_gtfs_standards()
-
   # basic input checking
 
   assert_class(gtfs, "gtfs")
@@ -73,7 +71,7 @@ export_gtfs <- function(gtfs,
   if (!as_dir & !grepl("\\.zip$", path)) error_ext_must_be_zip()
   if (as_dir & grepl("\\.zip$", path)) error_path_must_be_dir()
 
-  extra_files <- setdiff(files, names(gtfs_standards))
+  extra_files <- setdiff(files, names(gtfs_reference))
   if (standard_only & !is.null(files) & !identical(extra_files, character(0))) {
     error_non_standard_files(extra_files)
   }
@@ -91,7 +89,7 @@ export_gtfs <- function(gtfs,
   # 'extra_files' is re-evaluated because 'files' might have changed in the
   # lines above
 
-  extra_files <- setdiff(files, names(gtfs_standards))
+  extra_files <- setdiff(files, names(gtfs_reference))
 
   if (standard_only) files <- setdiff(files, extra_files)
 
@@ -119,8 +117,8 @@ export_gtfs <- function(gtfs,
 
   if (!quiet) message("Writing text files to ", tmpd)
 
-  filenames = append_file_ext(files)
-  filepaths <- file.path(tmpd, filename)
+  filenames <- append_file_ext(files)
+  filepaths <- file.path(tmpd, filenames)
 
   for (i in seq_along(files)) {
 
@@ -130,7 +128,7 @@ export_gtfs <- function(gtfs,
 
     if (!quiet) message("  - Writing ", filename)
 
-    dt <- gtfs[[remove_file_ext(filename)]]
+    dt <- gtfs[[file]]
 
     if(endsWith(filename, ".geojson")) {
       jsonlite::write_json(dt, filepath, pretty = FALSE, auto_unbox = TRUE, digits = 8)
@@ -142,7 +140,7 @@ export_gtfs <- function(gtfs,
       if (standard_only) {
 
         file_cols  <- names(dt)
-        extra_cols <- setdiff(file_cols, names(gtfs_standards[[file]]))
+        extra_cols <- setdiff(file_cols, names(gtfs_reference[[file]][["field_types"]]))
 
         if (!identical(extra_cols, character(0))) dt <- dt[, !..extra_cols]
 

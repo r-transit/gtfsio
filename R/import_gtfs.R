@@ -176,16 +176,11 @@ import_gtfs <- function(path,
       paste0("  * ", filenames_to_read, collapse = "\n")
     )
 
-  # get GTFS standards to assign correct classes to each field
-
-  gtfs_standards <- get_gtfs_standards()
-
   # read files into list
 
   gtfs <- lapply(
     X = filenames_to_read,
     FUN = read_files,
-    gtfs_standards,
     fields,
     extra_spec,
     tmpdir,
@@ -221,8 +216,6 @@ import_gtfs <- function(path,
 #'
 #' @param file A string. The name of the file (with \code{.txt} or \code{.geojson} extension) to
 #'   be read.
-#' @param gtfs_standards A named list. Created by
-#'   \code{\link{get_gtfs_standards}}.
 #' @param fields A named list. Passed by the user to \code{\link{import_gtfs}}.
 #' @param extra_spec A named list. Passed by the user to
 #'   \code{\link{import_gtfs}}.
@@ -242,7 +235,6 @@ import_gtfs <- function(path,
 #'
 #' @keywords internal
 read_files <- function(file,
-                       gtfs_standards,
                        fields,
                        extra_spec,
                        tmpdir,
@@ -252,7 +244,7 @@ read_files <- function(file,
   # create object to hold the file with '.txt' extension
 
   filename <- file
-  file_type <- "txt"
+  file_type <- "txt" # TODO get file ext as function
   if(grepl("\\.geojson$", file)) {
     file_type <- "geojson"
   }
@@ -267,7 +259,7 @@ read_files <- function(file,
 
   # get standards for reading and fields to be read from the given 'file'
 
-  file_standards <- gtfs_standards[[file]]
+  ref_fields <- gtfs_reference[[file]][["field_types"]]
   fields         <- fields[[file]]
   extra_spec     <- extra_spec[[file]]
 
@@ -275,9 +267,9 @@ read_files <- function(file,
   # documented or extra files are read. throw an error if it refers to
   # documented fields
 
-  spec_both <- names(extra_spec)[names(extra_spec) %chin% names(file_standards)]
+  spec_both <- names(extra_spec)[names(extra_spec) %chin% names(ref_fields)]
 
-  if (any(names(extra_spec) %chin% names(file_standards))) {
+  if (any(names(extra_spec) %chin% names(ref_fields))) {
     error_field_is_documented(file, spec_both)
   }
 
@@ -285,7 +277,7 @@ read_files <- function(file,
   # - if 'file_standards' is NULL then file is undocumented
   # - print warning message if warning is raised and 'quiet' is FALSE
 
-  if (is.null(file_standards) & !quiet) {
+  if (is.null(ref_fields) & !quiet) {
     message("  - File undocumented. Trying to read it as a csv.")
   }
 
@@ -336,11 +328,11 @@ read_files <- function(file,
 
   # get the standard data types of documented fields from 'file_standards'
 
-  doc_fields <- fields_to_read[fields_to_read %chin% names(file_standards)]
+  doc_fields <- fields_to_read[fields_to_read %chin% names(ref_fields)]
 
   doc_classes <- vapply(
     doc_fields,
-    function(field) file_standards[[field]][[1]],
+    function(field) ref_fields[[field]][[1]],
     character(1)
   )
 
@@ -394,7 +386,7 @@ remove_file_ext = function(file) {
 
 append_file_ext = function(file) {
   vapply(file, function(f) {
-    file_ext <- gtfs_file_data$file_ext[gtfs_file_data$file == f]
+    file_ext <- gtfs_reference[[f]]["file_ext"]
     if (length(file_ext) == 0) {
       # use default for argument-specified non-standard files, behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"

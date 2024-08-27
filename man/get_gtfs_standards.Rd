@@ -34,28 +34,28 @@ represent each GTFS data type are described below:
 \item{Language code = \code{character}}
 \item{Phone number = \code{character}}
 \item{Email = \code{character}}
-\item{ID = \code{character}}
-\item{Color = \code{character}}
 \item{Time = \code{character}}
 \item{Currency code = \code{character}}
+\item{ID = \code{character}}
 \item{String = \code{character}}
+\item{Color = \code{character}}
 \item{Enum = \code{character}}
 \item{Text or URL or Email or Phone number = \code{character}}
 \item{Array = \code{geojson_array}}
 \item{Object = \code{geojson_object}}
 \item{Enum = \code{integer}}
-\item{Non-negative integer = \code{integer}}
+\item{Integer = \code{integer}}
 \item{Date = \code{integer}}
+\item{Non-negative integer = \code{integer}}
 \item{Non-zero integer = \code{integer}}
 \item{Positive integer = \code{integer}}
 \item{Non-null integer = \code{integer}}
-\item{Integer = \code{integer}}
-\item{Latitude = \code{numeric}}
-\item{Longitude = \code{numeric}}
 \item{Non-negative float = \code{numeric}}
 \item{Currency amount = \code{numeric}}
 \item{Float = \code{numeric}}
 \item{Positive float = \code{numeric}}
+\item{Latitude = \code{numeric}}
+\item{Longitude = \code{numeric}}
 }
 }
 

@@ -25,25 +25,14 @@
 #'
 #' @export
 get_gtfs_standards <- function() {
-  files_list <- split(gtfsio_field_types, gtfsio_field_types$file)
-  files_list <- lapply(files_list, function(feed_file) {
-    type = feed_file$gtfsio_type
-    names(type) <- feed_file$field_name
-    type
-  })
-  return(files_list)
-}
-
-get_field_types = function(file) {
-  if(endsWith(file, ".geojson") || endsWith(file, ".txt")) stop()
-  types = gtfsio_field_types$gtfsio_type[gtfsio_field_types$file == file]
-  names(types) <- gtfsio_field_types$field_name[gtfsio_field_types$file == file]
-  stopifnot(!is.null(names(types)))
-  return(types)
+  return(NULL)
 }
 
 .doc_field_types = function() { # nocov start
-  type_assignment <- unique(gtfsio_field_types[,c("Type", "gtfsio_type")])
+  fields <- lapply(gtfs_reference, `[[`, "fields")
+  fields <- do.call("rbind", fields)
+
+  type_assignment <- unique(fields[,c("Type", "gtfsio_type")])
   type_assignment <- type_assignment[!startsWith(type_assignment$Type, "Foreign ID"),]
   type_assignment <- type_assignment[order(type_assignment$gtfsio_type),]
 
