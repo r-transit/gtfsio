@@ -81,6 +81,8 @@ primary_keys = lapply(reference_fields, \(file) {
   trimws(pk)
 })
 
+names(primary_keys) <- remove_file_ext(names(primary_keys))
+
 # Create gtfs_reference data object ####
 gtfs_reference = gtfs_reference_files |>
   split(gtfs_reference_files$file) |>
@@ -96,5 +98,7 @@ for(file in names(gtfs_reference)) {
   names(field_types) <- fields$Field_Name
   gtfs_reference[[file]][["field_types"]] <- field_types
 }
+
+attributes(gtfs_reference)$revision_date <- attributes(reference_fields)$revision_date
 
 usethis::use_data(gtfs_reference, internal = F, overwrite = T)

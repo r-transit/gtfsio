@@ -57,6 +57,12 @@ parse_fields = function(reference.md) {
 		}
 		i <- i+1
 	}
+
+	# Revision Date
+	revision_date = gsub("**Revised ", "", ref_lines[3], fixed = T)
+	revision_date <- readr::parse_date(strsplit(revision_date, "\\. See")[[1]][1], "%b %d, %Y")
+	attributes(field_reference_list)$revision_date <- revision_date
+
 	return(field_reference_list)
 }
 
