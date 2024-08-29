@@ -380,7 +380,7 @@ read_geojson <- function(file.geojson) {
 }
 
 remove_file_ext = function(file) {
-  gsub("\\.txt$", "", gsub("\\.geojson$", "", file))
+  tools::file_path_sans_ext(file)
 }
 
 append_file_ext = function(file) {
