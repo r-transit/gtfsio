@@ -1,3 +1,5 @@
+# nocov start
+
 #' Generate GTFS standards
 #'
 #' @description
@@ -408,18 +410,4 @@ translate_types <- function(text_file, r_equivalents) {
   )
 }
 
-.doc_field_types = function() { # nocov start
-  fields <- lapply(gtfsio::gtfs_reference, `[[`, "fields")
-  fields <- do.call("rbind", fields)
-
-  type_assignment <- unique(fields[,c("Type", "gtfsio_type")])
-  type_assignment <- type_assignment[!startsWith(type_assignment$Type, "Foreign ID"),]
-  type_assignment <- type_assignment[order(type_assignment$gtfsio_type),]
-
-  doc <- c("\\itemize{",
-           paste0("\\item{", type_assignment$Type, " = \`",
-                  type_assignment$gtfsio_type, "\`}"),
-           "}\n")
-
-  return(paste(doc, collapse = "\n"))
-} # nocov end
+# nocov end

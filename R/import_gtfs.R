@@ -384,16 +384,17 @@ remove_file_ext = function(file) {
 }
 
 append_file_ext = function(file) {
-  vapply(file, function(f) {
-    file_ext <- gtfsio::gtfs_reference[[f]]["file_ext"]
-    if (length(file_ext) == 0) {
-      # use default for argument-specified non-standard files, behaviour defined in test_import_gtfs.R#292
+  vapply(file, function(.f) {
+    file_ext <- gtfsio::gtfs_reference[[remove_file_ext(.f)]][["file_ext"]]
+    if (is.null(file_ext)) {
+      # use default for argument-specified non-standard files,
+      # behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"
     }
-    if(grepl(paste0("\\.", file_ext, "$"), f)) {
-      return(f) # file extension already present
+    if(endsWith(.f, paste0(".", file_ext))) {
+      return(.f) # file extension already present
     } else {
-      return(paste0(f, ".", file_ext))
+      return(paste0(.f, ".", file_ext))
     }
   }, ".txt", USE.NAMES = FALSE)
 }

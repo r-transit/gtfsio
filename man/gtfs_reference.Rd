@@ -31,35 +31,34 @@ The data from the official GTFS specification document parsed to a list.
 \details{
 GTFS Types are converted to R types in gtfsio according to the following list:
 \itemize{
-\item{Unique ID = \code{character}}
-\item{Text = \code{character}}
-\item{URL = \code{character}}
-\item{Timezone = \code{character}}
-\item{Language code = \code{character}}
-\item{Phone number = \code{character}}
-\item{Email = \code{character}}
-\item{Time = \code{character}}
-\item{Currency code = \code{character}}
-\item{ID = \code{character}}
-\item{String = \code{character}}
-\item{Color = \code{character}}
-\item{Enum = \code{character}}
-\item{Text or URL or Email or Phone number = \code{character}}
 \item{Array = \code{geojson_array}}
-\item{Object = \code{geojson_object}}
-\item{Enum = \code{integer}}
-\item{Integer = \code{integer}}
-\item{Date = \code{integer}}
-\item{Non-negative integer = \code{integer}}
-\item{Non-zero integer = \code{integer}}
-\item{Positive integer = \code{integer}}
-\item{Non-null integer = \code{integer}}
-\item{Non-negative float = \code{numeric}}
+\item{Color = \code{character}}
 \item{Currency amount = \code{numeric}}
+\item{Currency code = \code{character}}
+\item{Date = \code{integer}}
+\item{Email = \code{character}}
+\item{Enum = \verb{character, integer}}
 \item{Float = \code{numeric}}
-\item{Positive float = \code{numeric}}
+\item{ID = \code{character}}
+\item{Integer = \code{integer}}
+\item{Language code = \code{character}}
 \item{Latitude = \code{numeric}}
 \item{Longitude = \code{numeric}}
+\item{Non-negative float = \code{numeric}}
+\item{Non-negative integer = \code{integer}}
+\item{Non-null integer = \code{integer}}
+\item{Non-zero integer = \code{integer}}
+\item{Object = \code{geojson_object}}
+\item{Phone number = \code{character}}
+\item{Positive float = \code{numeric}}
+\item{Positive integer = \code{integer}}
+\item{String = \code{character}}
+\item{Text = \code{character}}
+\item{Text or URL or Email or Phone number = \code{character}}
+\item{Time = \code{character}}
+\item{Timezone = \code{character}}
+\item{URL = \code{character}}
+\item{Unique ID = \code{character}}
 }
 }
 \keyword{data}

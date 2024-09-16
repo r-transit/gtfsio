@@ -24,3 +24,28 @@
 #' @source [https://github.com/google/transit/blob/master/gtfs/spec/en/reference.md](https://github.com/google/transit/blob/master/gtfs/spec/en/reference.md)
 #' @keywords data
 "gtfs_reference"
+
+.doc_field_types = function() { # nocov start
+  fields <- lapply(gtfsio::gtfs_reference, `[[`, "fields")
+  fields <- do.call("rbind", fields)
+
+  type_assignment <- unique(fields[,c("Type", "gtfsio_type")])
+  type_assignment <- type_assignment[!startsWith(type_assignment$Type, "Foreign ID"),]
+  type_assignment <- type_assignment[order(type_assignment$gtfsio_type),]
+
+  type_assignment <-  lapply(split(type_assignment, type_assignment$Type), function(ta) {
+    if(nrow(ta) > 1) {
+      ta$gtfsio_type <- paste0(ta$gtfsio_type, collapse = ", ")
+      ta <- ta[1,]
+    }
+    ta
+  })
+  type_assignment <- do.call("rbind", type_assignment)
+
+  doc <- c("\\itemize{",
+           paste0("\\item{", type_assignment$Type, " = \`",
+                  type_assignment$gtfsio_type, "\`}"),
+           "}\n")
+
+  return(paste(doc, collapse = "\n"))
+} # nocov end

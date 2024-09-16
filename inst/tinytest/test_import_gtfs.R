@@ -433,3 +433,9 @@ locations_feed <- import_gtfs(system.file("extdata/locations_feed.zip", package 
 
 expect_inherits(locations_feed[["locations"]], "list")
 expect_equal(names(locations_feed[["locations"]]), c("type", "name", "crs", "features"))
+
+# file extension handling
+file_exts <- gtfsio:::append_file_ext(c(names(gtfs_reference), "dummy"))
+expect_equal(file_exts[which(names(gtfs_reference) == "locations")], "locations.geojson")
+expect_equal(file_exts[length(file_exts)], "dummy.txt")
+expect_equal(gtfsio:::append_file_ext(file_exts), file_exts)
