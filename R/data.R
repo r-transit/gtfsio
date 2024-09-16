@@ -1,6 +1,7 @@
 #' GTFS reference
 #'
-#' The data from the official GTFS specification document parsed to a list.
+#' The data from the official GTFS specification document parsed to a list. Revision date:
+#' ``r attributes(gtfs_reference)$revision_date``.
 #'
 #' @format
 #' A list with data for every GTFS file. Each named list element (also a list) has
