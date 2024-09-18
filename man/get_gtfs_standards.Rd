@@ -11,8 +11,10 @@ A named list, in which each element represents the R equivalent of
 each GTFS table standard.
 }
 \description{
-\emph{This function is deprecated and no longer used in \code{\link[=import_gtfs]{import_gtfs()}} or \code{\link[=export_gtfs]{export_gtfs()}}.}
-
+The dataset \link{gtfs_reference} now contains the standard specifications.
+This function is deprecated and no longer used in \code{\link[=import_gtfs]{import_gtfs()}} or \code{\link[=export_gtfs]{export_gtfs()}}.
+}
+\details{
 Generates a list specifying the standards to be used when reading and writing
 GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
 table, and describes:
@@ -56,4 +58,7 @@ represent each GTFS data type are described below:
 \dontrun{
   gtfs_standards <- get_gtfs_standards()
 }
+}
+\seealso{
+\link{gtfs_reference}
 }

@@ -1,6 +1,7 @@
 reference:
   - title: GTFS standards
   - contents:
+    - gtfs_reference
     - get_gtfs_standards
   - title: Input/output
   - contents:

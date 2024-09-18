@@ -3,8 +3,10 @@
 #' Generate GTFS standards
 #'
 #' @description
-#' *This function is deprecated and no longer used in [import_gtfs()] or [export_gtfs()].*
+#' The dataset [gtfs_reference] now contains the standard specifications.
+#' This function is deprecated and no longer used in [import_gtfs()] or [export_gtfs()].
 #'
+#' @details
 #' Generates a list specifying the standards to be used when reading and writing
 #' GTFS feeds with R. Each list element (also a list) represents a distinct GTFS
 #' table, and describes:
@@ -43,6 +45,8 @@
 #' - Time = `character`
 #' - Timezone = `character`
 #' - URL = `character`
+#'
+#' @seealso [gtfs_reference]
 #'
 #' @examples \dontrun{
 #'   gtfs_standards <- get_gtfs_standards()
