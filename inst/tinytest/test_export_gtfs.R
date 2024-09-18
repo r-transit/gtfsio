@@ -2,7 +2,6 @@ path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 gtfs <- import_gtfs(path)
 tmpf <- tempfile(fileext = ".zip")
 tmpd <- tempfile()
-gtfs_standards <- get_gtfs_standards()
 
 tester <- function(gtfs_obj = gtfs,
                    path = tmpf,
@@ -186,25 +185,25 @@ expect_true(
   )
 )
 
-for (file in list.files(tmpd)) {
+for (filenames in list.files(tmpd)) {
 
   # all existing fields should be standard
 
-  no_txt_file     <- sub(".txt", "", file)
-  std_fields      <- setdiff(names(gtfs_standards[[no_txt_file]]), "file_spec")
-  existing_fields <- readLines(file.path(tmpd, file), n = 1L)
+  file            <- gtfsio:::remove_file_ext(filenames)
+  std_fields      <- names(gtfsio::gtfs_reference[[file]][["field_types"]])
+  existing_fields <- readLines(file.path(tmpd, filenames), n = 1L)
   existing_fields <- strsplit(existing_fields, ",")[[1]]
 
-  expect_true(all(existing_fields %in% std_fields), info = no_txt_file)
+  expect_true(all(existing_fields %in% std_fields), info = file)
 
   # all standard fields in the object should be written
 
-  std_fields_in_obj <- names(gtfs[[no_txt_file]])
+  std_fields_in_obj <- names(gtfs[[file]])
   std_fields_in_obj <- std_fields_in_obj[std_fields_in_obj %in% std_fields]
 
   expect_true(
     all(std_fields_in_obj %in% existing_fields),
-    info = no_txt_file
+    info = file
   )
 
 }
@@ -294,3 +293,14 @@ resulting_shapes_content <- readLines(file.path(target_dir, "shapes.txt"))
 
 expect_false(identical(resulting_shapes_content[3], "b,2,41,41,1e+07"))
 expect_identical(resulting_shapes_content[3], "b,2,41,41,10000000")
+
+# issue #36 ---------------------------------------------------------------
+# re-reading written json files are the same
+
+locations_feed <- import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
+tmpfile <- tempfile(fileext = ".zip")
+export_gtfs(locations_feed, tmpfile)
+
+reimported <- import_gtfs(tmpfile)
+
+expect_equal(reimported, locations_feed)

@@ -35,8 +35,7 @@ undocumented fields, in the format
 if an undocumented field is not specified in \code{extra_spec}, it is read
 as character (i.e. you may specify in \code{extra_spec} only the fields
 that you want to read as a different type). Only supports the
-\code{character}, \code{integer} and \code{numeric} types, also used in
-\code{\link{get_gtfs_standards}}.}
+\code{character}, \code{integer} and \code{numeric} types.}
 
 \item{skip}{A character vector. Text files that should not be read from the
 GTFS, without the \code{.txt} extension. If \code{NULL} (the default), no
@@ -57,7 +56,7 @@ a distinct text file from the given GTFS feed.
 \description{
 Imports GTFS transit feeds from either a local \code{.zip} file or an URL.
 Columns are parsed according to the standards for reading and writing GTFS
-feeds specified in \code{\link{get_gtfs_standards}}.
+feeds specified in \code{\link{gtfs_reference}}.
 }
 \examples{
 gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
@@ -84,7 +83,7 @@ gtfs <- import_gtfs(
 
 }
 \seealso{
-\code{\link{get_gtfs_standards}}
+\code{\link{gtfs_reference}}
 
 Other io functions: 
 \code{\link{export_gtfs}()}

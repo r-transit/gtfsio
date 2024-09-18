@@ -55,7 +55,7 @@ expect_error(
   tester(files = "ola"),
   pattern = paste0(
     "The provided GTFS feed doesn't contain the following ",
-    "text file\\(s\\): 'ola'"
+    "text file\\(s\\): 'ola.txt'"
   ),
   class = "gtfs_missing_files"
 )
@@ -144,17 +144,7 @@ expect_identical(gtfs_fields, list(shapes = "shape_id", trips = "trip_id"))
 
 # get the standard type in R used to read each field
 
-gtfs_standards <- get_gtfs_standards()
-
-standard_types <- lapply(
-  gtfs_standards,
-  function(file) {
-    fields <- setdiff(names(file), "file_spec")
-    types  <- vapply(fields, function(f) file[[f]][[1]], character(1))
-    types  <- types[order(names(types))]
-  }
-)
-standard_types <- standard_types[order(names(standard_types))]
+standard_types <- lapply(gtfs_reference, `[[`, "field_types")
 
 # get the type actually used to read each field
 
@@ -431,3 +421,21 @@ expect_error(tester(not_gtfs_file), class = "path_must_be_zip")
 
 not_gtfs_url <- "https://www.google.com"
 expect_error(tester(not_gtfs_url), class = "path_must_be_zip")
+
+# issue #36 ---------------------------------------------------------------
+# locations.geojson files should be read without warning
+
+expect_silent(
+  import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
+)
+
+locations_feed <- import_gtfs(system.file("extdata/locations_feed.zip", package = "gtfsio"))
+
+expect_inherits(locations_feed[["locations"]], "list")
+expect_equal(names(locations_feed[["locations"]]), c("type", "name", "crs", "features"))
+
+# file extension handling
+file_exts <- gtfsio:::append_file_ext(c(names(gtfs_reference), "dummy"))
+expect_equal(file_exts[which(names(gtfs_reference) == "locations")], "locations.geojson")
+expect_equal(file_exts[length(file_exts)], "dummy.txt")
+expect_equal(gtfsio:::append_file_ext(file_exts), file_exts)

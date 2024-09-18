@@ -4,14 +4,11 @@
 \alias{read_files}
 \title{Read a GTFS text file}
 \usage{
-read_files(file, gtfs_standards, fields, extra_spec, tmpdir, quiet, encoding)
+read_files(file, fields, extra_spec, tmpdir, quiet, encoding)
 }
 \arguments{
-\item{file}{A string. The name of the file (without \code{.txt} extension) to
+\item{file}{A string. The name of the file (with \code{.txt} or \code{.geojson} extension) to
 be read.}
-
-\item{gtfs_standards}{A named list. Created by
-\code{\link{get_gtfs_standards}}.}
 
 \item{fields}{A named list. Passed by the user to \code{\link{import_gtfs}}.}
 
@@ -37,6 +34,6 @@ the standards for reading and writing GTFS feeds with R.
 Reads a GTFS text file from the main \code{.zip} file.
 }
 \seealso{
-\code{\link{get_gtfs_standards}}
+\code{\link{gtfs_reference}}
 }
 \keyword{internal}

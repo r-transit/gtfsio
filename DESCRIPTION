@@ -41,7 +41,8 @@ BugReports: https://github.com/r-transit/gtfsio/issues
 Imports: 
     data.table,
     utils,
-    zip
+    zip,
+    jsonlite
 Suggests: 
     knitr,
     rmarkdown,
@@ -50,12 +51,13 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate: 
     'gtfsio_error.R'
     'assert_gtfs.R'
     'assert_inputs.R'
     'checks.R'
+    'data.R'
     'export_gtfs.R'
     'get_gtfs_standards.R'
     'gtfs_methods.R'
@@ -63,3 +65,6 @@ Collate:
     'gtfsio.R'
     'import_gtfs.R'
     'new_gtfs.R'
+LazyData: true
+Depends: 
+    R (>= 3.1.0)

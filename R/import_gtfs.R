@@ -2,7 +2,7 @@
 #'
 #' Imports GTFS transit feeds from either a local \code{.zip} file or an URL.
 #' Columns are parsed according to the standards for reading and writing GTFS
-#' feeds specified in \code{\link{get_gtfs_standards}}.
+#' feeds specified in \code{\link{gtfs_reference}}.
 #'
 #' @param path A string. The path to a GTFS \code{.zip} file.
 #' @param files A character vector. The text files to be read from the GTFS,
@@ -21,8 +21,7 @@
 #'   if an undocumented field is not specified in \code{extra_spec}, it is read
 #'   as character (i.e. you may specify in \code{extra_spec} only the fields
 #'   that you want to read as a different type). Only supports the
-#'   \code{character}, \code{integer} and \code{numeric} types, also used in
-#'   \code{\link{get_gtfs_standards}}.
+#'   \code{character}, \code{integer} and \code{numeric} types.
 #' @param skip A character vector. Text files that should not be read from the
 #'   GTFS, without the \code{.txt} extension. If \code{NULL} (the default), no
 #'   files are skipped. Cannot be used if \code{files} is set.
@@ -36,7 +35,7 @@
 #' @return A GTFS object: a named list of data frames, each one corresponding to
 #'   a distinct text file from the given GTFS feed.
 #'
-#' @seealso \code{\link{get_gtfs_standards}}
+#' @seealso \code{\link{gtfs_reference}}
 #'
 #' @family io functions
 #'
@@ -110,48 +109,48 @@ import_gtfs <- function(path,
   # check which files are inside the GTFS. if any non text file is found, raise
   # a warning and do not try to read it as a csv. remove the '.txt' extension
   # from the text files to reference them without it in messages and errors
+  # filenames: file with extension (.txt/.geojson), file: withouth extension
 
-  files_in_gtfs <- tryCatch(
+  filenames_in_gtfs <- tryCatch(
     zip::zip_list(path)$filename,
     error = function(cnd) cnd
   )
-  if (inherits(files_in_gtfs, "error")) error_path_must_be_zip()
+  if (inherits(filenames_in_gtfs, "error")) error_path_must_be_zip()
 
-  non_text_files <- files_in_gtfs[!grepl("\\.txt$", files_in_gtfs)]
+  non_standard_file_ext <- filenames_in_gtfs[!(grepl("\\.txt$", filenames_in_gtfs) | grepl("\\.geojson$", filenames_in_gtfs))]
 
-  if (!identical(non_text_files, character(0))) {
+  if (!identical(non_standard_file_ext, character(0))) {
     warning(
-      "Found non .txt files when attempting to read the GTFS feed: ",
-      paste(non_text_files, collapse = ", "), "\n",
+      "Found non .txt or .geojson files when attempting to read the GTFS feed: ",
+      paste(non_standard_file_ext, collapse = ", "), "\n",
       "These files have been ignored and were not imported to the GTFS object.",
       call. = FALSE
     )
   }
-  files_in_gtfs <- setdiff(files_in_gtfs, non_text_files)
-  files_in_gtfs <- gsub("\\.txt", "", files_in_gtfs)
+  filenames_in_gtfs <- setdiff(filenames_in_gtfs, non_standard_file_ext)
 
   # read only the text files specified either in 'files' or in 'skip'.
   # if both are NULL, read all text files
-
   if (!is.null(files)) {
-    files_to_read <- files
+    filenames_to_read <- append_file_ext(files)
   } else if (!is.null(skip)) {
-    files_to_read <- setdiff(files_in_gtfs, skip)
+    filenames_to_read <- setdiff(filenames_in_gtfs, append_file_ext(skip))
   } else {
-    files_to_read <- files_in_gtfs
+    filenames_to_read <- filenames_in_gtfs
   }
 
   # check if all specified files exist and raise an error if any does not
 
-  missing_files <- files_to_read[! files_to_read %chin% files_in_gtfs]
+  missing_files <- filenames_to_read[! filenames_to_read %chin% filenames_in_gtfs]
+
   if (!identical(missing_files, character(0))) {
     error_gtfs_missing_files(missing_files)
   }
 
   # raise an error if a file is specified in 'fields' but does not appear in
-  # 'files_to_read'
+  # 'filenames_to_read'
 
-  files_misspec <- names(fields)[! names(fields) %chin% files_to_read]
+  files_misspec <- names(fields)[! names(fields) %chin% remove_file_ext(filenames_to_read)]
 
   if (!is.null(files_misspec) & !identical(files_misspec, character(0))) {
     error_files_misspecified(files_misspec)
@@ -165,7 +164,7 @@ import_gtfs <- function(path,
 
   zip::unzip(
     path,
-    files = paste0(files_to_read, ".txt"),
+    files = filenames_to_read,
     exdir = tmpdir,
     overwrite = TRUE
   )
@@ -173,19 +172,14 @@ import_gtfs <- function(path,
   if (!quiet)
     message(
       "Unzipped the following files to ", tmpdir, ":\n",
-      paste0("  * ", files_to_read, ".txt", collapse = "\n")
+      paste0("  * ", filenames_to_read, collapse = "\n")
     )
-
-  # get GTFS standards to assign correct classes to each field
-
-  gtfs_standards <- get_gtfs_standards()
 
   # read files into list
 
   gtfs <- lapply(
-    X = files_to_read,
+    X = filenames_to_read,
     FUN = read_files,
-    gtfs_standards,
     fields,
     extra_spec,
     tmpdir,
@@ -197,13 +191,13 @@ import_gtfs <- function(path,
   # need to be stripped here
 
   file_names <- vapply(
-    files_to_read,
+    filenames_to_read,
     function(i) utils::tail(strsplit(i, .Platform$file.sep)[[1]], 1),
     character(1),
     USE.NAMES = FALSE
   )
 
-  names(gtfs) <- file_names
+  names(gtfs) <- remove_file_ext(file_names)
 
   # create gtfs object from 'gtfs'
 
@@ -219,10 +213,8 @@ import_gtfs <- function(path,
 #'
 #' Reads a GTFS text file from the main \code{.zip} file.
 #'
-#' @param file A string. The name of the file (without \code{.txt} extension) to
+#' @param file A string. The name of the file (with \code{.txt} or \code{.geojson} extension) to
 #'   be read.
-#' @param gtfs_standards A named list. Created by
-#'   \code{\link{get_gtfs_standards}}.
 #' @param fields A named list. Passed by the user to \code{\link{import_gtfs}}.
 #' @param extra_spec A named list. Passed by the user to
 #'   \code{\link{import_gtfs}}.
@@ -238,11 +230,10 @@ import_gtfs <- function(path,
 #' @return A \code{data.table} representing the desired text file according to
 #'   the standards for reading and writing GTFS feeds with R.
 #'
-#' @seealso \code{\link{get_gtfs_standards}}
+#' @seealso \code{\link{gtfs_reference}}
 #'
 #' @keywords internal
 read_files <- function(file,
-                       gtfs_standards,
                        fields,
                        extra_spec,
                        tmpdir,
@@ -251,13 +242,23 @@ read_files <- function(file,
 
   # create object to hold the file with '.txt' extension
 
-  file_txt <- paste0(file, ".txt")
+  filename <- file
+  file_type <- "txt" # TODO get file ext as function
+  if(grepl("\\.geojson$", file)) {
+    file_type <- "geojson"
+  }
+  file <- remove_file_ext(file)
 
-  if (!quiet) message("Reading ", file_txt)
+  if (!quiet) message("Reading ", file)
+
+  # read geojson and return
+  if (file_type == "geojson") {
+    return(read_geojson(file.path(tmpdir, filename)))
+  }
 
   # get standards for reading and fields to be read from the given 'file'
 
-  file_standards <- gtfs_standards[[file]]
+  ref_fields     <- gtfsio::gtfs_reference[[file]][["field_types"]]
   fields         <- fields[[file]]
   extra_spec     <- extra_spec[[file]]
 
@@ -265,9 +266,9 @@ read_files <- function(file,
   # documented or extra files are read. throw an error if it refers to
   # documented fields
 
-  spec_both <- names(extra_spec)[names(extra_spec) %chin% names(file_standards)]
+  spec_both <- names(extra_spec)[names(extra_spec) %chin% names(ref_fields)]
 
-  if (any(names(extra_spec) %chin% names(file_standards))) {
+  if (any(names(extra_spec) %chin% names(ref_fields))) {
     error_field_is_documented(file, spec_both)
   }
 
@@ -275,14 +276,14 @@ read_files <- function(file,
   # - if 'file_standards' is NULL then file is undocumented
   # - print warning message if warning is raised and 'quiet' is FALSE
 
-  if (is.null(file_standards) & !quiet) {
+  if (is.null(ref_fields) & !quiet) {
     message("  - File undocumented. Trying to read it as a csv.")
   }
 
   withCallingHandlers(
     {
       sample_dt <- data.table::fread(
-        file.path(tmpdir, file_txt),
+        file.path(tmpdir, filename),
         nrows = 1,
         colClasses = "character"
       )
@@ -326,11 +327,11 @@ read_files <- function(file,
 
   # get the standard data types of documented fields from 'file_standards'
 
-  doc_fields <- fields_to_read[fields_to_read %chin% names(file_standards)]
+  doc_fields <- fields_to_read[fields_to_read %chin% names(ref_fields)]
 
   doc_classes <- vapply(
     doc_fields,
-    function(field) file_standards[[field]][[1]],
+    function(field) ref_fields[[field]][[1]],
     character(1)
   )
 
@@ -356,7 +357,7 @@ read_files <- function(file,
   withCallingHandlers(
     {
       full_dt <- data.table::fread(
-        file.path(tmpdir, file_txt),
+        file.path(tmpdir, filename),
         select = fields_classes,
         encoding = encoding
       )
@@ -368,6 +369,35 @@ read_files <- function(file,
 
 }
 
+#' Read geojson file
+#'
+#' @param file.geojson geojson file
+#'
+#' @keywords internal
+#' @importFrom jsonlite read_json
+read_geojson <- function(file.geojson) {
+  read_json(file.geojson)
+}
+
+remove_file_ext = function(file) {
+  tools::file_path_sans_ext(file)
+}
+
+append_file_ext = function(file) {
+  vapply(file, function(.f) {
+    file_ext <- gtfsio::gtfs_reference[[remove_file_ext(.f)]][["file_ext"]]
+    if (is.null(file_ext)) {
+      # use default for argument-specified non-standard files,
+      # behaviour defined in test_import_gtfs.R#292
+      file_ext <- "txt"
+    }
+    if(endsWith(.f, paste0(".", file_ext))) {
+      return(.f) # file extension already present
+    } else {
+      return(paste0(.f, ".", file_ext))
+    }
+  }, ".txt", USE.NAMES = FALSE)
+}
 
 # errors ------------------------------------------------------------------
 
