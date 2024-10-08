@@ -68,8 +68,8 @@ export_gtfs <- function(gtfs,
   # input checks that depend on more than one argument
 
   if (fs::file_exists(path) & !overwrite) error_cannot_overwrite()
-  if (!as_dir & !assert_zip(path)) error_ext_must_be_zip()
-  if (as_dir & assert_zip(path)) error_path_must_be_dir()
+  if (!as_dir & !assert_extension(path, "zip")) error_ext_must_be_zip()
+  if (as_dir & assert_extension(path, "zip")) error_path_must_be_dir()
 
   extra_files <- setdiff(files, names(gtfsio::gtfs_reference))
   if (standard_only & !is.null(files) & !identical(extra_files, character(0))) {
