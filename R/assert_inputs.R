@@ -278,3 +278,7 @@ error_x_wrong_inheritance <- function(input_name,
     error_call
   )
 }
+
+assert_zip <- function(path) {
+  identical(fs::path_ext(path), "zip")
+}
