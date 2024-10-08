@@ -284,7 +284,7 @@ error_x_wrong_inheritance <- function(input_name,
 #' @param path Vector of file paths
 #' @param ext File extension to be asserted for each `path`
 #'
-#' @return Logicl vector of same length as `path`, with `TRUE` for each element
+#' @return Logical vector of same length as `path`, with `TRUE` for each element
 #' with specified extension, `FALSE` otherwise.
 #'
 #' @noRd
