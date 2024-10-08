@@ -238,19 +238,17 @@ read_files <- function(file,
                        encoding) {
 
   # create object to hold the file with '.txt' extension
+  stopifnot(length(file) == 1L)
 
   filename <- file
-  file_type <- "txt" # TODO get file ext as function
-  if(grepl("\\.geojson$", file)) {
-    file_type <- "geojson"
-  }
+  file_type <- ifelse(assert_extension(file, "txt"), "txt", "geojson")
   file <- remove_file_ext(file)
 
   if (!quiet) message("Reading ", file)
 
   # read geojson and return
   if (file_type == "geojson") {
-    return(read_geojson(file.path(tmpdir, filename)))
+    return(read_geojson(fs::path(tmpdir, filename)))
   }
 
   # get standards for reading and fields to be read from the given 'file'
@@ -280,7 +278,7 @@ read_files <- function(file,
   withCallingHandlers(
     {
       sample_dt <- data.table::fread(
-        file.path(tmpdir, filename),
+        fs::path(tmpdir, filename),
         nrows = 1,
         colClasses = "character"
       )
