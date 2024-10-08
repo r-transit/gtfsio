@@ -117,7 +117,7 @@ import_gtfs <- function(path,
   )
   if (inherits(filenames_in_gtfs, "error")) error_path_must_be_zip()
 
-  non_standard_file_ext <- filenames_in_gtfs[!(grepl("\\.txt$", filenames_in_gtfs) | grepl("\\.geojson$", filenames_in_gtfs))]
+  non_standard_file_ext <- filenames_in_gtfs[!(assert_extension(filenames_in_gtfs, "txt") | assert_extension(filenames_in_gtfs, "geojson"))]
 
   if (!identical(non_standard_file_ext, character(0))) {
     warning(
