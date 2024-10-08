@@ -86,7 +86,7 @@ import_gtfs <- function(path,
 
   path_is_url <- grepl("^http[s]?\\:\\/\\/\\.*", path)
 
-  if (!path_is_url && !file.exists(path)) error_non_existent_file(path)
+  if (!path_is_url && !fs::file_exists(path)) error_non_existent_file(path)
   if (!is.null(files) && !is.null(skip)) error_files_and_skip_provided()
 
   for (input_types in extra_spec) {
@@ -98,7 +98,7 @@ import_gtfs <- function(path,
   # if 'path' is an URL, download it and save path to downloaded file to 'path'
 
   if (path_is_url) {
-    tmp <- tempfile(pattern = "gtfs", fileext = ".zip")
+    tmp <- fs::file_temp(pattern = "gtfs", ext = ".zip")
     utils::download.file(path, tmp, method = "auto", quiet = quiet)
 
     if (!quiet) message("File downloaded to ", tmp, ".")
