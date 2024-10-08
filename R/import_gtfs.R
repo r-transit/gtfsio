@@ -352,7 +352,7 @@ read_files <- function(file,
   withCallingHandlers(
     {
       full_dt <- data.table::fread(
-        file.path(tmpdir, filename),
+        fs::path(tmpdir, filename),
         select = fields_classes,
         encoding = encoding
       )
