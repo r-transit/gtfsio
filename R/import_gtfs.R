@@ -380,7 +380,7 @@ read_geojson <- function(file.geojson) {
 }
 
 remove_file_ext = function(file) {
-  tools::file_path_sans_ext(file)
+  fs::path_ext_remove(file)
 }
 
 append_file_ext = function(file) {
@@ -391,11 +391,10 @@ append_file_ext = function(file) {
       # behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"
     }
-    if(endsWith(.f, paste0(".", file_ext))) {
-      return(.f) # file extension already present
-    } else {
-      return(paste0(.f, ".", file_ext))
+    if (!identical(fs::path_ext(.f), file_ext)) {
+      .f <- fs::path_ext_set(.f, file_ext)
     }
+    return(.f)
   }, ".txt", USE.NAMES = FALSE)
 }
 
