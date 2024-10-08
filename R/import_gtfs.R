@@ -159,8 +159,10 @@ import_gtfs <- function(path,
   # extract text files to temporary folder to later read them
   # 'unlink()' makes sure that previous imports don't interfere with current one
 
-  tmpdir <- file.path(tempdir(), "gtfsio")
-  unlink(tmpdir, recursive = TRUE, force = TRUE)
+  tmpdir <- fs::path(fs::path_temp(), "gtfsio")
+  if (fs::dir_exists(tmpdir)) {
+    fs::dir_delete(tmpdir)
+  }
 
   zip::unzip(
     path,
