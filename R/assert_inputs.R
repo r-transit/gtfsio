@@ -280,5 +280,5 @@ error_x_wrong_inheritance <- function(input_name,
 }
 
 assert_extension <- function(path, ext = "zip") {
-  identical(fs::path_ext(path), ext)
+  fs::path_ext(path) == ext
 }
