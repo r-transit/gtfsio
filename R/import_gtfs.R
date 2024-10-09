@@ -386,7 +386,7 @@ append_file_ext = function(file) {
       # behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"
     }
-    if (!identical(fs::path_ext(.f), file_ext)) {
+    if (!assert_extension(.f, file_ext)) {
       .f <- fs::path_ext_set(.f, file_ext)
     }
     return(.f)
