@@ -1,6 +1,4 @@
-# gtfsio (development version)
-
-## Bug fixes
+# gtfsio 1.2.0
 
 ## New features
 

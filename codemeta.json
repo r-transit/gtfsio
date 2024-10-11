@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.1.1.9000",
+  "version": "1.2.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
+  "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -116,10 +116,22 @@
     },
     "2": {
       "@type": "SoftwareApplication",
+      "identifier": "fs",
+      "name": "fs",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=fs"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
-    "3": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "zip",
       "name": "zip",
@@ -131,9 +143,27 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=zip"
     },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.1.0"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "388.407KB",
+  "fileSize": "436.56KB",
   "releaseNotes": "https://github.com/r-transit/gtfsio/blob/master/NEWS.md",
   "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md",
   "contIntegration": ["https://github.com/r-transit/gtfsio/actions?query=workflow%3AR-CMD-check", "https://app.codecov.io/gh/r-transit/gtfsio?branch=master"],

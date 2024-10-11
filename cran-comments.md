@@ -1,15 +1,11 @@
 ## Test environments
 
-- Local Ubuntu 20.04 installation (R 4.3.1)
+- Local Windows Server 2022 installation (R 4.4.1)
 - GitHub Actions:
   - Windows (release, oldrel)
   - MacOS (release, oldrel)
   - Ubuntu 20.04 (devel, release, oldrel)
 - win-builder (devel, release, oldrel)
-- r-hub:
-  - Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  - Fedora Linux, R-devel, clang, gfortran
-  - Windows Server 2022, R-devel, 64 bit
 
 ## R CMD check results
 
@@ -25,9 +21,9 @@ Check status summary:
 Check results summary:
 gtfsio ... OK
 rdepends_gtfstools ... WARNING
-* checking CRAN incoming feasibility ... [7s/46s] WARNING
+* checking CRAN incoming feasibility ... [106s] WARNING
 rdepends_tidytransit ... WARNING
-* checking CRAN incoming feasibility ... [6s/33s] WARNING
+* checking CRAN incoming feasibility ... [97s] WARNING
 * checking installed package size ... NOTE
 
 None of the notes and warnings in {gtfstools} and {tidytransit} checks are related to {gtfsio}. The revdep checks were run with tools::check_packages_in_dir(check_args = "--as-cran"), thus raising an "insufficient package version" warning in the dependencies check.
