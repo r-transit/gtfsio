@@ -31,7 +31,7 @@ Note: the standards list is based on the specification as revised in May 9th,
 }
 \section{Details}{
 
-GTFS standards were derived from \href{https://gtfs.org/schedule/reference/}{GTFS Schedule Reference}. The R data types chosen to
+GTFS standards were derived from \href{https://gtfs.org/documentation/schedule/reference/}{GTFS Schedule Reference}. The R data types chosen to
 represent each GTFS data type are described below:
 \itemize{
 \item Color = \code{character}
