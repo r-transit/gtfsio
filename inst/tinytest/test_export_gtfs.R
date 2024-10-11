@@ -115,6 +115,8 @@ expect_false(dir.exists(tmpf))
 expect_false(dir.exists(tmpd))
 tester(path = tmpd, as_dir = TRUE)
 expect_true(dir.exists(tmpd))
+expect_equal(sort(list.files(tmpd)), sort(gtfsio:::append_file_ext(names(gtfs))))
+expect_equal(sort(gtfsio:::remove_file_ext(list.files(tmpd))), sort(names(gtfs)))
 
 # 'files' behaviour -------------------------------------------------------
 
@@ -304,3 +306,11 @@ export_gtfs(locations_feed, tmpfile)
 reimported <- import_gtfs(tmpfile)
 
 expect_equal(reimported, locations_feed)
+
+# issue #41 ---------------------------------------------------------------
+# ensure export_gtfs overwrites existing directory
+tmpfile2 <- tempfile(fileext = ".zip")
+fs::dir_create(tmpfile2)
+expect_false(fs::is_file(tmpfile2))
+tester(path = tmpfile2)
+expect_true(fs::is_file(tmpfile2))
