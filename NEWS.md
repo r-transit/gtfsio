@@ -4,7 +4,12 @@
 
 ## New features
 
+- `import_gtfs()` now reads geojson files as json ([#37](https://github.com/r-transit/gtfsio/issues/37))
+- Updated gtfs reference implementation with new `gtfs_reference` dataset. `get_gtfs_standard()` has been deprecated.
+
 ## Notes
+
+- Internally, `fs` is now used for file path manipulations ([#39](https://github.com/r-transit/gtfsio/issues/39))
 
 # gtfsio 1.1.1
 
