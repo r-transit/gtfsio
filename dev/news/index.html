@@ -53,8 +53,15 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="gtfsio-development-version">gtfsio (development version)<a class="anchor" aria-label="anchor" href="#gtfsio-development-version"></a></h2>
 <div class="section level3"><h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3></div>
-<div class="section level3"><h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3></div>
-<div class="section level3"><h3 id="notes-development-version">Notes<a class="anchor" aria-label="anchor" href="#notes-development-version"></a></h3></div>
+<div class="section level3">
+<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> now reads geojson files as json (<a href="https://github.com/r-transit/gtfsio/issues/37" class="external-link">#37</a>)</li>
+<li>Updated gtfs reference implementation with new <code>gtfs_reference</code> dataset. <code>get_gtfs_standard()</code> has been deprecated.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="notes-development-version">Notes<a class="anchor" aria-label="anchor" href="#notes-development-version"></a></h3>
+<ul><li>Internally, <code>fs</code> is now used for file path manipulations (<a href="https://github.com/r-transit/gtfsio/issues/39" class="external-link">#39</a>)</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.1" id="gtfsio-111">gtfsio 1.1.1<small>2023-10-20</small><a class="anchor" aria-label="anchor" href="#gtfsio-111"></a></h2>
