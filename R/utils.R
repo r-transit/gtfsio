@@ -10,7 +10,7 @@ append_file_ext = function(file) {
       # behaviour defined in test_import_gtfs.R#292
       file_ext <- "txt"
     }
-    if (!has_extension(.f, file_ext)) {
+    if (!has_file_ext(.f, file_ext)) {
       .f <- fs::path_ext_set(.f, file_ext)
     }
     return(.f)
@@ -26,6 +26,6 @@ append_file_ext = function(file) {
 #' with specified extension, `FALSE` otherwise.
 #'
 #' @noRd
-has_extension <- function(path, ext = "zip") {
+has_file_ext <- function(path, ext = "zip") {
   fs::path_ext(path) == ext
 }
