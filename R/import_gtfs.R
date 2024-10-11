@@ -117,7 +117,7 @@ import_gtfs <- function(path,
   )
   if (inherits(filenames_in_gtfs, "error")) error_path_must_be_zip()
 
-  non_standard_file_ext <- filenames_in_gtfs[!(assert_extension(filenames_in_gtfs, "txt") | assert_extension(filenames_in_gtfs, "geojson"))]
+  non_standard_file_ext <- filenames_in_gtfs[!(has_extension(filenames_in_gtfs, "txt") | has_extension(filenames_in_gtfs, "geojson"))]
 
   if (!identical(non_standard_file_ext, character(0))) {
     warning(
@@ -241,7 +241,7 @@ read_files <- function(file,
   stopifnot(length(file) == 1L)
 
   filename <- file
-  file_type <- ifelse(assert_extension(file, "txt"), "txt", "geojson")
+  file_type <- ifelse(has_extension(file, "txt"), "txt", "geojson")
   file <- remove_file_ext(file)
 
   if (!quiet) message("Reading ", file)
@@ -372,25 +372,6 @@ read_files <- function(file,
 #' @importFrom jsonlite read_json
 read_geojson <- function(file.geojson) {
   read_json(file.geojson)
-}
-
-remove_file_ext = function(file) {
-  fs::path_ext_remove(file)
-}
-
-append_file_ext = function(file) {
-  vapply(file, function(.f) {
-    file_ext <- gtfsio::gtfs_reference[[remove_file_ext(.f)]][["file_ext"]]
-    if (is.null(file_ext)) {
-      # use default for argument-specified non-standard files,
-      # behaviour defined in test_import_gtfs.R#292
-      file_ext <- "txt"
-    }
-    if (!assert_extension(.f, file_ext)) {
-      .f <- fs::path_ext_set(.f, file_ext)
-    }
-    return(.f)
-  }, ".txt", USE.NAMES = FALSE)
 }
 
 # errors ------------------------------------------------------------------
