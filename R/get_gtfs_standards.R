@@ -25,7 +25,7 @@
 #'
 #' @section Details:
 #' GTFS standards were derived from [GTFS Schedule
-#' Reference](https://gtfs.org/schedule/reference/). The R data types chosen to
+#' Reference](https://gtfs.org/documentation/schedule/reference/). The R data types chosen to
 #' represent each GTFS data type are described below:
 #'
 #' - Color = `character`
