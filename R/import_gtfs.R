@@ -86,7 +86,7 @@ import_gtfs <- function(path,
 
   path_is_url <- grepl("^http[s]?\\:\\/\\/\\.*", path)
 
-  if (!path_is_url && !file.exists(path)) error_non_existent_file(path)
+  if (!path_is_url && !fs::file_exists(path)) error_non_existent_file(path)
   if (!is.null(files) && !is.null(skip)) error_files_and_skip_provided()
 
   for (input_types in extra_spec) {
@@ -98,7 +98,7 @@ import_gtfs <- function(path,
   # if 'path' is an URL, download it and save path to downloaded file to 'path'
 
   if (path_is_url) {
-    tmp <- tempfile(pattern = "gtfs", fileext = ".zip")
+    tmp <- fs::file_temp(pattern = "gtfs", ext = ".zip")
     utils::download.file(path, tmp, method = "auto", quiet = quiet)
 
     if (!quiet) message("File downloaded to ", tmp, ".")
@@ -117,7 +117,7 @@ import_gtfs <- function(path,
   )
   if (inherits(filenames_in_gtfs, "error")) error_path_must_be_zip()
 
-  non_standard_file_ext <- filenames_in_gtfs[!(grepl("\\.txt$", filenames_in_gtfs) | grepl("\\.geojson$", filenames_in_gtfs))]
+  non_standard_file_ext <- filenames_in_gtfs[!(has_file_ext(filenames_in_gtfs, "txt") | has_file_ext(filenames_in_gtfs, "geojson"))]
 
   if (!identical(non_standard_file_ext, character(0))) {
     warning(
@@ -159,8 +159,10 @@ import_gtfs <- function(path,
   # extract text files to temporary folder to later read them
   # 'unlink()' makes sure that previous imports don't interfere with current one
 
-  tmpdir <- file.path(tempdir(), "gtfsio")
-  unlink(tmpdir, recursive = TRUE, force = TRUE)
+  tmpdir <- fs::path(fs::path_temp(), "gtfsio")
+  if (fs::dir_exists(tmpdir)) {
+    fs::dir_delete(tmpdir)
+  }
 
   zip::unzip(
     path,
@@ -190,12 +192,7 @@ import_gtfs <- function(path,
   # assign names to 'gtfs', noting that zip_list may return full paths, which
   # need to be stripped here
 
-  file_names <- vapply(
-    filenames_to_read,
-    function(i) utils::tail(strsplit(i, .Platform$file.sep)[[1]], 1),
-    character(1),
-    USE.NAMES = FALSE
-  )
+  file_names <- basename(filenames_to_read)
 
   names(gtfs) <- remove_file_ext(file_names)
 
@@ -241,19 +238,17 @@ read_files <- function(file,
                        encoding) {
 
   # create object to hold the file with '.txt' extension
+  stopifnot(length(file) == 1L)
 
   filename <- file
-  file_type <- "txt" # TODO get file ext as function
-  if(grepl("\\.geojson$", file)) {
-    file_type <- "geojson"
-  }
+  file_type <- ifelse(has_file_ext(file, "txt"), "txt", "geojson")
   file <- remove_file_ext(file)
 
   if (!quiet) message("Reading ", file)
 
   # read geojson and return
   if (file_type == "geojson") {
-    return(read_geojson(file.path(tmpdir, filename)))
+    return(read_geojson(fs::path(tmpdir, filename)))
   }
 
   # get standards for reading and fields to be read from the given 'file'
@@ -283,7 +278,7 @@ read_files <- function(file,
   withCallingHandlers(
     {
       sample_dt <- data.table::fread(
-        file.path(tmpdir, filename),
+        fs::path(tmpdir, filename),
         nrows = 1,
         colClasses = "character"
       )
@@ -357,7 +352,7 @@ read_files <- function(file,
   withCallingHandlers(
     {
       full_dt <- data.table::fread(
-        file.path(tmpdir, filename),
+        fs::path(tmpdir, filename),
         select = fields_classes,
         encoding = encoding
       )
@@ -377,26 +372,6 @@ read_files <- function(file,
 #' @importFrom jsonlite read_json
 read_geojson <- function(file.geojson) {
   read_json(file.geojson)
-}
-
-remove_file_ext = function(file) {
-  tools::file_path_sans_ext(file)
-}
-
-append_file_ext = function(file) {
-  vapply(file, function(.f) {
-    file_ext <- gtfsio::gtfs_reference[[remove_file_ext(.f)]][["file_ext"]]
-    if (is.null(file_ext)) {
-      # use default for argument-specified non-standard files,
-      # behaviour defined in test_import_gtfs.R#292
-      file_ext <- "txt"
-    }
-    if(endsWith(.f, paste0(".", file_ext))) {
-      return(.f) # file extension already present
-    } else {
-      return(paste0(.f, ".", file_ext))
-    }
-  }, ".txt", USE.NAMES = FALSE)
 }
 
 # errors ------------------------------------------------------------------

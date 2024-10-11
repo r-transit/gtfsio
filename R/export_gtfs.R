@@ -67,9 +67,9 @@ export_gtfs <- function(gtfs,
 
   # input checks that depend on more than one argument
 
-  if (file.exists(path) & !overwrite) error_cannot_overwrite()
-  if (!as_dir & !grepl("\\.zip$", path)) error_ext_must_be_zip()
-  if (as_dir & grepl("\\.zip$", path)) error_path_must_be_dir()
+  if (fs::file_exists(path) & !overwrite) error_cannot_overwrite()
+  if (!as_dir & !has_file_ext(path, "zip")) error_ext_must_be_zip()
+  if (as_dir & has_file_ext(path, "zip")) error_path_must_be_dir()
 
   extra_files <- setdiff(files, names(gtfsio::gtfs_reference))
   if (standard_only & !is.null(files) & !identical(extra_files, character(0))) {
@@ -107,18 +107,20 @@ export_gtfs <- function(gtfs,
   if (as_dir) {
     tmpd <- path
   } else {
-    tmpd <- tempfile(pattern = "gtfsio")
+    tmpd <- fs::file_temp(pattern = "gtfsio")
   }
 
-  unlink(tmpd, recursive = TRUE)
-  dir.create(tmpd)
+  if (fs::dir_exists(tmpd)) {
+    fs::dir_delete(tmpd)
+  }
+  fs::dir_create(tmpd, recurse = TRUE)
 
   # write files to 'tmpd'
 
   if (!quiet) message("Writing text files to ", tmpd)
 
   filenames <- append_file_ext(files)
-  filepaths <- file.path(tmpd, filenames)
+  filepaths <- fs::path(tmpd, filenames)
 
   for (i in seq_along(files)) {
 
@@ -130,7 +132,7 @@ export_gtfs <- function(gtfs,
 
     dt <- gtfs[[file]]
 
-    if(endsWith(filename, ".geojson")) {
+    if (has_file_ext(filename, "geojson")) {
       jsonlite::write_json(dt, filepath, pretty = FALSE, auto_unbox = TRUE, digits = 8)
     } else {
 
@@ -165,7 +167,9 @@ export_gtfs <- function(gtfs,
 
   if (!as_dir) {
 
-    unlink(path, recursive = TRUE)
+    if (fs::dir_exists(path)) {
+      fs::dir_delete(path)
+    }
 
     zip::zip(
       path,
