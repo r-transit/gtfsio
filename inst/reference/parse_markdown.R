@@ -24,8 +24,8 @@ parse_fields = function(reference.md) {
 		if(stringr::str_starts(.line, "File: ")) {
 			.file_presence <- stringr::str_replace_all(.line, "File: ", "")
 		}
-		if(stringr::str_starts(.line, "Primary key ")) {
-			.primary_key <- stringr::str_replace_all(.line, "Primary key \\(", "")
+		if(stringr::str_starts(.line, "Primary [kK]ey ")) {
+			.primary_key <- stringr::str_replace_all(.line, "Primary [kK]ey \\(", "")
 			.primary_key <- stringr::str_replace_all(.primary_key, "\\)", "")
 		}
 
