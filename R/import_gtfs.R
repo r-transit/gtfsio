@@ -99,7 +99,7 @@ import_gtfs <- function(path,
 
   if (path_is_url) {
     tmp <- fs::file_temp(pattern = "gtfs", ext = ".zip")
-    utils::download.file(path, tmp, method = "auto", quiet = quiet)
+    utils::download.file(path, tmp, method = "auto", quiet = quiet, mode = "wb")
 
     if (!quiet) message("File downloaded to ", tmp, ".")
 
