@@ -27,7 +27,7 @@ gtfs_reference
 }
 \description{
 The data from the official GTFS specification document parsed to a list. Revision date:
-\code{2024-08-16}.
+\code{2024-12-05}.
 }
 \details{
 GTFS Types are converted to R types in gtfsio according to the following list:
