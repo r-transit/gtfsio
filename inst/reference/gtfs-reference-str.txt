@@ -1,0 +1,497 @@
+List of 31
+ $ agency              :List of 7
+  ..$ File_Name    : chr "agency.txt"
+  ..$ File_Presence: chr "Required"
+  ..$ file         : chr "agency"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	8 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:8] "agency_id" "agency_name" "agency_url" "agency_timezone" ...
+  .. ..$ Type       : chr [1:8] "Unique ID" "Text" "URL" "Timezone" ...
+  .. ..$ Presence   : chr [1:8] "Conditionally Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:8] "Identifies a transit brand which is often synonymous with a transit agency. Note that in some cases, such as wh"| __truncated__ "Full name of the transit agency." "URL of the transit agency." "Timezone where the transit agency is located. If multiple agencies are specified in the dataset, each must have"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:8] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "agency_id"
+  ..$ field_types  : Named chr [1:8] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:8] "agency_id" "agency_name" "agency_url" "agency_timezone" ...
+ $ areas               :List of 7
+  ..$ File_Name    : chr "areas.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "areas"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	2 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:2] "area_id" "area_name"
+  .. ..$ Type       : chr [1:2] "Unique ID" "Text"
+  .. ..$ Presence   : chr [1:2] "Required" "Optional"
+  .. ..$ Description: chr [1:2] "Identifies an area. Must be unique in [areas.txt](#areastxt)." "The name of the area as displayed to the rider."
+  .. ..$ gtfsio_type: chr [1:2] "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "area_id"
+  ..$ field_types  : Named chr [1:2] "character" "character"
+  .. ..- attr(*, "names")= chr [1:2] "area_id" "area_name"
+ $ attributions        :List of 7
+  ..$ File_Name    : chr "attributions.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "attributions"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	11 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:11] "attribution_id" "agency_id" "route_id" "trip_id" ...
+  .. ..$ Type       : chr [1:11] "Unique ID" "Foreign ID referencing `agency.agency_id`" "Foreign ID referencing `routes.route_id`" "Foreign ID referencing `trips.trip_id`" ...
+  .. ..$ Presence   : chr [1:11] "Optional" "Optional" "Optional" "Optional" ...
+  .. ..$ Description: chr [1:11] "Identifies an attribution for the dataset or a subset of it. This is mostly useful for translations." "Agency to which the attribution applies.<br><br>If one `agency_id`, `route_id`, or `trip_id` attribution is def"| __truncated__ "Functions in the same way as `agency_id` except the attribution applies to a route. Multiple attributions may a"| __truncated__ "Functions in the same way as `agency_id` except the attribution applies to a trip. Multiple attributions may ap"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:11] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "attribution_id"
+  ..$ field_types  : Named chr [1:11] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:11] "attribution_id" "agency_id" "route_id" "trip_id" ...
+ $ booking_rules       :List of 7
+  ..$ File_Name    : chr "booking_rules.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "booking_rules"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	15 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:15] "booking_rule_id" "booking_type" "prior_notice_duration_min" "prior_notice_duration_max" ...
+  .. ..$ Type       : chr [1:15] "Unique ID" "Enum" "Integer" "Integer" ...
+  .. ..$ Presence   : chr [1:15] "Required" "Required" "Conditionally Required" "Conditionally Forbidden" ...
+  .. ..$ Description: chr [1:15] "Identifies a rule." "Indicates how far in advance booking can be made. Valid options are:<br><br>`0` - Real time booking.<br>`1` - U"| __truncated__ "Minimum number of minutes before travel to make the request.<br><br>**Conditionally Required**:<br>- **Required"| __truncated__ "Maximum number of minutes before travel to make the booking request.<br><br>**Conditionally Forbidden**:<br>- *"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:15] "character" "integer" "integer" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "booking_rule_id"
+  ..$ field_types  : Named chr [1:15] "character" "integer" "integer" "integer" ...
+  .. ..- attr(*, "names")= chr [1:15] "booking_rule_id" "booking_type" "prior_notice_duration_min" "prior_notice_duration_max" ...
+ $ calendar            :List of 7
+  ..$ File_Name    : chr "calendar.txt"
+  ..$ File_Presence: chr "Conditionally Required"
+  ..$ file         : chr "calendar"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	10 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:10] "service_id" "monday" "tuesday" "wednesday" ...
+  .. ..$ Type       : chr [1:10] "Unique ID" "Enum" "Enum" "Enum" ...
+  .. ..$ Presence   : chr [1:10] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:10] "Identifies a set of dates when service is available for one or more routes." "Indicates whether the service operates on all Mondays in the date range specified by the `start_date` and `end_"| __truncated__ "Functions in the same way as `monday` except applies to Tuesdays" "Functions in the same way as `monday` except applies to Wednesdays" ...
+  .. ..$ gtfsio_type: chr [1:10] "character" "integer" "integer" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "service_id"
+  ..$ field_types  : Named chr [1:10] "character" "integer" "integer" "integer" ...
+  .. ..- attr(*, "names")= chr [1:10] "service_id" "monday" "tuesday" "wednesday" ...
+ $ calendar_dates      :List of 7
+  ..$ File_Name    : chr "calendar_dates.txt"
+  ..$ File_Presence: chr "Conditionally Required"
+  ..$ file         : chr "calendar_dates"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	3 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:3] "service_id" "date" "exception_type"
+  .. ..$ Type       : chr [1:3] "Foreign ID referencing `calendar.service_id` or ID" "Date" "Enum"
+  .. ..$ Presence   : chr [1:3] "Required" "Required" "Required"
+  .. ..$ Description: chr [1:3] "Identifies a set of dates when a service exception occurs for one or more routes. Each (`service_id`, `date`) p"| __truncated__ "Date when service exception occurs." "Indicates whether service is available on the date specified in the date field. Valid options are:<br><br> `1` "| __truncated__
+  .. ..$ gtfsio_type: chr [1:3] "character" "integer" "integer"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:2] "service_id" "date"
+  ..$ field_types  : Named chr [1:3] "character" "integer" "integer"
+  .. ..- attr(*, "names")= chr [1:3] "service_id" "date" "exception_type"
+ $ fare_attributes     :List of 7
+  ..$ File_Name    : chr "fare_attributes.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_attributes"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	7 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:7] "fare_id" "price" "currency_type" "payment_method" ...
+  .. ..$ Type       : chr [1:7] "Unique ID" "Non-negative float" "Currency code" "Enum" ...
+  .. ..$ Presence   : chr [1:7] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:7] "Identifies a fare class." "Fare price, in the unit specified by `currency_type`." "Currency used to pay the fare." "Indicates when the fare must be paid. Valid options are:<br><br>`0` - Fare is paid on board.<br>`1` - Fare must"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:7] "character" "numeric" "character" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "fare_id"
+  ..$ field_types  : Named chr [1:7] "character" "numeric" "character" "integer" ...
+  .. ..- attr(*, "names")= chr [1:7] "fare_id" "price" "currency_type" "payment_method" ...
+ $ fare_leg_join_rules :List of 7
+  ..$ File_Name    : chr "fare_leg_join_rules.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_leg_join_rules"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	4 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:4] "from_network_id" "to_network_id" "from_stop_id" "to_stop_id"
+  .. ..$ Type       : chr [1:4] "Foreign ID referencing `routes.network_id` or `networks.network_id`" "Foreign ID referencing `routes.network_id` or `networks.network_id`" "Foreign ID referencing `stops.stop_id`" "Foreign ID referencing `stops.stop_id`"
+  .. ..$ Presence   : chr [1:4] "Required" "Required" "Conditionally Required" "Conditionally Required"
+  .. ..$ Description: chr [1:4] "Matches a pre-transfer leg that uses the specified route network.  If specified, the same `to_network_id` must "| __truncated__ "Matches a post-transfer leg that uses the specified route network.  If specified, the same `from_network_id` mu"| __truncated__ "Matches a pre-transfer leg that ends at the specified stop (`location_type=0` or empty) or station (`location_t"| __truncated__ "Matches a post-transfer leg that starts at the specified stop (`location_type=0` or empty) or station (`locatio"| __truncated__
+  .. ..$ gtfsio_type: chr [1:4] "character" "character" "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:4] "from_network_id" "to_network_id" "from_stop_id" "to_stop_id"
+  ..$ field_types  : Named chr [1:4] "character" "character" "character" "character"
+  .. ..- attr(*, "names")= chr [1:4] "from_network_id" "to_network_id" "from_stop_id" "to_stop_id"
+ $ fare_leg_rules      :List of 7
+  ..$ File_Name    : chr "fare_leg_rules.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_leg_rules"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	8 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:8] "leg_group_id" "network_id" "from_area_id" "to_area_id" ...
+  .. ..$ Type       : chr [1:8] "ID" "Foreign ID referencing `routes.network_id` or `networks.network_id`" "Foreign ID referencing `areas.area_id`" "Foreign ID referencing `areas.area_id`" ...
+  .. ..$ Presence   : chr [1:8] "Optional" "Optional" "Optional" "Optional" ...
+  .. ..$ Description: chr [1:8] "Identifies a group of entries in [fare_leg_rules.txt](#fare_leg_rulestxt).<br><br> Used to describe fare transf"| __truncated__ "Identifies a route network that applies for the fare leg rule.<br><br>If the `rule_priority` field does not exi"| __truncated__ "Identifies a departure area.<br><br>If the `rule_priority` field does not exist AND there are no matching `fare"| __truncated__ "Identifies an arrival area.<br><br>If the `rule_priority` field does not exist AND there are no matching `fare_"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:8] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:6] "network_id" "from_area_id" "to_area_id" "from_timeframe_group_id" ...
+  ..$ field_types  : Named chr [1:8] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:8] "leg_group_id" "network_id" "from_area_id" "to_area_id" ...
+ $ fare_media          :List of 7
+  ..$ File_Name    : chr "fare_media.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_media"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	3 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:3] "fare_media_id" "fare_media_name" "fare_media_type"
+  .. ..$ Type       : chr [1:3] "Unique ID" "Text" "Enum"
+  .. ..$ Presence   : chr [1:3] "Required" "Optional" "Required"
+  .. ..$ Description: chr [1:3] "Identifies a fare media." "Name of the fare media.<br><br>For fare media which are transit cards (`fare_media_type =2`) or mobile apps (`f"| __truncated__ "The type of fare media. Valid options are:<br><br>`0` - None.  Used when there is no fare media involved in pur"| __truncated__
+  .. ..$ gtfsio_type: chr [1:3] "character" "character" "integer"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "fare_media_id"
+  ..$ field_types  : Named chr [1:3] "character" "character" "integer"
+  .. ..- attr(*, "names")= chr [1:3] "fare_media_id" "fare_media_name" "fare_media_type"
+ $ fare_products       :List of 7
+  ..$ File_Name    : chr "fare_products.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_products"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	5 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:5] "fare_product_id" "fare_product_name" "fare_media_id" "amount" ...
+  .. ..$ Type       : chr [1:5] "ID" "Text" "Foreign ID referencing `fare_media.fare_media_id`" "Currency amount" ...
+  .. ..$ Presence   : chr [1:5] "Required" "Optional" "Optional" "Required" ...
+  .. ..$ Description: chr [1:5] "Identifies a fare product or set of fare products.<br><br>Multiple records in [fare_products.txt](#fare_product"| __truncated__ "The name of the fare product as displayed to riders." "Identifies a fare media that can be employed to use the fare product during the trip. When `fare_media_id` is e"| __truncated__ "The cost of the fare product. May be negative to represent transfer discounts. May be zero to represent a fare "| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:5] "character" "character" "character" "numeric" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:2] "fare_product_id" "fare_media_id"
+  ..$ field_types  : Named chr [1:5] "character" "character" "character" "numeric" ...
+  .. ..- attr(*, "names")= chr [1:5] "fare_product_id" "fare_product_name" "fare_media_id" "amount" ...
+ $ fare_rules          :List of 7
+  ..$ File_Name    : chr "fare_rules.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_rules"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	5 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:5] "fare_id" "route_id" "origin_id" "destination_id" ...
+  .. ..$ Type       : chr [1:5] "Foreign ID referencing `fare_attributes.fare_id`" "Foreign ID referencing `routes.route_id`" "Foreign ID referencing `stops.zone_id`" "Foreign ID referencing `stops.zone_id`" ...
+  .. ..$ Presence   : chr [1:5] "Required" "Optional" "Optional" "Optional" ...
+  .. ..$ Description: chr [1:5] "Identifies a fare class." "Identifies a route associated with the fare class. If several routes with the same fare attributes exist, creat"| __truncated__ "Identifies an origin zone. If a fare class has multiple origin zones, create a record in [fare_rules.txt](#fare"| __truncated__ "Identifies a destination zone. If a fare class has multiple destination zones, create a record in [fare_rules.t"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:5] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "*"
+  ..$ field_types  : Named chr [1:5] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:5] "fare_id" "route_id" "origin_id" "destination_id" ...
+ $ fare_transfer_rules :List of 7
+  ..$ File_Name    : chr "fare_transfer_rules.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "fare_transfer_rules"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	7 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:7] "from_leg_group_id" "to_leg_group_id" "transfer_count" "duration_limit" ...
+  .. ..$ Type       : chr [1:7] "Foreign ID referencing `fare_leg_rules.leg_group_id`" "Foreign ID referencing `fare_leg_rules.leg_group_id`" "Non-zero integer" "Positive integer" ...
+  .. ..$ Presence   : chr [1:7] "Optional" "Optional" "Conditionally Forbidden" "Optional" ...
+  .. ..$ Description: chr [1:7] "Identifies a group of pre-transfer fare leg rules.<br><br>If there are no matching `fare_transfer_rules.from_le"| __truncated__ "Identifies a group of post-transfer fare leg rules.<br><br>If there are no matching `fare_transfer_rules.to_leg"| __truncated__ "Defines how many consecutive transfers the transfer rule may be applied to.<br><br>Valid options are:<br>`-1` -"| __truncated__ "Defines the duration limit of the transfer.<br><br>Must be expressed in integer increments of seconds.<br><br>I"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:7] "character" "character" "integer" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:5] "from_leg_group_id" "to_leg_group_id" "fare_product_id" "transfer_count" ...
+  ..$ field_types  : Named chr [1:7] "character" "character" "integer" "integer" ...
+  .. ..- attr(*, "names")= chr [1:7] "from_leg_group_id" "to_leg_group_id" "transfer_count" "duration_limit" ...
+ $ feed_info           :List of 7
+  ..$ File_Name    : chr "feed_info.txt"
+  ..$ File_Presence: chr "Conditionally Required"
+  ..$ file         : chr "feed_info"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	9 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:9] "feed_publisher_name" "feed_publisher_url" "feed_lang" "default_lang" ...
+  .. ..$ Type       : chr [1:9] "Text" "URL" "Language code" "Language code" ...
+  .. ..$ Presence   : chr [1:9] "Required" "Required" "Required" "Optional" ...
+  .. ..$ Description: chr [1:9] "Full name of the organization that publishes the dataset. This may be the same as one of the `agency.agency_name` values." "URL of the dataset publishing organization's website. This may be the same as one of the `agency.agency_url` values." "Default language used for the text in this dataset. This setting helps GTFS consumers choose capitalization rul"| __truncated__ "Defines the language that should be used when the data consumer doesn’t know the language of the rider. It will"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:9] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "none"
+  ..$ field_types  : Named chr [1:9] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:9] "feed_publisher_name" "feed_publisher_url" "feed_lang" "default_lang" ...
+ $ frequencies         :List of 7
+  ..$ File_Name    : chr "frequencies.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "frequencies"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	5 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:5] "trip_id" "start_time" "end_time" "headway_secs" ...
+  .. ..$ Type       : chr [1:5] "Foreign ID referencing `trips.trip_id`" "Time" "Time" "Positive integer" ...
+  .. ..$ Presence   : chr [1:5] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:5] "Identifies a trip to which the specified headway of service applies." "Time at which the first vehicle departs from the first stop of the trip with the specified headway." "Time at which service changes to a different headway (or ceases) at the first stop in the trip." "Time, in seconds, between departures from the same stop (headway) for the trip, during the time interval specif"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:5] "character" "character" "character" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:2] "trip_id" "start_time"
+  ..$ field_types  : Named chr [1:5] "character" "character" "character" "integer" ...
+  .. ..- attr(*, "names")= chr [1:5] "trip_id" "start_time" "end_time" "headway_secs" ...
+ $ levels              :List of 7
+  ..$ File_Name    : chr "levels.txt"
+  ..$ File_Presence: chr "Conditionally Required"
+  ..$ file         : chr "levels"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	3 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:3] "level_id" "level_index" "level_name"
+  .. ..$ Type       : chr [1:3] "Unique ID" "Float" "Text"
+  .. ..$ Presence   : chr [1:3] "Required" "Required" "Optional"
+  .. ..$ Description: chr [1:3] "Identifies a level in a station." "Numeric index of the level that indicates its relative position. <br><br>Ground level should have index `0`, wi"| __truncated__ "Name of the level as seen by the rider inside the building or station.<hr>_Example: Take the elevator to \"Mezz"| __truncated__
+  .. ..$ gtfsio_type: chr [1:3] "character" "numeric" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "level_id"
+  ..$ field_types  : Named chr [1:3] "character" "numeric" "character"
+  .. ..- attr(*, "names")= chr [1:3] "level_id" "level_index" "level_name"
+ $ location_group_stops:List of 7
+  ..$ File_Name    : chr "location_group_stops.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "location_group_stops"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	2 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:2] "location_group_id" "stop_id"
+  .. ..$ Type       : chr [1:2] "Foreign ID referencing `location_groups.location_group_id`" "Foreign ID referencing `stops.stop_id`"
+  .. ..$ Presence   : chr [1:2] "Required" "Required"
+  .. ..$ Description: chr [1:2] "Identifies a location group to which one or multiple `stop_id`s belong. The same `stop_id` may be defined in ma"| __truncated__ "Identifies a stop belonging to the location group."
+  .. ..$ gtfsio_type: chr [1:2] "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "*"
+  ..$ field_types  : Named chr [1:2] "character" "character"
+  .. ..- attr(*, "names")= chr [1:2] "location_group_id" "stop_id"
+ $ location_groups     :List of 7
+  ..$ File_Name    : chr "location_groups.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "location_groups"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	2 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:2] "location_group_id" "location_group_name"
+  .. ..$ Type       : chr [1:2] "Unique ID" "Text"
+  .. ..$ Presence   : chr [1:2] "Required" "Optional"
+  .. ..$ Description: chr [1:2] "Identifies a location group. ID must be unique across all `stops.stop_id`, locations.geojson `id`, and `locatio"| __truncated__ "The name of the location group as displayed to the rider."
+  .. ..$ gtfsio_type: chr [1:2] "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "location_group_id"
+  ..$ field_types  : Named chr [1:2] "character" "character"
+  .. ..- attr(*, "names")= chr [1:2] "location_group_id" "location_group_name"
+ $ locations           :List of 6
+  ..$ File_Name    : chr "locations.geojson"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "locations"
+  ..$ file_ext     : chr "geojson"
+  ..$ fields       :'data.frame':	10 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:10] "type" "features" "type" "id" ...
+  .. ..$ Type       : chr [1:10] "String" "Array" "String" "String" ...
+  .. ..$ Presence   : chr [1:10] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:10] "`\"FeatureCollection\"` of locations." "Collection of `\"Feature\"` objects describing the locations." "`\"Feature\"`" "Identifies a location. ID must be unique across all `stops.stop_id`, locations.geojson `id`, and `location_grou"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:10] "character" "geojson_array" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ field_types  : Named chr [1:10] "character" "geojson_array" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:10] "type" "features" "type" "id" ...
+ $ networks            :List of 7
+  ..$ File_Name    : chr "networks.txt"
+  ..$ File_Presence: chr "Conditionally Forbidden"
+  ..$ file         : chr "networks"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	2 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:2] "network_id" "network_name"
+  .. ..$ Type       : chr [1:2] "Unique ID" "Text"
+  .. ..$ Presence   : chr [1:2] "Required" "Optional"
+  .. ..$ Description: chr [1:2] "Identifies a network. Must be unique in [networks.txt](#networkstxt)." "The name of the network that apply for fare leg rules, as used by the local agency and its riders."
+  .. ..$ gtfsio_type: chr [1:2] "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "network_id"
+  ..$ field_types  : Named chr [1:2] "character" "character"
+  .. ..- attr(*, "names")= chr [1:2] "network_id" "network_name"
+ $ pathways            :List of 7
+  ..$ File_Name    : chr "pathways.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "pathways"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	12 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:12] "pathway_id" "from_stop_id" "to_stop_id" "pathway_mode" ...
+  .. ..$ Type       : chr [1:12] "Unique ID" "Foreign ID referencing `stops.stop_id`" "Foreign ID referencing `stops.stop_id`" "Enum" ...
+  .. ..$ Presence   : chr [1:12] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:12] "Identifies a pathway. Used by systems as an internal identifier for the record. Must be unique in the dataset. "| __truncated__ "Location at which the pathway begins.<br><br>Must contain a `stop_id` that identifies a platform (`location_typ"| __truncated__ "Location at which the pathway ends.<br><br>Must contain a `stop_id` that identifies a platform (`location_type="| __truncated__ "Type of pathway between the specified (`from_stop_id`, `to_stop_id`) pair. Valid options are: <br><br>`1` - Wal"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:12] "character" "character" "character" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "pathway_id"
+  ..$ field_types  : Named chr [1:12] "character" "character" "character" "integer" ...
+  .. ..- attr(*, "names")= chr [1:12] "pathway_id" "from_stop_id" "to_stop_id" "pathway_mode" ...
+ $ route_networks      :List of 7
+  ..$ File_Name    : chr "route_networks.txt"
+  ..$ File_Presence: chr "Conditionally Forbidden"
+  ..$ file         : chr "route_networks"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	2 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:2] "network_id" "route_id"
+  .. ..$ Type       : chr [1:2] "Foreign ID referencing `networks.network_id`" "Foreign ID referencing `routes.route_id`"
+  .. ..$ Presence   : chr [1:2] "Required" "Required"
+  .. ..$ Description: chr [1:2] "Identifies a network to which one or multiple `route_id`s belong. A `route_id` can only be defined in one `network_id`." "Identifies a route."
+  .. ..$ gtfsio_type: chr [1:2] "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "route_id"
+  ..$ field_types  : Named chr [1:2] "character" "character"
+  .. ..- attr(*, "names")= chr [1:2] "network_id" "route_id"
+ $ routes              :List of 7
+  ..$ File_Name    : chr "routes.txt"
+  ..$ File_Presence: chr "Required"
+  ..$ file         : chr "routes"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	13 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:13] "route_id" "agency_id" "route_short_name" "route_long_name" ...
+  .. ..$ Type       : chr [1:13] "Unique ID" "Foreign ID referencing `agency.agency_id`" "Text" "Text" ...
+  .. ..$ Presence   : chr [1:13] "Required" "Conditionally Required" "Conditionally Required" "Conditionally Required" ...
+  .. ..$ Description: chr [1:13] "Identifies a route." "Agency for the specified route.<br><br>Conditionally Required:<br>- **Required** if multiple agencies are defin"| __truncated__ "Short name of a route. Often a short, abstract identifier (e.g., \"32\", \"100X\", \"Green\") that riders use t"| __truncated__ "Full name of a route. This name is generally more descriptive than the `route_short_name` and often includes th"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:13] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "route_id"
+  ..$ field_types  : Named chr [1:13] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:13] "route_id" "agency_id" "route_short_name" "route_long_name" ...
+ $ shapes              :List of 7
+  ..$ File_Name    : chr "shapes.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "shapes"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	5 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:5] "shape_id" "shape_pt_lat" "shape_pt_lon" "shape_pt_sequence" ...
+  .. ..$ Type       : chr [1:5] "ID" "Latitude" "Longitude" "Non-negative integer" ...
+  .. ..$ Presence   : chr [1:5] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:5] "Identifies a shape." "Latitude of a shape point. Each record in [shapes.txt](#shapestxt) represents a shape point used to define the shape." "Longitude of a shape point." "Sequence in which the shape points connect to form the shape. Values must increase along the trip but do not ne"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:5] "character" "numeric" "numeric" "integer" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:2] "shape_id" "shape_pt_sequence"
+  ..$ field_types  : Named chr [1:5] "character" "numeric" "numeric" "integer" ...
+  .. ..- attr(*, "names")= chr [1:5] "shape_id" "shape_pt_lat" "shape_pt_lon" "shape_pt_sequence" ...
+ $ stop_areas          :List of 7
+  ..$ File_Name    : chr "stop_areas.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "stop_areas"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	2 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:2] "area_id" "stop_id"
+  .. ..$ Type       : chr [1:2] "Foreign ID referencing `areas.area_id`" "Foreign ID referencing `stops.stop_id`"
+  .. ..$ Presence   : chr [1:2] "Required" "Required"
+  .. ..$ Description: chr [1:2] "Identifies an area to which one or multiple `stop_id`s belong. The same `stop_id` may be defined in many `area_id`s." "Identifies a stop. If a station (i.e. a stop with `stops.location_type=1`) is defined in this field, it is assu"| __truncated__
+  .. ..$ gtfsio_type: chr [1:2] "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "*"
+  ..$ field_types  : Named chr [1:2] "character" "character"
+  .. ..- attr(*, "names")= chr [1:2] "area_id" "stop_id"
+ $ stop_times          :List of 7
+  ..$ File_Name    : chr "stop_times.txt"
+  ..$ File_Presence: chr "Required"
+  ..$ file         : chr "stop_times"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	18 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:18] "trip_id" "arrival_time" "departure_time" "stop_id" ...
+  .. ..$ Type       : chr [1:18] "Foreign ID referencing `trips.trip_id`" "Time" "Time" "Foreign ID referencing `stops.stop_id`" ...
+  .. ..$ Presence   : chr [1:18] "Required" "Conditionally Required" "Conditionally Required" "Conditionally Required" ...
+  .. ..$ Description: chr [1:18] "Identifies a trip." "Arrival time at the stop (defined by `stop_times.stop_id`) for a specific trip (defined by `stop_times.trip_id`"| __truncated__ "Departure time from the stop (defined by `stop_times.stop_id`) for a specific trip (defined by `stop_times.trip"| __truncated__ "Identifies the serviced stop. All stops serviced during a trip must have a record in [stop_times.txt](#stop_tim"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:18] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:2] "trip_id" "stop_sequence"
+  ..$ field_types  : Named chr [1:18] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:18] "trip_id" "arrival_time" "departure_time" "stop_id" ...
+ $ stops               :List of 7
+  ..$ File_Name    : chr "stops.txt"
+  ..$ File_Presence: chr "Conditionally Required"
+  ..$ file         : chr "stops"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	15 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:15] "stop_id" "stop_code" "stop_name" "tts_stop_name" ...
+  .. ..$ Type       : chr [1:15] "Unique ID" "Text" "Text" "Text" ...
+  .. ..$ Presence   : chr [1:15] "Required" "Optional" "Conditionally Required" "Optional" ...
+  .. ..$ Description: chr [1:15] "Identifies a location: stop/platform, station, entrance/exit, generic node or boarding area (see `location_type"| __truncated__ "Short text or a number that identifies the location for riders. These codes are often used in phone-based trans"| __truncated__ "Name of the location. The `stop_name` should match the agency's rider-facing name for the location as printed o"| __truncated__ "Readable version of the `stop_name`. See \"Text-to-speech field\" in the [Term Definitions](#term-definitions) for more." ...
+  .. ..$ gtfsio_type: chr [1:15] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "stop_id"
+  ..$ field_types  : Named chr [1:15] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:15] "stop_id" "stop_code" "stop_name" "tts_stop_name" ...
+ $ timeframes          :List of 7
+  ..$ File_Name    : chr "timeframes.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "timeframes"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	4 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:4] "timeframe_group_id" "start_time" "end_time" "service_id"
+  .. ..$ Type       : chr [1:4] "ID" "Time" "Time" "Foreign ID referencing `calendar.service_id` or `calendar_dates.service_id`"
+  .. ..$ Presence   : chr [1:4] "Required" "Conditionally Required" "Conditionally Required" "Required"
+  .. ..$ Description: chr [1:4] "Identifies a timeframe or set of timeframes." "Defines the beginning of a timeframe. The interval includes the start time.<br> Values greater than `24:00:00` "| __truncated__ "Defines the end of a timeframe. The interval does not include the end time.<br> Values greater than `24:00:00` "| __truncated__ "Identifies a set of dates that a timeframe is in effect."
+  .. ..$ gtfsio_type: chr [1:4] "character" "character" "character" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "*"
+  ..$ field_types  : Named chr [1:4] "character" "character" "character" "character"
+  .. ..- attr(*, "names")= chr [1:4] "timeframe_group_id" "start_time" "end_time" "service_id"
+ $ transfers           :List of 7
+  ..$ File_Name    : chr "transfers.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "transfers"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	8 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:8] "from_stop_id" "to_stop_id" "from_route_id" "to_route_id" ...
+  .. ..$ Type       : chr [1:8] "Foreign ID referencing `stops.stop_id`" "Foreign ID referencing `stops.stop_id`" "Foreign ID referencing `routes.route_id`" "Foreign ID referencing `routes.route_id`" ...
+  .. ..$ Presence   : chr [1:8] "Conditionally Required" "Conditionally Required" "Optional" "Optional" ...
+  .. ..$ Description: chr [1:8] "Identifies a stop (`location_type=0`) or a station (`location_type=1`) where a connection between routes begins"| __truncated__ "Identifies a stop (`location_type=0`) or a station (`location_type=1`) where a connection between routes ends. "| __truncated__ "Identifies a route where a connection begins.<br><br>If `from_route_id` is defined, the transfer will apply to "| __truncated__ "Identifies a route where a connection ends.<br><br>If `to_route_id` is defined, the transfer will apply to the "| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:8] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:6] "from_stop_id" "to_stop_id" "from_trip_id" "to_trip_id" ...
+  ..$ field_types  : Named chr [1:8] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:8] "from_stop_id" "to_stop_id" "from_route_id" "to_route_id" ...
+ $ translations        :List of 7
+  ..$ File_Name    : chr "translations.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "translations"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	7 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:7] "table_name" "field_name" "language" "translation" ...
+  .. ..$ Type       : chr [1:7] "Enum" "Text" "Language code" "Text or URL or Email or Phone number" ...
+  .. ..$ Presence   : chr [1:7] "Required" "Required" "Required" "Required" ...
+  .. ..$ Description: chr [1:7] "Defines the table that contains the field to be translated. Allowed values are:<br><br>- `agency`<br>- `stops`<"| __truncated__ "Name of the field to be translated. Fields with type `Text` may be translated, fields with type `URL`, `Email` "| __truncated__ "Language of translation.<br><br>If the language is the same as in `feed_info.feed_lang`, the original value of "| __truncated__ "Translated value." ...
+  .. ..$ gtfsio_type: chr [1:7] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr [1:6] "table_name" "field_name" "language" "record_id" ...
+  ..$ field_types  : Named chr [1:7] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:7] "table_name" "field_name" "language" "translation" ...
+ $ trips               :List of 7
+  ..$ File_Name    : chr "trips.txt"
+  ..$ File_Presence: chr "Required"
+  ..$ file         : chr "trips"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	10 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:10] "route_id" "service_id" "trip_id" "trip_headsign" ...
+  .. ..$ Type       : chr [1:10] "Foreign ID referencing `routes.route_id`" "Foreign ID referencing `calendar.service_id` or `calendar_dates.service_id`" "Unique ID" "Text" ...
+  .. ..$ Presence   : chr [1:10] "Required" "Required" "Required" "Optional" ...
+  .. ..$ Description: chr [1:10] "Identifies a route." "Identifies a set of dates when service is available for one or more routes." "Identifies a trip." "Text that appears on signage identifying the trip's destination to riders. This field is recommended for all se"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:10] "character" "character" "character" "character" ...
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "trip_id"
+  ..$ field_types  : Named chr [1:10] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:10] "route_id" "service_id" "trip_id" "trip_headsign" ...
+ - attr(*, "revision_date")= Date[1:1], format: "2024-12-05"
