@@ -171,11 +171,22 @@ import_gtfs <- function(path,
     overwrite = TRUE
   )
 
-  if (!quiet)
+  if (!quiet) {
     message(
       "Unzipped the following files to ", tmpdir, ":\n",
       paste0("  * ", filenames_to_read, collapse = "\n")
     )
+  }
+
+  # check subdirectories
+
+  files_in_subdirs = filenames_to_read[grepl("/", filenames_to_read)]
+  if(length(files_in_subdirs) > 0) {
+    warning("Feed contains subdirectories (",
+            toString(unique(dirname(files_in_subdirs))),
+            "), gtfsio is trying to read these files.",
+            call. = FALSE)
+  }
 
   # read files into list
 
