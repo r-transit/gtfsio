@@ -1,4 +1,4 @@
-List of 31
+List of 32
  $ agency              :List of 7
   ..$ File_Name    : chr "agency.txt"
   ..$ File_Presence: chr "Required"
@@ -164,17 +164,17 @@ List of 31
   ..$ File_Presence: chr "Optional"
   ..$ file         : chr "fare_products"
   ..$ file_ext     : chr "txt"
-  ..$ fields       :'data.frame':	5 obs. of  5 variables:
-  .. ..$ Field_Name : chr [1:5] "fare_product_id" "fare_product_name" "fare_media_id" "amount" ...
-  .. ..$ Type       : chr [1:5] "ID" "Text" "Foreign ID referencing `fare_media.fare_media_id`" "Currency amount" ...
-  .. ..$ Presence   : chr [1:5] "Required" "Optional" "Optional" "Required" ...
-  .. ..$ Description: chr [1:5] "Identifies a fare product or set of fare products.<br><br>Multiple records in [fare_products.txt](#fare_product"| __truncated__ "The name of the fare product as displayed to riders." "Identifies a fare media that can be employed to use the fare product during the trip. When `fare_media_id` is e"| __truncated__ "The cost of the fare product. May be negative to represent transfer discounts. May be zero to represent a fare "| __truncated__ ...
-  .. ..$ gtfsio_type: chr [1:5] "character" "character" "character" "numeric" ...
+  ..$ fields       :'data.frame':	6 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:6] "fare_product_id" "fare_product_name" "rider_category_id" "fare_media_id" ...
+  .. ..$ Type       : chr [1:6] "ID" "Text" "Foreign ID referencing `rider_categories.rider_category_id`" "Foreign ID referencing `fare_media.fare_media_id`" ...
+  .. ..$ Presence   : chr [1:6] "Required" "Optional" "Optional" "Optional" ...
+  .. ..$ Description: chr [1:6] "Identifies a fare product or set of fare products.<br><br>Multiple records sharing the same `fare_product_id` a"| __truncated__ "The name of the fare product as displayed to riders." "Identifies a rider category eligible for the fare product.<br><br>If `fare_products.rider_category_id` is empty"| __truncated__ "Identifies a fare media that can be employed to use the fare product during the trip. When `fare_media_id` is e"| __truncated__ ...
+  .. ..$ gtfsio_type: chr [1:6] "character" "character" "character" "character" ...
   .. ..- attr(*, "presence")= chr "**Required**"
   .. ..- attr(*, "primary_key")= chr "`agency_id`"
-  ..$ primary_key  : chr [1:2] "fare_product_id" "fare_media_id"
-  ..$ field_types  : Named chr [1:5] "character" "character" "character" "numeric" ...
-  .. ..- attr(*, "names")= chr [1:5] "fare_product_id" "fare_product_name" "fare_media_id" "amount" ...
+  ..$ primary_key  : chr [1:3] "fare_product_id" "rider_category_id" "fare_media_id"
+  ..$ field_types  : Named chr [1:6] "character" "character" "character" "character" ...
+  .. ..- attr(*, "names")= chr [1:6] "fare_product_id" "fare_product_name" "rider_category_id" "fare_media_id" ...
  $ fare_rules          :List of 7
   ..$ File_Name    : chr "fare_rules.txt"
   ..$ File_Presence: chr "Optional"
@@ -334,6 +334,22 @@ List of 31
   ..$ primary_key  : chr "pathway_id"
   ..$ field_types  : Named chr [1:12] "character" "character" "character" "integer" ...
   .. ..- attr(*, "names")= chr [1:12] "pathway_id" "from_stop_id" "to_stop_id" "pathway_mode" ...
+ $ rider_categories    :List of 7
+  ..$ File_Name    : chr "rider_categories.txt"
+  ..$ File_Presence: chr "Optional"
+  ..$ file         : chr "rider_categories"
+  ..$ file_ext     : chr "txt"
+  ..$ fields       :'data.frame':	4 obs. of  5 variables:
+  .. ..$ Field_Name : chr [1:4] "rider_category_id" "rider_category_name" "is_default_fare_category" "eligibility_url"
+  .. ..$ Type       : chr [1:4] "Unique ID" "Text" "Enum" "URL"
+  .. ..$ Presence   : chr [1:4] "Required" "Required" "Required" "Optional"
+  .. ..$ Description: chr [1:4] "Identifies a rider category." "Rider category name as displayed to the rider." "Specifies if an entry in [rider_categories.txt](#rider_categoriestxt) should be considered the default category"| __truncated__ "URL of a web page, usually from the operating agency, that provides detailed information about a specific rider"| __truncated__
+  .. ..$ gtfsio_type: chr [1:4] "character" "character" "integer" "character"
+  .. ..- attr(*, "presence")= chr "**Required**"
+  .. ..- attr(*, "primary_key")= chr "`agency_id`"
+  ..$ primary_key  : chr "rider_category_id"
+  ..$ field_types  : Named chr [1:4] "character" "character" "integer" "character"
+  .. ..- attr(*, "names")= chr [1:4] "rider_category_id" "rider_category_name" "is_default_fare_category" "eligibility_url"
  $ route_networks      :List of 7
   ..$ File_Name    : chr "route_networks.txt"
   ..$ File_Presence: chr "Conditionally Forbidden"
@@ -494,4 +510,4 @@ List of 31
   ..$ primary_key  : chr "trip_id"
   ..$ field_types  : Named chr [1:10] "character" "character" "character" "character" ...
   .. ..- attr(*, "names")= chr [1:10] "route_id" "service_id" "trip_id" "trip_headsign" ...
- - attr(*, "revision_date")= Date[1:1], format: "2024-12-05"
+ - attr(*, "revision_date")= Date[1:1], format: "2025-05-06"

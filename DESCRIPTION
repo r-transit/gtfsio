@@ -69,4 +69,4 @@ Collate:
     'utils.R'
 LazyData: true
 Depends: 
-    R (>= 3.1.0)
+    R (>= 3.5)
