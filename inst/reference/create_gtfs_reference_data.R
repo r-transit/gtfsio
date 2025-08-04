@@ -101,4 +101,6 @@ for(file in names(gtfs_reference)) {
 
 attributes(gtfs_reference)$revision_date <- attributes(reference_fields)$revision_date
 
+capture.output(str(gtfs_reference), file = "gtfs-reference-str.txt")
+
 usethis::use_data(gtfs_reference, internal = F, overwrite = T)
