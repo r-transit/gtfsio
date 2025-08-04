@@ -439,3 +439,8 @@ file_exts <- gtfsio:::append_file_ext(c(names(gtfs_reference), "dummy"))
 expect_equal(file_exts[which(names(gtfs_reference) == "locations")], "locations.geojson")
 expect_equal(file_exts[length(file_exts)], "dummy.txt")
 expect_equal(gtfsio:::append_file_ext(file_exts), file_exts)
+
+# tidytransit issue 217 ---------------------------------------------------------------
+expect_warning(
+  import_gtfs(system.file("extdata/subdirectories.zip", package = "gtfsio")),
+  "Feed contains subdirectories")
