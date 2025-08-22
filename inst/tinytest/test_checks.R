@@ -252,6 +252,24 @@ expect_false(
   )
 )
 
+# issue #31
+gtfs2 = structure(
+  list(stop_times = structure(
+    list(trip_id = c("A", "A", "A"), xy = structure(c(360, 450, 540), class = c("hms", "difftime"), units = "secs")),
+    row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame"))),
+  class = c("tidygtfs", "gtfs", "list"))
+
+expect_true(
+  check_field_class(gtfs2, "stop_times", "trip_id", "character")
+)
+
+expect_true(
+  check_field_class(gtfs2, "stop_times", c("trip_id", "xy"), c("character", "hms"))
+)
+
+expect_true(
+  check_field_class(gtfs2, "stop_times", "xy", "difftime")
+)
 
 # assert_field_class() ---------------------------------------------------
 

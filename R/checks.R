@@ -200,13 +200,13 @@ check_field_class <- function(x, file, fields, classes) {
 
   # checking - compare the desired classes to the actual classes
 
-  col_classes <- vapply(x[[file]], class, character(1))
-  actual_classes <- col_classes[fields]
+  for(i in seq_along(fields)) {
+    if(!inherits(x[[file]][[fields[i]]], classes[i])) {
+      return(FALSE)
+    }
+  }
 
-  if (all(classes == actual_classes)) return(TRUE)
-
-  return(FALSE)
-
+  return(TRUE)
 }
 
 
