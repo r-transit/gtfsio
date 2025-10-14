@@ -188,9 +188,9 @@ check_field_class <- function(x, file, fields, classes) {
   assert_vector(file, "character", len = 1L)
   assert_vector(fields, "character")
 
-  if (!is.character(classes) | length(classes) != length(fields))
+  if (!is.character(classes) || length(classes) != length(fields))
     gtfsio_error(
-      "'classes' must be a character vector with the same length of 'fields'.",
+      "'classes' must be a character vector with the same length as 'fields'.",
       subclass = "bad_classes_argument"
     )
 
@@ -200,13 +200,13 @@ check_field_class <- function(x, file, fields, classes) {
 
   # checking - compare the desired classes to the actual classes
 
-  col_classes <- vapply(x[[file]], class, character(1))
-  actual_classes <- col_classes[fields]
+  for (i in seq_along(fields)) {
+    if (!inherits(x[[file]][[fields[i]]], classes[i])) {
+      return(FALSE)
+    }
+  }
 
-  if (all(classes == actual_classes)) return(TRUE)
-
-  return(FALSE)
-
+  return(TRUE)
 }
 
 
@@ -220,22 +220,24 @@ assert_field_class <- function(x, file, fields, classes) {
   assert_vector(fields, "character")
   assert_field_exists(x, file, fields)
 
-  if (!is.character(classes) | length(classes) != length(fields))
+  if (!is.character(classes) || length(classes) != length(fields))
     gtfsio_error(
-      "'classes' must be a character vector with the same length of 'fields'.",
+      "'classes' must be a character vector with the same length as 'fields'.",
       subclass = "bad_classes_argument"
     )
 
-  # actual checking - compare the desired classes to the actual classes
+  bad_fields <- list()
+  req_classes <- list()
+  act_classes <- list()
+  for (i in seq_along(fields)) {
+    if (!check_field_class(x, file, fields[i], classes[i])) {
+      bad_fields <- append(bad_fields, fields[i])
+      req_classes <- append(req_classes, classes[i])
+      act_classes <- append(act_classes, toString(class(x[[file]][[fields[i]]])))
+    }
+  }
 
-  col_classes <- vapply(x[[file]], class, character(1))
-  actual_classes <- col_classes[fields]
-
-  if (all(classes == actual_classes)) return(invisible(x))
-
-  bad_fields <- fields[classes != actual_classes]
-  req_classes <- classes[classes != actual_classes]
-  act_classes <- actual_classes[classes != actual_classes]
+  if(identical(length(bad_fields), 0L)) return(invisible(x))
 
   gtfsio_error(
     paste0(
@@ -254,5 +256,4 @@ assert_field_class <- function(x, file, fields, classes) {
     ),
     subclass = "wrong_class_field"
   )
-
 }
