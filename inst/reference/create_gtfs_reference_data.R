@@ -31,6 +31,7 @@ f$gtfsio_type[f$Type %in% c("URL", "Language code", "Currency code", "Email",
 # Date and Time
 f$gtfsio_type[f$Type == "Date"] <- "integer"
 f$gtfsio_type[f$Type == "Time"] <- "character"
+f$gtfsio_type[f$Type == "Local time"] <- "character"
 
 # Numerics
 f$gtfsio_type[f$Type %in% c("Latitude", "Longitude", "Non-negative float",
