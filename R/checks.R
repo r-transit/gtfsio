@@ -188,9 +188,9 @@ check_field_class <- function(x, file, fields, classes) {
   assert_vector(file, "character", len = 1L)
   assert_vector(fields, "character")
 
-  if (!is.character(classes) | length(classes) != length(fields))
+  if (!is.character(classes) || length(classes) != length(fields))
     gtfsio_error(
-      "'classes' must be a character vector with the same length of 'fields'.",
+      "'classes' must be a character vector with the same length as 'fields'.",
       subclass = "bad_classes_argument"
     )
 
@@ -220,9 +220,9 @@ assert_field_class <- function(x, file, fields, classes) {
   assert_vector(fields, "character")
   assert_field_exists(x, file, fields)
 
-  if (!is.character(classes) | length(classes) != length(fields))
+  if (!is.character(classes) || length(classes) != length(fields))
     gtfsio_error(
-      "'classes' must be a character vector with the same length of 'fields'.",
+      "'classes' must be a character vector with the same length as 'fields'.",
       subclass = "bad_classes_argument"
     )
 
