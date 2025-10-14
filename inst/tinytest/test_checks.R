@@ -271,6 +271,10 @@ expect_true(
   check_field_class(gtfs2, "stop_times", "xy", "difftime")
 )
 
+expect_identical(
+  assert_field_class(gtfs2, "stop_times", "xy", "difftime"),
+  gtfs2)
+
 # assert_field_class() ---------------------------------------------------
 
 # input checking
