@@ -422,7 +422,7 @@ expect_error(tester(not_gtfs_file), class = "path_must_be_zip")
 not_gtfs_url <- "https://www.google.com"
 expect_error(tester(not_gtfs_url), class = "path_must_be_zip")
 
-# issue #36 ---------------------------------------------------------------
+# issue #36 -------------------------------------------------------------------
 # locations.geojson files should be read without warning
 
 expect_silent(
@@ -440,7 +440,12 @@ expect_equal(file_exts[which(names(gtfs_reference) == "locations")], "locations.
 expect_equal(file_exts[length(file_exts)], "dummy.txt")
 expect_equal(gtfsio:::append_file_ext(file_exts), file_exts)
 
-# tidytransit issue 217 ---------------------------------------------------------------
+# tidytransit issue 217 -------------------------------------------------------
 expect_warning(
   import_gtfs(system.file("extdata/subdirectories.zip", package = "gtfsio")),
   "Feed contains subdirectories")
+
+# issue #56  ------------------------------------------------------------------
+expect_silent(
+  import_gtfs(system.file("extdata/blank_lines.zip", package = "gtfsio"))
+)
