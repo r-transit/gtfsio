@@ -6,6 +6,7 @@
 
 - `import_gtfs()` can now download URLs that do not end in .zip on Windows ([#51](https://github.com/r-transit/gtfsio/pull/51))
 - `import_gtfs()` issues a warning if a feed contains a subdirectory ([#53](https://github.com/r-transit/gtfsio/pull/53))
+- `import_gtfs()` skips blank lines in csv files ([#57](https://github.com/r-transit/gtfsio/pull/57))
 
 ## Notes
 
