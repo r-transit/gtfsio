@@ -44,6 +44,7 @@ GTFS Types are converted to R types in gtfsio according to the following list:
 \item{Integer = \code{integer}}
 \item{Language code = \code{character}}
 \item{Latitude = \code{numeric}}
+\item{Local time = \code{character}}
 \item{Longitude = \code{numeric}}
 \item{Non-negative float = \code{numeric}}
 \item{Non-negative integer = \code{integer}}

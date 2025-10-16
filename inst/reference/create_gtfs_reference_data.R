@@ -31,6 +31,7 @@ f$gtfsio_type[f$Type %in% c("URL", "Language code", "Currency code", "Email",
 # Date and Time
 f$gtfsio_type[f$Type == "Date"] <- "integer"
 f$gtfsio_type[f$Type == "Time"] <- "character"
+f$gtfsio_type[f$Type == "Local time"] <- "character"
 
 # Numerics
 f$gtfsio_type[f$Type %in% c("Latitude", "Longitude", "Non-negative float",
@@ -101,6 +102,6 @@ for(file in names(gtfs_reference)) {
 
 attributes(gtfs_reference)$revision_date <- attributes(reference_fields)$revision_date
 
-capture.output(str(gtfs_reference), file = "gtfs-reference-str.txt")
+capture.output(str(gtfs_reference, vec.len = Inf), file = "gtfs-reference-str.txt")
 
 usethis::use_data(gtfs_reference, internal = F, overwrite = T)
