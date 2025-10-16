@@ -291,7 +291,8 @@ read_files <- function(file,
       sample_dt <- data.table::fread(
         fs::path(tmpdir, filename),
         nrows = 1,
-        colClasses = "character"
+        colClasses = "character",
+        blank.lines.skip = TRUE
       )
     },
     warning = function(cnd) if (!quiet) message("  - ", conditionMessage(cnd))
@@ -365,7 +366,8 @@ read_files <- function(file,
       full_dt <- data.table::fread(
         fs::path(tmpdir, filename),
         select = fields_classes,
-        encoding = encoding
+        encoding = encoding,
+        blank.lines.skip = TRUE
       )
     },
     warning = function(cnd) if (!quiet) message("  - ", conditionMessage(cnd))
