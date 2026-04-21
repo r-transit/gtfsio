@@ -82,7 +82,7 @@ primary_keys = lapply(reference_fields, \(file) {
   trimws(pk)
 })
 
-names(primary_keys) <- remove_file_ext(names(primary_keys))
+names(primary_keys) <- gtfsio:::remove_file_ext(names(primary_keys))
 
 # Create gtfs_reference data object ####
 gtfs_reference = gtfs_reference_files |>

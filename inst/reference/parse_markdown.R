@@ -2,8 +2,8 @@
 read_markdown_table = function(lines) {
 	lines <- lines[!grepl('^[[:blank:]+-=:_|]*$', lines)]
 	lines <- gsub('(^\\s*?\\|)|(\\|\\s*?$)', '', lines)
-	readr::read_delim(paste(lines, collapse = '\n'), delim = '|',
-					  trim_ws = TRUE, show_col_types = FALSE)
+	readr::read_delim(I(paste(lines, collapse = '\n')), delim = '|',
+	                  trim_ws = TRUE, show_col_types = FALSE)
 }
 
 # parse all field definitions and return a list of tables
