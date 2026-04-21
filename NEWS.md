@@ -1,6 +1,4 @@
-# gtfsio (development version)
-
-## New features
+# gtfsio 1.2.1
 
 ## Bug fixes
 
@@ -10,7 +8,7 @@
 
 ## Notes
 
-- `gtfs_reference` has been updated to version 2025-07-09
+- `gtfs_reference` has been updated to version 2026-03-03
 
 # gtfsio 1.2.0
 
