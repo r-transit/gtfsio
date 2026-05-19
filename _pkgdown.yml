@@ -1,3 +1,6 @@
+template:
+  bootstrap: 5
+url: https://r-transit.github.io/gtfsio
 reference:
   - title: GTFS standards
   - contents:
