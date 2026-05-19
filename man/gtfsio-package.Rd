@@ -23,11 +23,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel Herszenhut \email{dhersz@gmail.com} (\href{https://orcid.org/0000-0001-8066-1105}{ORCID})
+\strong{Maintainer}: Flavio Poletti \email{flavio.poletti@hotmail.ch}
 
 Authors:
 \itemize{
-  \item Flavio Poletti \email{flavio.poletti@hotmail.ch}
+  \item Daniel Herszenhut \email{dhersz@gmail.com} (\href{https://orcid.org/0000-0001-8066-1105}{ORCID})
   \item Mark Padgham \email{mark.padgham@email.com}
 }
 
