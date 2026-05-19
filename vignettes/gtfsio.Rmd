@@ -20,7 +20,7 @@ Each one of these, however, represent GTFS feeds in a slightly different way, ma
 
 **gtfsio** offers tools for the development of GTFS-related packages that aim to increase such interoperability. It establishes a standard for representing GTFS feeds using R data types based on [Google's Static GTFS Reference](https://developers.google.com/transit/gtfs/reference). It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic `gtfs` class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.
 
-This vignette describes the basic usage of **gtfsio**. Please read `get_gtfs_standards()` documentation for more detail on the standards for reading and writing GTFS feeds using R data types.
+This vignette describes the basic usage of **gtfsio**. Please read the [gtfs_reference dataset documentation](https://r-transit.github.io/gtfsio/reference/gtfs_reference.html) for more detail on the standards for reading and writing GTFS feeds using R data types.
 
 # Installation 
 
