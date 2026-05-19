@@ -13,6 +13,9 @@ gtfsio_error(message, subclass = character(0), call = sys.call(-1))
 
 \item{call}{A call to associate the error with.}
 }
+\value{
+errorCondition
+}
 \description{
 gtfsio's custom error condition constructor
 }

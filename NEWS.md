@@ -8,7 +8,7 @@
 
 ## Notes
 
-- `gtfs_reference` has been updated to version 2026-03-03
+- `gtfs_reference` has been updated to version 2026-04-27
 
 # gtfsio 1.2.0
 
@@ -25,7 +25,7 @@
 
 ## Bug fixes
 
-- Now prevents `export_gtfs()` to save large round numbers in scientific notation. This was not exactly a bug, as the specification does not forbid it, but the behavior could interfere with the workflow of people using other applications (as shown in [{gtfstools} #73](https://github.com/ipeaGIT/gtfstools/issues/73)). Also, improves the readability of the tables.
+- Now prevents `export_gtfs()` to save large round numbers in scientific notation. This was not exactly a bug, as the specification does not forbid it, but the behavior could interfere with the workflow of people using other applications (as shown in [{gtfstools} #73](https://github.com/ipea/gtfstools/issues/73)). Also, improves the readability of the tables.
 
 # gtfsio 1.1.0
 
@@ -61,7 +61,7 @@
 
 ## Bug fixes
 
-- `import_gtfs()` would ocasionally include the full path to a table to their name in a GTFS object (#17). Fixed by Mark Padgham (@mapdge) in #18.
+- `import_gtfs()` would occasionally include the full path to a table to their name in a GTFS object (#17). Fixed by Mark Padgham (@mpadge) in #18.
 
 ## New features
 

@@ -9,6 +9,9 @@ read_geojson(file.geojson)
 \arguments{
 \item{file.geojson}{geojson file}
 }
+\value{
+json list
+}
 \description{
 Read geojson file
 }

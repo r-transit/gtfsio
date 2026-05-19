@@ -381,6 +381,8 @@ read_files <- function(file,
 #'
 #' @param file.geojson geojson file
 #'
+#' @return json list
+#'
 #' @keywords internal
 #' @importFrom jsonlite read_json
 read_geojson <- function(file.geojson) {

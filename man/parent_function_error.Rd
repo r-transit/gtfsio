@@ -11,6 +11,9 @@ parent_function_error(message, subclass = character(0))
 
 \item{subclass}{The subclass of the error.}
 }
+\value{
+errorCondition
+}
 \description{
 Creates a function that raises an error that is assigned to the function in
 which the error was originally seen. Useful to prevent big repetitive

@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# gtfsio <img align="right" src="man/figures/logo.png" width="180"> 
+# gtfsio <img align="right" src="man/figures/logo.png" alt="gtfsio logo" width="180"> 
 
 [![CRAN status](https://www.r-pkg.org/badges/version/gtfsio)](https://CRAN.R-project.org/package=gtfsio)
 [![gtfsio status badge](https://dhersz.r-universe.dev/badges/gtfsio)](https://dhersz.r-universe.dev)
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: maturing](https://lifecycle.r-lib.org/articles/figures/lifecycle-maturing.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN/METACRAN Total downloads](http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow)](https://CRAN.R-project.org/package=gtfsio)
 
-**gtfsio** offers tools for the development of GTFS-related packages. It establishes a standard for representing GTFS feeds using R data types based on [Google's Static GTFS Reference](https://developers.google.com/transit/gtfs/reference). It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic `gtfs` class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.
+**gtfsio** offers tools for the development of GTFS-related packages. It establishes a standard for representing GTFS feeds using R data types based on the [GTFS Schedule Reference](https://gtfs.org/documentation/schedule/reference/). It provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. It defines a basic `gtfs` class which is meant to be extended by packages that depend on it. And it also offers utility functions that support checking the structure of GTFS objects.
 
 ## Installation
 
@@ -33,7 +33,7 @@ install.packages("gtfsio")
 Development version:
 
 ```{r, eval = FALSE}
-install.packages("gtfsio", repos = "https://dhersz.r-universe.dev")
+install.packages("gtfsio", repos = "https://r-transit.r-universe.dev")
 
 # or
 # install.packages("remotes")
@@ -42,7 +42,7 @@ remotes::install_github("r-transit/gtfsio")
 
 ## Usage
 
-GTFS feeds are read using the `import_gtfs()` function:
+GTFS feeds are read using the [`import_gtfs()`](https://r-transit.github.io/gtfsio/reference/import_gtfs.html) function:
 
 ```{r}
 library(gtfsio)
@@ -54,13 +54,14 @@ gtfs <- import_gtfs(path)
 names(gtfs)
 ```
 
-`import_gtfs()` returns a `gtfs` object. The `gtfs` class might be extended by other packages using the constructor, validator and methods provided by **gtfsio**:
+`import_gtfs()` returns a `gtfs` object which is a list of a tables.
+The `gtfs` class might be extended by other packages using the constructor, validator and methods provided by **gtfsio**:
 
 ```{r}
 class(gtfs)
 ```
 
-Use the `export_gtfs()` function to write GTFS objects to disk:
+Use [`export_gtfs()`](https://r-transit.github.io/gtfsio/reference/export_gtfs.html) to write GTFS objects to disk:
 
 ```{r}
 tmpf <- tempfile(fileext = ".zip")
@@ -75,6 +76,6 @@ For a more complete demonstration please read the [introductory vignette](https:
 ## GTFS-related packages
 
 - [`{tidytransit}`](https://github.com/r-transit/tidytransit)
-- [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
+- [`{gtfs2gps}`](https://github.com/ipea/gtfs2gps)
 - [`{gtfsrouter}`](https://github.com/UrbanAnalyst/gtfsrouter)
-- [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
+- [`{gtfstools}`](https://github.com/ipea/gtfstools)

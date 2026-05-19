@@ -1,5 +1,5 @@
 
-# gtfsio <img align="right" src="man/figures/logo.png" width="180">
+# gtfsio <img align="right" src="man/figures/logo.png" alt="gtfsio logo" width="180">
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/gtfsio)](https://CRAN.R-project.org/package=gtfsio)
@@ -16,8 +16,8 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/gtfsio?color=yellow)](ht
 
 **gtfsio** offers tools for the development of GTFS-related packages. It
 establishes a standard for representing GTFS feeds using R data types
-based on [Google’s Static GTFS
-Reference](https://developers.google.com/transit/gtfs/reference). It
+based on the [GTFS Schedule
+Reference](https://gtfs.org/documentation/schedule/reference/). It
 provides fast and flexible functions to read and write GTFS feeds while
 sticking to this standard. It defines a basic `gtfs` class which is
 meant to be extended by packages that depend on it. And it also offers
@@ -34,7 +34,7 @@ install.packages("gtfsio")
 Development version:
 
 ``` r
-install.packages("gtfsio", repos = "https://dhersz.r-universe.dev")
+install.packages("gtfsio", repos = "https://r-transit.r-universe.dev")
 
 # or
 # install.packages("remotes")
@@ -43,7 +43,9 @@ remotes::install_github("r-transit/gtfsio")
 
 ## Usage
 
-GTFS feeds are read using the `import_gtfs()` function:
+GTFS feeds are read using the
+[`import_gtfs()`](https://r-transit.github.io/gtfsio/reference/import_gtfs.html)
+function:
 
 ``` r
 library(gtfsio)
@@ -53,24 +55,25 @@ path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 gtfs <- import_gtfs(path)
 
 names(gtfs)
-#>  [1] "calendar_dates"  "fare_attributes" "fare_rules"     
-#>  [4] "feed_info"       "frequencies"     "levels"         
-#>  [7] "pathways"        "routes"          "shapes"         
-#> [10] "stop_times"      "stops"           "transfers"      
-#> [13] "translations"    "trips"           "agency"         
-#> [16] "attributions"    "calendar"
+#>  [1] "calendar_dates"  "fare_attributes" "fare_rules"      "feed_info"      
+#>  [5] "frequencies"     "levels"          "pathways"        "routes"         
+#>  [9] "shapes"          "stop_times"      "stops"           "transfers"      
+#> [13] "translations"    "trips"           "agency"          "attributions"   
+#> [17] "calendar"
 ```
 
-`import_gtfs()` returns a `gtfs` object. The `gtfs` class might be
-extended by other packages using the constructor, validator and methods
-provided by **gtfsio**:
+`import_gtfs()` returns a `gtfs` object which is a list of a tables. The
+`gtfs` class might be extended by other packages using the constructor,
+validator and methods provided by **gtfsio**:
 
 ``` r
 class(gtfs)
 #> [1] "gtfs" "list"
 ```
 
-Use the `export_gtfs()` function to write GTFS objects to disk:
+Use
+[`export_gtfs()`](https://r-transit.github.io/gtfsio/reference/export_gtfs.html)
+to write GTFS objects to disk:
 
 ``` r
 tmpf <- tempfile(fileext = ".zip")
@@ -78,15 +81,12 @@ tmpf <- tempfile(fileext = ".zip")
 export_gtfs(gtfs, tmpf)
 
 zip::zip_list(tmpf)$filename
-#>  [1] "calendar_dates.txt"  "fare_attributes.txt"
-#>  [3] "fare_rules.txt"      "feed_info.txt"      
-#>  [5] "frequencies.txt"     "levels.txt"         
-#>  [7] "pathways.txt"        "routes.txt"         
-#>  [9] "shapes.txt"          "stop_times.txt"     
-#> [11] "stops.txt"           "transfers.txt"      
-#> [13] "translations.txt"    "trips.txt"          
-#> [15] "agency.txt"          "attributions.txt"   
-#> [17] "calendar.txt"
+#>  [1] "calendar_dates.txt"  "fare_attributes.txt" "fare_rules.txt"     
+#>  [4] "feed_info.txt"       "frequencies.txt"     "levels.txt"         
+#>  [7] "pathways.txt"        "routes.txt"          "shapes.txt"         
+#> [10] "stop_times.txt"      "stops.txt"           "transfers.txt"      
+#> [13] "translations.txt"    "trips.txt"           "agency.txt"         
+#> [16] "attributions.txt"    "calendar.txt"
 ```
 
 For a more complete demonstration please read the [introductory
@@ -94,7 +94,7 @@ vignette](https://r-transit.github.io/gtfsio/articles/gtfsio.html).
 
 ## GTFS-related packages
 
-  - [`{tidytransit}`](https://github.com/r-transit/tidytransit)
-  - [`{gtfs2gps}`](https://github.com/ipeaGIT/gtfs2gps)
-  - [`{gtfsrouter}`](https://github.com/UrbanAnalyst/gtfsrouter)
-  - [`{gtfstools}`](https://github.com/ipeaGIT/gtfstools)
+- [`{tidytransit}`](https://github.com/r-transit/tidytransit)
+- [`{gtfs2gps}`](https://github.com/ipea/gtfs2gps)
+- [`{gtfsrouter}`](https://github.com/UrbanAnalyst/gtfsrouter)
+- [`{gtfstools}`](https://github.com/ipea/gtfstools)

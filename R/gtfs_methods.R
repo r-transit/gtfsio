@@ -30,6 +30,8 @@ print.gtfs <- function(x, ...) {
 #' @param object A GTFS object.
 #' @param ... Ignored.
 #'
+#' @return Vector with the number of entries for each gtfs table.
+#'
 #' @examples
 #' gtfs_path <- system.file("extdata/ggl_gtfs.zip", package = "gtfsio")
 #' gtfs <- import_gtfs(gtfs_path)

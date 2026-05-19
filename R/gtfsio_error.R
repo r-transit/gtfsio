@@ -6,6 +6,8 @@
 #'
 #' @family error constructors
 #'
+#' @return errorCondition
+#'
 #' @keywords internal
 gtfsio_error <- function(message,
                          subclass = character(0),
@@ -29,7 +31,6 @@ gtfsio_error <- function(message,
   error <- errorCondition(message, class = subclass, call = NULL)
 
   stop(error)
-
 }
 
 
@@ -43,6 +44,8 @@ gtfsio_error <- function(message,
 #' @param subclass The subclass of the error.
 #'
 #' @family error constructors
+#'
+#' @return errorCondition
 #'
 #' @keywords internal
 parent_function_error <- function(message, subclass = character(0)) {

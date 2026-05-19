@@ -11,6 +11,9 @@
 
 \item{...}{Ignored.}
 }
+\value{
+Vector with the number of entries for each gtfs table.
+}
 \description{
 Print summary of a GTFS object
 }
