@@ -4,17 +4,17 @@
   "identifier": "gtfsio",
   "description": "Tools for the development of packages related to General Transit Feed Specification (GTFS) files. Establishes a standard for representing GTFS feeds using R data types. Provides fast and flexible functions to read and write GTFS feeds while sticking to this standard. Defines a basic 'gtfs' class which is meant to be extended by packages that depend on it. And offers utility functions that support checking the structure of GTFS objects.",
   "name": "gtfsio: Read and Write General Transit Feed Specification (GTFS) Files",
-  "relatedLink": ["https://r-transit.github.io/gtfsio/", "https://CRAN.R-project.org/package=gtfsio"],
+  "relatedLink": "https://r-transit.github.io/gtfsio/",
   "codeRepository": "https://github.com/r-transit/gtfsio",
   "issueTracker": "https://github.com/r-transit/gtfsio/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.2.0.9000",
+  "version": "1.2.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 (2024-06-14 ucrt)",
+  "runtimePlatform": "R version 4.5.3 (2026-03-11)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -57,10 +57,9 @@
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Daniel",
-      "familyName": "Herszenhut",
-      "email": "dhersz@gmail.com",
-      "@id": "https://orcid.org/0000-0001-8066-1105"
+      "givenName": "Flavio",
+      "familyName": "Poletti",
+      "email": "flavio.poletti@hotmail.ch"
     }
   ],
   "softwareSuggestions": [
@@ -159,14 +158,9 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.1.0"
+      "version": ">= 3.5"
     },
     "SystemRequirements": null
   },
-  "fileSize": "436.614KB",
-  "releaseNotes": "https://github.com/r-transit/gtfsio/blob/master/NEWS.md",
-  "readme": "https://github.com/r-transit/gtfsio/blob/master/README.md",
-  "contIntegration": ["https://github.com/r-transit/gtfsio/actions?query=workflow%3AR-CMD-check", "https://app.codecov.io/gh/r-transit/gtfsio?branch=master"],
-  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html",
-  "keywords": ["r", "gtfs"]
+  "fileSize": "505.215KB"
 }
