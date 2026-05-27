@@ -11,7 +11,7 @@ feeds specified in gtfs_reference."><meta property="og:image" content="https://r
 
     <a class="navbar-brand me-2" href="../index.html">gtfsio</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.900</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,8 @@ that you want to read as a different type). Only supports the
 <dt id="arg-skip">skip<a class="anchor" aria-label="anchor" href="#arg-skip"></a></dt>
 <dd><p>A character vector. Text files that should not be read from the
 GTFS, without the <code>.txt</code> extension. If <code>NULL</code> (the default), no
-files are skipped. Cannot be used if <code>files</code> is set.</p></dd>
+files are skipped. Cannot be used if <code>files</code> is set.
+Files in a subfolder called <code>__MACOSX</code> are always silently skipped.</p></dd>
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>

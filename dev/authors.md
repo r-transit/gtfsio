@@ -24,12 +24,12 @@ Source:
 
 Herszenhut D, Poletti F, Padgham M (2026). *gtfsio: Read and Write
 General Transit Feed Specification (GTFS) Files*. R package version
-1.2.0.9000, <https://r-transit.github.io/gtfsio/>.
+1.2.1.900, <https://r-transit.github.io/gtfsio/>.
 
     @Manual{,
       title = {gtfsio: Read and Write General Transit Feed Specification (GTFS) Files},
       author = {Daniel Herszenhut and Flavio Poletti and Mark Padgham},
       year = {2026},
-      note = {R package version 1.2.0.9000},
+      note = {R package version 1.2.1.900},
       url = {https://r-transit.github.io/gtfsio/},
     }
