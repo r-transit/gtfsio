@@ -449,3 +449,8 @@ expect_warning(
 expect_silent(
   import_gtfs(system.file("extdata/blank_lines.zip", package = "gtfsio"))
 )
+
+# issue #59
+expect_silent(
+  import_gtfs(system.file("extdata/macosx.zip", package = "gtfsio"))
+)

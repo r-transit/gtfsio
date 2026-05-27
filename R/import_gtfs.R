@@ -25,6 +25,7 @@
 #' @param skip A character vector. Text files that should not be read from the
 #'   GTFS, without the \code{.txt} extension. If \code{NULL} (the default), no
 #'   files are skipped. Cannot be used if \code{files} is set.
+#'   Files in a subfolder called `__MACOSX` are always silently skipped.
 #' @param quiet A logical. Whether to hide log messages and progress bars
 #'   (defaults to \code{TRUE}).
 #' @param encoding A string. Passed to \code{\link[data.table]{fread}}, defaults
@@ -178,15 +179,18 @@ import_gtfs <- function(path,
     )
   }
 
-  # check subdirectories
+  # always ignore __MACOSX subdir
+  filenames_to_read <- filenames_to_read[!startsWith(filenames_to_read, "__MACOSX/")]
 
+  # check subdirectories
   files_in_subdirs = filenames_to_read[grepl("/", filenames_to_read)]
-  if(length(files_in_subdirs) > 0) {
+  if (length(files_in_subdirs) > 0) {
     warning("Feed contains subdirectories (",
             toString(unique(dirname(files_in_subdirs))),
             "), gtfsio is trying to read these files.",
             call. = FALSE)
   }
+
 
   # read files into list
 

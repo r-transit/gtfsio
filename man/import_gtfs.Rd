@@ -39,7 +39,8 @@ that you want to read as a different type). Only supports the
 
 \item{skip}{A character vector. Text files that should not be read from the
 GTFS, without the \code{.txt} extension. If \code{NULL} (the default), no
-files are skipped. Cannot be used if \code{files} is set.}
+files are skipped. Cannot be used if \code{files} is set.
+Files in a subfolder called \verb{__MACOSX} are always silently skipped.}
 
 \item{quiet}{A logical. Whether to hide log messages and progress bars
 (defaults to \code{TRUE}).}

@@ -1,5 +1,9 @@
 # gtfsio (development version)
 
+## Bug fixes
+
+- `import_gtfs()` always silently skips metadata files in the `__MACOSX` subdirectory ([#59](https://github.com/r-transit/gtfsio/issues/59))
+
 # gtfsio 1.2.1
 
 ## Bug fixes
