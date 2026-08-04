@@ -13,3 +13,4 @@
 ^CRAN-SUBMISSION$
 ^docs$
 ^pkgdown$
+inst/reference/gtfs-reference.md

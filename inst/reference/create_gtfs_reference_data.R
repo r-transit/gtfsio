@@ -3,7 +3,8 @@
 
 library(dplyr)
 source("parse_markdown.R")
-reference.md = curl::curl_download("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md", tempfile())
+reference.md = curl::curl_download("https://raw.githubusercontent.com/google/transit/master/gtfs/spec/en/reference.md",
+                                   "gtfs-reference.md")
 
 # Parse current reference markdown to list of tables and bind it ####
 reference_fields = parse_fields(reference.md)
@@ -15,7 +16,7 @@ f$gtfsio_type <- NA
 # Enum
 f$gtfsio_type[f$Type == "Enum"] <- "integer"
 # Correct non-integer enums (manual fix)
-f[f$File_Name == "translations.txt" & f$Field_Name == "table_name","gtfsio_type"] <- "character"
+f[f$File_Name == "translations.txt" & f$Field_Name == "table_name", "gtfsio_type"] <- "character"
 
 # ID: character
 f$gtfsio_type[startsWith(f$Type, "Foreign ID")] <- "character"
@@ -70,12 +71,14 @@ file_presence1 = lapply(reference_fields, \(file) {
 file_presence2 = as.list(gtfs_reference_files$File_Presence)
 names(file_presence2) <- gtfs_reference_files$File_Name
 stopifnot(identical(file_presence2, file_presence1))
-rm(file_presence1); rm(file_presence2)
+rm(file_presence1, file_presence2)
 
 # Extract primary keys ####
 primary_keys = lapply(reference_fields, \(file) {
   pk = attributes(file)$primary_key
-  if(is.null(pk)) return(NULL)
+  if(is.null(pk)) {
+    return(NULL)
+  }
   pk <- gsub("`", "", pk)
   pk <- gsub('\\"', "", pk)
   pk <- stringr::str_split_1(pk, ",")
@@ -90,7 +93,7 @@ gtfs_reference = gtfs_reference_files |>
   lapply(as.list)
 
 for(file in names(gtfs_reference)) {
-  fields = f[f$file == file,]
+  fields = f[f$file == file, ]
   fields <- select(fields, -file, -File_Name)
   gtfs_reference[[file]]$fields <- fields
   gtfs_reference[[file]][["primary_key"]] <- primary_keys[[file]]
