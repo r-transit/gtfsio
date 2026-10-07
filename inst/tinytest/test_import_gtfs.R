@@ -455,20 +455,8 @@ expect_silent(
   import_gtfs(system.file("extdata/macosx.zip", package = "gtfsio"))
 )
 
-# unquoted "NA" values are read as strings, not as NA ------------------------
-
-na_dir <- file.path(tempdir(), "na_strings_gtfs")
-dir.create(na_dir, showWarnings = FALSE)
-writeLines(
-  c(
-    "stop_id,stop_name,stop_lat,stop_lon,location_type",
-    "NA,NA,40.0,-3.0,",
-    "S2,,40.1,-3.1,0"
-  ),
-  file.path(na_dir, "stops.txt")
-)
-na_zip <- tempfile(fileext = ".zip")
-zip::zip(na_zip, file.path(na_dir, "stops.txt"), mode = "cherry-pick")
+# issue #60 unquoted "NA" text is read as strings, not as NA ------------------
+na_zip <- system.file("extdata/na_strings.zip", package = "gtfsio")
 na_gtfs <- import_gtfs(na_zip)
 
 expect_identical(na_gtfs$stops$stop_id, c("NA", "S2"))
