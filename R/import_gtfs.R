@@ -364,6 +364,8 @@ read_files <- function(file,
   # if a warning is thrown (e.g. due to a parsing failure) and 'quiet' is FALSE,
   # print warning message to console to help debugging (otherwise all warnings
   # messages are thrown simultaneously at the end, which doesn't help as much)
+  # 'na.strings = NULL' keeps unquoted "NA" values (e.g. a stop_id) as strings,
+  # instead of reading them as NA. empty numeric fields are still read as NA
 
   withCallingHandlers(
     {
@@ -371,7 +373,8 @@ read_files <- function(file,
         fs::path(tmpdir, filename),
         select = fields_classes,
         encoding = encoding,
-        blank.lines.skip = TRUE
+        blank.lines.skip = TRUE,
+        na.strings = NULL
       )
     },
     warning = function(cnd) if (!quiet) message("  - ", conditionMessage(cnd))
