@@ -39,7 +39,7 @@
 <ul><li>
 <code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> always silently skips metadata files in the <code>__MACOSX</code> subdirectory (<a href="https://github.com/r-transit/gtfsio/issues/59" class="external-link">#59</a>)</li>
 <li>
-<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> no longer reads unquoted <code>NA</code> values as missing values. <code><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread()</a></code> treats <code>NA</code> as missing by default, so a <code>stop_id</code> (or any other text field) equal to <code>NA</code> became <code>NA</code> and was written back as an empty field by <code><a href="../reference/export_gtfs.html">export_gtfs()</a></code> (<a href="https://github.com/r-transit/gtfsio/issues/60" class="external-link">#60</a>)</li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> no longer reads unquoted <code>NA</code> text as missing values but as “NA” (<a href="https://github.com/r-transit/gtfsio/issues/60" class="external-link">#60</a>)</li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -62,8 +62,8 @@ included in the package:
 data_dir <- system.file("extdata", package = "gtfsio")
 list.files(data_dir)
 #> [1] "bad_gtfs.zip"       "blank_lines.zip"    "ggl_gtfs.zip"      
-#> [4] "locations_feed.zip" "macosx.zip"         "nested_gtfs.zip"   
-#> [7] "subdirectories.zip"
+#> [4] "locations_feed.zip" "macosx.zip"         "na_strings.zip"    
+#> [7] "nested_gtfs.zip"    "subdirectories.zip"
 ```
 
 - `ggl_gtfs.zip` has been manually built from the [example GTFS
