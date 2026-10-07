@@ -55,7 +55,7 @@ names(gtfs)
 
 }
 \seealso{
-Other constructors: 
-\code{\link{assert_gtfs}()}
+Other constructors:
+\code{\link[=assert_gtfs]{assert_gtfs()}}
 }
 \concept{constructors}

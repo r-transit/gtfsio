@@ -20,8 +20,8 @@ which the error was originally seen. Useful to prevent big repetitive
 \code{gtfsio_error()} calls in the "main" functions.
 }
 \seealso{
-Other error constructors: 
-\code{\link{gtfsio_error}()}
+Other error constructors:
+\code{\link[=gtfsio_error]{gtfsio_error()}}
 }
 \concept{error constructors}
 \keyword{internal}

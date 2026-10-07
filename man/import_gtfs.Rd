@@ -86,7 +86,7 @@ gtfs <- import_gtfs(
 \seealso{
 \code{\link{gtfs_reference}}
 
-Other io functions: 
-\code{\link{export_gtfs}()}
+Other io functions:
+\code{\link[=export_gtfs]{export_gtfs()}}
 }
 \concept{io functions}

@@ -20,8 +20,8 @@ errorCondition
 gtfsio's custom error condition constructor
 }
 \seealso{
-Other error constructors: 
-\code{\link{parent_function_error}()}
+Other error constructors:
+\code{\link[=parent_function_error]{parent_function_error()}}
 }
 \concept{error constructors}
 \keyword{internal}

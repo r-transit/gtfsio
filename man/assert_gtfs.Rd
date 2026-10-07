@@ -31,7 +31,7 @@ gtfs <- assert_gtfs(gtfs)
 
 }
 \seealso{
-Other constructors: 
-\code{\link{new_gtfs}()}
+Other constructors:
+\code{\link[=new_gtfs]{new_gtfs()}}
 }
 \concept{constructors}

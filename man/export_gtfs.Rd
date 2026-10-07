@@ -67,7 +67,7 @@ zip::zip_list(tmpf)$filename
 \seealso{
 \code{\link{gtfs_reference}}
 
-Other io functions: 
-\code{\link{import_gtfs}()}
+Other io functions:
+\code{\link[=import_gtfs]{import_gtfs()}}
 }
 \concept{io functions}

@@ -50,8 +50,8 @@ check_field_class(
 
 }
 \seealso{
-Other checking functions: 
-\code{\link{check_field_exists}()},
-\code{\link{check_file_exists}()}
+Other checking functions:
+\code{\link[=check_field_exists]{check_field_exists()}},
+\code{\link[=check_file_exists]{check_file_exists()}}
 }
 \concept{checking functions}

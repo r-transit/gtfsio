@@ -37,8 +37,8 @@ check_field_exists(gtfs, "calendar", c("monday", "oi"))
 
 }
 \seealso{
-Other checking functions: 
-\code{\link{check_field_class}()},
-\code{\link{check_file_exists}()}
+Other checking functions:
+\code{\link[=check_field_class]{check_field_class()}},
+\code{\link[=check_file_exists]{check_file_exists()}}
 }
 \concept{checking functions}
