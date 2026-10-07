@@ -7,6 +7,14 @@
 - [`import_gtfs()`](https://r-transit.github.io/gtfsio/dev/reference/import_gtfs.md)
   always silently skips metadata files in the `__MACOSX` subdirectory
   ([\#59](https://github.com/r-transit/gtfsio/issues/59))
+- [`import_gtfs()`](https://r-transit.github.io/gtfsio/dev/reference/import_gtfs.md)
+  no longer reads unquoted `NA` values as missing values.
+  [`data.table::fread()`](https://rdrr.io/pkg/data.table/man/fread.html)
+  treats `NA` as missing by default, so a `stop_id` (or any other text
+  field) equal to `NA` became `NA` and was written back as an empty
+  field by
+  [`export_gtfs()`](https://r-transit.github.io/gtfsio/dev/reference/export_gtfs.md)
+  ([\#60](https://github.com/r-transit/gtfsio/issues/60))
 
 ## gtfsio 1.2.1
 
