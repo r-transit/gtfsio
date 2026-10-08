@@ -1,5 +1,16 @@
 # Changelog
 
+## gtfsio 1.2.2
+
+### Bug fixes
+
+- [`import_gtfs()`](https://r-transit.github.io/gtfsio/reference/import_gtfs.md)
+  always silently skips metadata files in the `__MACOSX` subdirectory
+  ([\#59](https://github.com/r-transit/gtfsio/issues/59))
+- [`import_gtfs()`](https://r-transit.github.io/gtfsio/reference/import_gtfs.md)
+  no longer reads unquoted `NA` text as missing values but as “NA”
+  ([\#60](https://github.com/r-transit/gtfsio/issues/60))
+
 ## gtfsio 1.2.1
 
 CRAN release: 2026-05-20

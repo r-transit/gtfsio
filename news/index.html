@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gtfsio</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,16 @@
       <small>Source: <a href="https://github.com/r-transit/gtfsio/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.2" id="gtfsio-122">gtfsio 1.2.2<a class="anchor" aria-label="anchor" href="#gtfsio-122"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-1-2-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-2-2"></a></h3>
+<ul><li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> always silently skips metadata files in the <code>__MACOSX</code> subdirectory (<a href="https://github.com/r-transit/gtfsio/issues/59" class="external-link">#59</a>)</li>
+<li>
+<code><a href="../reference/import_gtfs.html">import_gtfs()</a></code> no longer reads unquoted <code>NA</code> text as missing values but as “NA” (<a href="https://github.com/r-transit/gtfsio/issues/60" class="external-link">#60</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.1" id="gtfsio-121">gtfsio 1.2.1<a class="anchor" aria-label="anchor" href="#gtfsio-121"></a></h2><p class="text-muted">CRAN release: 2026-05-20</p>
 <div class="section level3">
@@ -149,7 +159,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -55,7 +55,8 @@ import_gtfs(
 
   A character vector. Text files that should not be read from the GTFS,
   without the `.txt` extension. If `NULL` (the default), no files are
-  skipped. Cannot be used if `files` is set.
+  skipped. Cannot be used if `files` is set. Files in a subfolder called
+  `__MACOSX` are always silently skipped.
 
 - quiet:
 

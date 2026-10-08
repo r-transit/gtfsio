@@ -23,6 +23,8 @@ Useful links:
 
 Authors:
 
+- Flavio Poletti <flavio.poletti@hotmail.ch>
+
 - Daniel Herszenhut <dhersz@gmail.com>
   ([ORCID](https://orcid.org/0000-0001-8066-1105))
 
